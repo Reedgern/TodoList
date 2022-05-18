@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux';
 import classnames from 'classnames/bind';
 import { TaskInfo } from '@/pages/todo/page/_components/tasksList/_components/taskCard/_components/card';
 import { TaskForm } from '@/pages/todo/page/_components/taskForm';
-import { ITask, updateTaskAction } from '@/_redux/todoTasks';
+import { TaskItemType, updateTaskSagaAction } from '@/_redux/todo-tasks-module';
 import styles from './index.module.scss';
 
 type PropsType = {
-  task: ITask;
-  handleRemove: ({ id }: { id: string }) => void;
+  task: TaskItemType;
+  handleRemove: (id: string) => void;
 };
 
 const cn = classnames.bind(styles);
@@ -19,7 +19,7 @@ export const TaskCard = memo(
     const dispatch = useDispatch();
 
     const onRemoveClick = useCallback(() => {
-      handleRemove({ id });
+      handleRemove(id);
     }, [handleRemove, id]);
 
     const onEditClick = useCallback(() => {
@@ -33,7 +33,7 @@ export const TaskCard = memo(
     const onSubmitClick = useCallback(
       (values) => {
         dispatch(
-          updateTaskAction({
+          updateTaskSagaAction({
             id,
             description: values.description,
             isCompleted: values.isCompleted,

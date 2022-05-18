@@ -1,1 +1,0 @@
-export const MODULE_REDUCER_NAME = 'TODO_REDUCER';
