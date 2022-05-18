@@ -8,6 +8,7 @@ const { legalFormsRouter } = require('./legal-forms');
 const { statkeyRouter } = require('./stat-key');
 const { i18nRouter } = require('./i18n');
 const { usersRouter } = require('./users');
+const { tasksRouter } = require('./todo-tasks');
 
 const rootRouter = express.Router();
 
@@ -20,5 +21,6 @@ rootRouter.use('/suppliers', suppliersRouter);
 rootRouter.use('/users', usersRouter);
 rootRouter.use('/legal-forms', legalFormsRouter);
 rootRouter.use('/statkey', statkeyRouter);
+rootRouter.use('/tasks', tasksRouter);
 
 module.exports.rootRouter = rootRouter;
