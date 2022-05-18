@@ -1,6 +1,9 @@
 import { StoreInjectConfig } from '@mihanizm56/redux-core-modules';
 import { IAdvancedRoute } from '@wildberries/service-router';
-import { TASKS_REDUCER_NAME } from '@/_redux/todo-tasks-module';
+import {
+  fetchTasksSagaAction,
+  TASKS_REDUCER_NAME,
+} from '@/_redux/todo-tasks-module';
 import {
   FETCH_TASKS_WATCHER_SAGA_NAME,
   fetchTasksWatcherSaga,
@@ -21,6 +24,11 @@ import tasksReducer from '@/_redux/todo-tasks-module/reducer';
 
 export const storeInjectConfig = (args: IAdvancedRoute): StoreInjectConfig => {
   return {
+    additionalConfig: {
+      callbackOnMount: (dispatch) => {
+        dispatch(fetchTasksSagaAction());
+      },
+    },
     reducersToInject: [
       {
         name: TASKS_REDUCER_NAME,

@@ -32,10 +32,6 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsType = ConnectedProps<typeof connector>;
 
 class TodoListPage extends React.Component<PropsType> {
-  componentDidMount() {
-    this.props.getTasks();
-  }
-
   onHandleSubmit = (values, form) => {
     form.reset();
     this.props.addNewTask({
