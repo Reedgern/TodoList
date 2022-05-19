@@ -1,4 +1,4 @@
-import { IResponse, PureRestRequest } from '@mihanizm56/fetch-api';
+import { IResponse, RestRequest } from '@mihanizm56/fetch-api';
 import {
   makeRequestConfig,
   UpdateTaskRequestType,
@@ -7,4 +7,4 @@ import {
 export const updateTaskRequest = (
   params: UpdateTaskRequestType,
 ): Promise<IResponse> =>
-  new PureRestRequest().postRequest(makeRequestConfig(params));
+  new RestRequest().postRequest(makeRequestConfig(params));

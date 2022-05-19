@@ -1,3 +1,9 @@
 import Joi from 'joi';
 
-export const responseSchema = Joi.any();
+export const responseSchema = Joi.object({
+  newTask: Joi.object({
+    id: Joi.string().required(),
+    description: Joi.string().required().min(1),
+    isCompleted: Joi.boolean(),
+  }),
+});

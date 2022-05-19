@@ -18,14 +18,20 @@ const randomize = (
 const getTasks = async (req, res) => {
   randomize(
     async () => {
-      const data = await tasksModel.get('tasks');
+      const tasks = await tasksModel.get('tasks');
       res.status(200).json({
-        tasks: data,
+        data: { tasks },
+        error: false,
+        errorText: '',
+        additionalErrors: [],
       });
     },
     () => {
       res.status(500).json({
-        error: 'Ошибка при запросе получения тасок.',
+        data: null,
+        error: true,
+        errorText: 'Ошибка при запросе получения тасок.',
+        additionalErrors: [],
       });
     },
   );
@@ -43,12 +49,18 @@ const createTask = async (req, res) => {
       await tasksModel.get('tasks').push(newTask).write();
 
       res.status(200).json({
-        newTask,
+        data: { newTask },
+        error: false,
+        errorText: '',
+        additionalErrors: [],
       });
     },
     () => {
       res.status(500).json({
-        error: 'Ошибка при создании новой таски.',
+        data: null,
+        error: true,
+        errorText: 'Ошибка при создании новой таски.',
+        additionalErrors: [],
       });
     },
   );
@@ -59,12 +71,18 @@ const deleteTask = async (req, res) => {
     async () => {
       await tasksModel.get('tasks').remove({ id: req.body.id }).write();
       res.status(200).json({
-        id: req.body.id,
+        data: { id: req.body.id },
+        error: false,
+        errorText: '',
+        additionalErrors: [],
       });
     },
     () => {
       res.status(500).json({
-        error: `Ошибка при удалении таски с id ${req.body.id}.`,
+        data: null,
+        errorText: `Ошибка при удалении таски с id ${req.body.id}.`,
+        error: true,
+        additionalErrors: [],
       });
     },
   );
@@ -76,7 +94,10 @@ const updateTask = async (req, res) => {
   if (!task.value()) {
     setTimeout(() => {
       res.status(500).json({
-        error: `Ошибка при изменении объекта: в базе нет объекта с id ${req.body.id}.`,
+        data: null,
+        error: true,
+        errorText: `Ошибка при изменении объекта: в базе нет объекта с id ${req.body.id}.`,
+        additionalErrors: [],
       });
     }, 1000);
 
@@ -94,7 +115,10 @@ const updateTask = async (req, res) => {
 
   setTimeout(() => {
     res.status(200).json({
-      updatedTask,
+      data: { updatedTask },
+      error: false,
+      errorText: '',
+      additionalErrors: [],
     });
   }, 1000);
 };

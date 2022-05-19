@@ -1,4 +1,4 @@
-import { IResponse, PureRestRequest } from '@mihanizm56/fetch-api';
+import { IResponse, RestRequest } from '@mihanizm56/fetch-api';
 import {
   DeleteTaskRequestType,
   makeRequestConfig,
@@ -7,4 +7,4 @@ import {
 export const deleteTaskRequest = (
   params: DeleteTaskRequestType,
 ): Promise<IResponse> =>
-  new PureRestRequest().postRequest(makeRequestConfig(params));
+  new RestRequest().postRequest(makeRequestConfig(params));
