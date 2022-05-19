@@ -1,18 +1,19 @@
 import React, { memo } from 'react';
 import { Field, Form } from 'react-final-form';
 import classnames from 'classnames/bind';
-import { required } from '@/pages/todo/page/_components/taskForm/_utils/validators';
+import { required } from '@/pages/todo/page/_components/tasks-page-view/_components/task-form/_utils/validators';
+import {
+  FormSubmitCallbackType,
+  FormValuesType,
+} from '@/pages/todo/page/_components/tasks-page-view/_components/task-form/types';
 import styles from './index.module.scss';
 
 const cn = classnames.bind(styles);
 
 type PropsType = {
-  onSubmit: (values: any, form: any) => void;
-  onCancel: (form?: any) => void;
-  initialValues?: {
-    description: string;
-    isCompleted: boolean;
-  };
+  onSubmit: FormSubmitCallbackType;
+  onCancel?: () => void;
+  initialValues?: FormValuesType;
   className?: string;
 };
 
@@ -20,7 +21,7 @@ export const TaskForm = memo(
   ({ onSubmit, onCancel, initialValues, className }: PropsType) => {
     return (
       <Form onSubmit={onSubmit}>
-        {({ handleSubmit, submitting, form }) => {
+        {({ handleSubmit, submitting }) => {
           return (
             <form className={cn('wrapper', className)} onSubmit={handleSubmit}>
               <Field
@@ -61,13 +62,15 @@ export const TaskForm = memo(
                 <button disabled={submitting} type="submit">
                   Сохранить
                 </button>
-                <button
-                  disabled={submitting}
-                  onClick={() => onCancel(form)}
-                  type="button"
-                >
-                  Отменить
-                </button>
+                {onCancel && (
+                  <button
+                    disabled={submitting}
+                    onClick={onCancel}
+                    type="button"
+                  >
+                    Отменить
+                  </button>
+                )}
               </div>
             </form>
           );

@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import classnames from 'classnames/bind';
-import { TaskCard } from '@/pages/todo/page/_components/tasksList/_components/taskCard';
+import { ConnectedTaskCard } from '@/pages/todo/page/_components/tasks-page-view/_components/tasks-list/_components/task-card';
 import { TaskItemType } from '@/_redux/todo-tasks-module';
 import styles from './index.module.scss';
 
@@ -8,10 +8,9 @@ const cn = classnames.bind(styles);
 
 type PropsType = {
   tasks: TaskItemType[];
-  handleRemove: (id: string) => void;
 };
 
-export const TasksList = memo(({ tasks, handleRemove }: PropsType) => {
+export const TasksList = memo(({ tasks }: PropsType) => {
   if (tasks.length === 0) {
     return <div>There is no tasks yet...</div>;
   }
@@ -19,7 +18,7 @@ export const TasksList = memo(({ tasks, handleRemove }: PropsType) => {
   return (
     <div className={cn('wrapper')}>
       {tasks.map((task) => (
-        <TaskCard key={task.id} handleRemove={handleRemove} task={task} />
+        <ConnectedTaskCard key={task.id} task={task} />
       ))}
     </div>
   );

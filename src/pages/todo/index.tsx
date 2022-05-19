@@ -2,7 +2,7 @@ import React from 'react';
 import { IAction, RouteNode } from '@wildberries/service-router';
 import { ReduxStoreLoader } from '@mihanizm56/redux-core-modules';
 import { AppLayout } from '@/_layouts/app-layout';
-import { ConnectedTodoListPage } from '@/pages/todo/page';
+import { ConnectedTasksPage } from '@/pages/todo/page';
 import { storeInjectConfig } from '@/pages/todo/store-inject-config';
 
 const pageNode = 'todo';
@@ -19,7 +19,7 @@ const action: IAction = async ({ store, toState }) => {
           <RouteNode nodeName={pageNode}>
             {({ route, content }) => {
               if (route.name === pageNode) {
-                return <ConnectedTodoListPage />;
+                return <ConnectedTasksPage />;
               }
 
               return content;

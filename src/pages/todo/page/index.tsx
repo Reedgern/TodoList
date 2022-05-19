@@ -1,38 +1,20 @@
 import React from 'react';
-import { connect, ConnectedProps } from 'react-redux';
-import classnames from 'classnames/bind';
+import { connect } from 'react-redux';
 import {
   addTaskSagaAction,
-  deleteTaskSagaAction,
   errorsSelector,
-  fetchTasksSagaAction,
   isLoadingSelector,
   tasksSelector,
+  TaskStoragePartType,
 } from '@/_redux/todo-tasks-module';
-import { TasksList } from '@/pages/todo/page/_components/tasksList';
-import { TaskForm } from '@/pages/todo/page/_components/taskForm';
-import styles from './index.module.scss';
+import { TasksPageView } from '@/pages/todo/page/_components/tasks-page-view';
+import { DispatchPropsType, StatePropsType } from '@/pages/todo/page/types';
+import { FormSubmitCallbackType } from '@/pages/todo/page/_components/tasks-page-view/_components/task-form/types';
 
-const cn = classnames.bind(styles);
+type PropsType = StatePropsType & DispatchPropsType;
 
-const mapStateToProps = (state) => ({
-  tasks: tasksSelector(state),
-  isLoading: isLoadingSelector(state),
-  errors: errorsSelector(state),
-});
-
-const mapDispatchToProps = {
-  getTasks: fetchTasksSagaAction,
-  deleteTask: deleteTaskSagaAction,
-  addNewTask: addTaskSagaAction,
-};
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsType = ConnectedProps<typeof connector>;
-
-class TodoListPage extends React.Component<PropsType> {
-  onHandleSubmit = (values, form) => {
+class WrappedComponent extends React.Component<PropsType> {
+  formHandleSubmit: FormSubmitCallbackType = (values, form) => {
     form.reset();
     this.props.addNewTask({
       description: values.description,
@@ -42,37 +24,27 @@ class TodoListPage extends React.Component<PropsType> {
 
   render() {
     return (
-      <div className={cn('wrapper')}>
-        <div>
-          {this.props.errors.length > 0 &&
-            this.props.errors.map((error, index) => (
-              <div key={index} className={cn('error')}>
-                {error}
-              </div>
-            ))}
-          {this.props.isLoading || !this.props.tasks ? (
-            <h1>Loading...</h1>
-          ) : (
-            <TasksList
-              handleRemove={this.props.deleteTask}
-              tasks={this.props.tasks}
-            />
-          )}
-        </div>
-        <div>
-          Создать новую таску:
-          <br />
-          <TaskForm
-            onCancel={(form) => form.reset()}
-            onSubmit={this.onHandleSubmit}
-          />
-        </div>
-      </div>
+      <TasksPageView
+        errors={this.props.errors}
+        formHandleSubmit={this.formHandleSubmit}
+        isLoading={this.props.isLoading}
+        tasks={this.props.tasks}
+      />
     );
   }
 }
 
-export const ConnectedTodoListPage = connect(
+const mapStateToProps = (state: TaskStoragePartType): StatePropsType => ({
+  tasks: tasksSelector(state),
+  isLoading: isLoadingSelector(state),
+  errors: errorsSelector(state),
+});
+
+const mapDispatchToProps = {
+  addNewTask: addTaskSagaAction,
+};
+
+export const ConnectedTasksPage = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(TodoListPage);
+)(WrappedComponent);
