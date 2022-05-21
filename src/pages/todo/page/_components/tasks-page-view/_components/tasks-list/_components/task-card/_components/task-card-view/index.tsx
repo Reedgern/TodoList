@@ -9,6 +9,7 @@ import styles from './index.module.scss';
 const cn = classnames.bind(styles);
 
 type PropsType = {
+  isLoading: boolean;
   isEditMode: boolean;
   task: TaskItemType;
   onRemoveClick: () => void;
@@ -20,6 +21,7 @@ type PropsType = {
 export const TaskCardView = memo(
   ({
     isEditMode,
+    isLoading,
     task: { description, isCompleted },
     onEditClick,
     onSubmitClick,
@@ -41,6 +43,7 @@ export const TaskCardView = memo(
         ) : (
           <TaskForm
             initialValues={{ description, isCompleted }}
+            isLoading={isLoading}
             onCancel={onCancelClick}
             onSubmit={onSubmitClick}
           />

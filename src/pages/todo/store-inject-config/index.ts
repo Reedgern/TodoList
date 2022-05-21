@@ -21,6 +21,9 @@ import {
   updateTaskWatcherSaga,
 } from '@/_redux/todo-tasks-module/sagas/update-task';
 import tasksReducer from '@/_redux/todo-tasks-module/reducer';
+import addTaskFormReducer, {
+  ADD_TASK_FORM_REDUCER_NAME,
+} from '@/pages/todo/page/_redux/add-task-form-module';
 
 export const storeInjectConfig = (args: IAdvancedRoute): StoreInjectConfig => {
   return {
@@ -33,6 +36,10 @@ export const storeInjectConfig = (args: IAdvancedRoute): StoreInjectConfig => {
       {
         name: TASKS_REDUCER_NAME,
         reducer: tasksReducer,
+      },
+      {
+        name: ADD_TASK_FORM_REDUCER_NAME,
+        reducer: addTaskFormReducer,
       },
     ],
     sagasToInject: [

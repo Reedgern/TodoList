@@ -1,3 +1,4 @@
+import { FormManagerType } from '@mihanizm56/redux-core-modules';
 import {
   AddTaskSagaActionPayloadType,
   TaskItemType,
@@ -7,8 +8,10 @@ export type StatePropsType = {
   tasks: Array<TaskItemType>;
   isLoading: boolean;
   errors: string[];
+  addTaskFormIsLoading: boolean;
 };
 
 export type DispatchPropsType = {
   addNewTask: (payload: AddTaskSagaActionPayloadType) => void;
+  fetchForm: (payload: FormManagerType) => void;
 };

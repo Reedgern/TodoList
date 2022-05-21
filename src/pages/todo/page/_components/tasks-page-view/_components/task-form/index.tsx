@@ -1,75 +1,63 @@
 import React, { memo } from 'react';
 import { Field, Form } from 'react-final-form';
 import classnames from 'classnames/bind';
-import { required } from '@/pages/todo/page/_components/tasks-page-view/_components/task-form/_utils/validators';
 import {
-  FormSubmitCallbackType,
-  FormValuesType,
-} from '@/pages/todo/page/_components/tasks-page-view/_components/task-form/types';
+  ButtonLink,
+  FormCheckbox,
+  FormTextAreaInput,
+} from '@wildberries/ui-kit';
+import { descriptionValidator } from '@/pages/todo/page/_components/tasks-page-view/_components/task-form/_utils/validators';
+import { FormSubmitCallbackType } from '@/pages/todo/page/_components/tasks-page-view/_components/task-form/types';
+import { FormValues } from '@/pages/todo/page/_redux/add-task-form-module';
 import styles from './index.module.scss';
 
 const cn = classnames.bind(styles);
 
 type PropsType = {
+  isLoading: boolean;
   onSubmit: FormSubmitCallbackType;
   onCancel?: () => void;
-  initialValues?: FormValuesType;
   className?: string;
+  initialValues?: FormValues;
 };
 
 export const TaskForm = memo(
-  ({ onSubmit, onCancel, initialValues, className }: PropsType) => {
+  ({ onSubmit, onCancel, initialValues, className, isLoading }: PropsType) => {
     return (
       <Form onSubmit={onSubmit}>
-        {({ handleSubmit, submitting }) => {
+        {({ handleSubmit, invalid }) => {
           return (
             <form className={cn('wrapper', className)} onSubmit={handleSubmit}>
               <Field
+                component={FormTextAreaInput}
+                disabled={isLoading}
                 initialValue={initialValues?.description}
+                label="Описание таски"
                 name="description"
-                validate={required}
-              >
-                {({ input, meta }) => {
-                  const isError = meta.error && meta.touched;
-
-                  return (
-                    <div className={cn('row')}>
-                      <textarea
-                        className={cn({
-                          [styles.error]: isError,
-                        })}
-                        // eslint-disable-next-line react/jsx-props-no-spreading
-                        {...input}
-                        placeholder="Описание таски"
-                      />
-                      {isError && (
-                        <div className={cn('error', 'errorField')}>
-                          {meta.error}
-                        </div>
-                      )}
-                    </div>
-                  );
-                }}
-              </Field>
-              <label htmlFor="isCompleted">Выполнена? </label>
+                validate={descriptionValidator}
+              />
               <Field
-                component="input"
+                component={FormCheckbox}
+                disabled={isLoading}
                 initialValue={initialValues?.isCompleted}
+                label="Выполнена?"
                 name="isCompleted"
                 type="checkbox"
               />
               <div>
-                <button disabled={submitting} type="submit">
-                  Сохранить
-                </button>
+                <ButtonLink
+                  disabled={invalid || isLoading}
+                  isLoading={isLoading}
+                  text="Сохранить"
+                  type="submit"
+                />
                 {onCancel && (
-                  <button
-                    disabled={submitting}
+                  <ButtonLink
+                    disabled={invalid || isLoading}
+                    isLoading={isLoading}
                     onClick={onCancel}
-                    type="button"
-                  >
-                    Отменить
-                  </button>
+                    text="Отменить"
+                  />
                 )}
               </div>
             </form>

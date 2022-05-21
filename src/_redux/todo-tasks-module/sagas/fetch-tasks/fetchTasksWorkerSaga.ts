@@ -1,10 +1,10 @@
 import { call, put } from 'redux-saga/effects';
+import { setModalAction } from '@wildberries/notifications';
 import { getTasksListRequest } from '@/api/requests/get-tasks-list';
 import {
   setTasksAction,
   resetErrorsAction,
   setTasksLoadingStartAction,
-  addErrorAction,
   setTasksLoadingFinishAction,
 } from '../../actions';
 
@@ -15,8 +15,13 @@ export function* fetchTasksWorkerSaga() {
   if (!response.error) {
     yield put(setTasksAction({ tasks: response.data.tasks }));
   } else {
-    yield put(addErrorAction(response.errorText));
-    yield put(setTasksAction({ tasks: [] }));
+    yield put(
+      setModalAction({
+        status: 'error',
+        text: response.errorText,
+        title: 'Ошибка',
+      }),
+    );
   }
   yield put(setTasksLoadingFinishAction());
 }

@@ -81,3 +81,33 @@ export const resetErrorsAction: IReduxBaseAction<typeof RESET_ERRORS> = () => ({
   type: RESET_ERRORS,
 });
 resetErrorsAction.type = RESET_ERRORS;
+
+export const SET_TASK_IS_LOADING_START = 'SET_TASK_IS_LOADING_START';
+export const setTaskIsLoadingStartAction: IReduxAction<
+  string,
+  typeof SET_TASK_IS_LOADING_START
+> = (payload) => ({
+  type: SET_TASK_IS_LOADING_START,
+  payload,
+});
+setTaskIsLoadingStartAction.type = SET_TASK_IS_LOADING_START;
+
+export const SET_TASK_IS_LOADING_FINISH = 'SET_TASK_IS_LOADING_FINISH';
+export const setTaskIsLoadingFinishAction: IReduxAction<
+  string,
+  typeof SET_TASK_IS_LOADING_FINISH
+> = (payload) => ({
+  type: SET_TASK_IS_LOADING_FINISH,
+  payload,
+});
+setTaskIsLoadingFinishAction.type = SET_TASK_IS_LOADING_FINISH;
+
+export const UPDATE_TASK_BY_ID = 'UPDATE_TASK_BY_ID';
+export const updateTaskByIdAction: IReduxAction<
+  TaskItemType,
+  typeof UPDATE_TASK_BY_ID
+> = (payload) => ({
+  type: UPDATE_TASK_BY_ID,
+  payload,
+});
+updateTaskByIdAction.type = UPDATE_TASK_BY_ID;

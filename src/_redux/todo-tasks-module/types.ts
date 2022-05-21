@@ -15,6 +15,7 @@ export type TaskItemType = {
   id: string;
   description: string;
   isCompleted: boolean;
+  isLoading?: boolean;
 };
 
 export type TasksStorageType = {
