@@ -27,9 +27,13 @@ export const TasksPageView = memo(
     addTaskFormIsLoading,
   }: PropsType) => {
     return (
+      // - не соответствует BEM
+      // - посмотри как с помощью библиотеки classnames организовать именование
+      // - каждый элемент блока/блок должен иметь класс
       <div className={cn('wrapper')}>
         <div>
           <ErrorsList errors={errors} />
+
           {isLoading ? (
             <Preloader size="medium" />
           ) : (
@@ -37,6 +41,7 @@ export const TasksPageView = memo(
           )}
         </div>
         <div>
+          {/* все тексты вынести в какой то объект */}
           <h2>Создать новую таску:</h2>
           <TaskForm
             isLoading={addTaskFormIsLoading}

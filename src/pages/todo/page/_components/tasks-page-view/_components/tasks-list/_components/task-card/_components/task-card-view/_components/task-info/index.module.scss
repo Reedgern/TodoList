@@ -1,7 +1,7 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  grid-gap: 10px;
+  grid-gap: 10px; // flexbox only
 
   .completed {
     text-decoration: line-through;

@@ -1,6 +1,8 @@
 import { IReduxAction, IReduxBaseAction } from '@mihanizm56/redux-core-modules';
 import { FormValues } from '@/pages/todo/page/_redux/add-task-form-module/types';
 
+// из за того что константы префиксируются автоматически вебпаком
+// можно писать короткие названия
 export const SET_ADD_TASK_FORM_LOADING_START =
   'SET_ADD_TASK_FORM_LOADING_START';
 export const setAddTaskFormLoadingStartAction: IReduxBaseAction<

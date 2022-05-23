@@ -24,9 +24,11 @@ type PropsType = {
 export const TaskForm = memo(
   ({ onSubmit, onCancel, initialValues, className, isLoading }: PropsType) => {
     return (
+      // заюзать subscriptions
       <Form onSubmit={onSubmit}>
         {({ handleSubmit, invalid }) => {
           return (
+            // запрещается снаружи пробрасывать имена классов на дочерний компонент
             <form className={cn('wrapper', className)} onSubmit={handleSubmit}>
               <Field
                 component={FormTextAreaInput}
@@ -39,8 +41,11 @@ export const TaskForm = memo(
               <Field
                 component={FormCheckbox}
                 disabled={isLoading}
+                // initialValues нужно пробросить на компонент Form
+                // на каждое поле будет не так удобно
                 initialValue={initialValues?.isCompleted}
                 label="Выполнена?"
+                // имена полей формы вынести в константу
                 name="isCompleted"
                 type="checkbox"
               />
@@ -51,6 +56,7 @@ export const TaskForm = memo(
                   text="Сохранить"
                   type="submit"
                 />
+
                 {onCancel && (
                   <ButtonLink
                     disabled={invalid || isLoading}

@@ -6,6 +6,9 @@ type PropsType = {
 
 export const ErrorsList = memo(({ errors }: PropsType) => {
   if (errors.length === 0) {
+    // не допускается возврат null из компонента
+    // компонент должен что то рендерить
+    // если компонент не нужен - определять выше по дереву элементов
     return null;
   }
 

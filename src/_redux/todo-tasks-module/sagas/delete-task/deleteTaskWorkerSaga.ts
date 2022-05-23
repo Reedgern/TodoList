@@ -3,6 +3,7 @@ import { deleteTaskRequest } from '@/api/requests/delete-task';
 import { addErrorAction } from '@/_redux/todo-tasks-module';
 import { fetchTasksWorkerSaga } from '@/_redux/todo-tasks-module/sagas/fetch-tasks';
 
+// стручки кода "склеены" -читается плохо. отбивай вызовы от деклараций
 export function* deleteTaskWorkerSaga(id: string) {
   const response = yield call(deleteTaskRequest, id);
   yield call(fetchTasksWorkerSaga);

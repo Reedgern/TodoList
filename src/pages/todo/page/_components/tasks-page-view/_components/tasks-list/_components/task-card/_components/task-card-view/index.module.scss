@@ -1,13 +1,13 @@
+// файл написан неопрятно
 .wrapper {
+  background-color: #0fff;
+  border: 3px solid #000f;
+  padding: 15px;
+  width: 500px;
+
   &:first-child {
     margin-top: 10px;
   }
-  background-color: #0fff;
-
-  border: 3px solid #000f;
-  padding: 15px;
-
-  width: 500px;
 
   .title {
     font-weight: 700;

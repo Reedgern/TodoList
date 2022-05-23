@@ -30,7 +30,13 @@ type ComponentStateType = {
   isEditMode: boolean;
 };
 
+// type PropsType = OwnPropsType & DispatchPropsType & ComponentStateType
+
+// недостаточно эфективное проектирование
+// у тебя каждая карточка получает одинаковые медоты который могут быть проброшены на все карточки сразу
+// через один контейнер выше
 export class TaskCard extends React.Component<
+  // PropsType
   OwnPropsType & DispatchPropsType,
   ComponentStateType
 > {
@@ -38,11 +44,16 @@ export class TaskCard extends React.Component<
     isEditMode: false,
   };
 
+  // handleCancelClick
   onCancelClick = () => {
     this.setState({ isEditMode: false });
   };
 
+  // handle
   onSubmitClick: FormSubmitCallbackType = (values, form) => {
+    // const config = getFetchConfig(...)
+    // this.props.fetchForm(config)
+
     this.props.fetchForm({
       formValues: values,
       formRequest: ({ body }) =>
@@ -57,10 +68,12 @@ export class TaskCard extends React.Component<
     });
   };
 
+  // handle
   onRemoveClick = () => {
     this.props.deleteTask(this.props.task.id);
   };
 
+  // handle
   onEditClick = () => {
     this.setState({ isEditMode: true });
   };

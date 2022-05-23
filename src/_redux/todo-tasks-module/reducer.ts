@@ -48,6 +48,7 @@ const reducer = (
       };
     }
     case SET_TASK_IS_LOADING_START: {
+      // не используем логику в редюсере, которую можно написать где то в другом месте (саги/контейнеры)
       return {
         ...state,
         tasks: state.tasks.map((task) => {
@@ -65,6 +66,7 @@ const reducer = (
     case SET_TASK_IS_LOADING_FINISH: {
       return {
         ...state,
+        // не используем логику в редюсере, которую можно написать где то в другом месте (саги/контейнеры)
         tasks: state.tasks.map((task) => {
           if (task.id !== action.payload) {
             return task;
@@ -104,6 +106,7 @@ const reducer = (
     case UPDATE_TASK_BY_ID: {
       return {
         ...state,
+        // не используем логику в редюсере, которую можно написать где то в другом месте (саги/контейнеры)
         tasks: state.tasks.map((task) => {
           if (task.id === action.payload.id) {
             return action.payload;

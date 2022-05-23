@@ -10,10 +10,17 @@ export function* addTaskWorkerSaga({
   description,
   isCompleted,
 }: AddTaskSagaActionPayloadType) {
+  // сага должна быть в try/catch насколько это возможно
+
+  // и вот тут не хватает установки старта лоадеров
+
+  // деструктурируй респонс
   const response: IResponse = yield call(addTaskRequest, {
     description,
     isCompleted,
   });
+
+  // посмотри фокус с throw new error на проектах у нас
   if (!response.error) {
     yield put(
       setModalAction({
@@ -23,6 +30,7 @@ export function* addTaskWorkerSaga({
       }),
     );
   }
+  // отбивай энтерами вызовы от ифов и других вызовов
   yield call(fetchTasksWorkerSaga);
   if (response.error) {
     yield put(

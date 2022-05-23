@@ -22,6 +22,7 @@ export const TaskCardView = memo(
   ({
     isEditMode,
     isLoading,
+    // стараться передавать пропсы как можно проще по типам данных
     task: { description, isCompleted },
     onEditClick,
     onSubmitClick,
@@ -31,8 +32,10 @@ export const TaskCardView = memo(
     return (
       <div className={cn('wrapper')}>
         <h2 className={cn('title')}>
+          {/* useMemo */}
           {isEditMode ? 'Режим редактирования' : 'Информация о таске'}
         </h2>
+
         {!isEditMode ? (
           <TaskInfo
             description={description}
@@ -42,6 +45,7 @@ export const TaskCardView = memo(
           />
         ) : (
           <TaskForm
+            // на каждый рендер будет создан новый массив { description, isCompleted }}
             initialValues={{ description, isCompleted }}
             isLoading={isLoading}
             onCancel={onCancelClick}

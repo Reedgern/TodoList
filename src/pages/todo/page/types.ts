@@ -15,3 +15,6 @@ export type DispatchPropsType = {
   addNewTask: (payload: AddTaskSagaActionPayloadType) => void;
   fetchForm: (payload: FormManagerType) => void;
 };
+
+// файл называем _types.ts
+// см ридми проекта по структуре и именованиям

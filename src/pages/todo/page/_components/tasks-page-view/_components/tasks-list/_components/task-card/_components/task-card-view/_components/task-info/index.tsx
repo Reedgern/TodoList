@@ -15,7 +15,9 @@ export const TaskInfo = memo(
   ({ description, isCompleted, onRemoveClick, onEditClick }: PropsType) => {
     return (
       <div className={cn('wrapper')}>
+        {/* classnames */}
         <div className={cn({ [styles.completed]: isCompleted })}>
+          {/* заюзать везде где есть тексты в рендере - ui-kit Text компонент */}
           {description}
         </div>
         <div>

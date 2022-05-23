@@ -23,6 +23,10 @@ import {
 type PropsType = StatePropsType & DispatchPropsType;
 
 class WrappedComponent extends React.Component<PropsType> {
+  // handleSubmit/handleFormSubmit
+  // методы, передаваемые на компонент = handle (handleClick)
+  // методы, принимаемые компонентом = on (onClick)
+  // <SomeComponent onClick={this.handleClick}/>
   formHandleSubmit: FormSubmitCallbackType = (values, form) => {
     this.props.fetchForm({
       formValues: values,

@@ -11,6 +11,7 @@ type PropsType = {
 };
 
 export const TasksList = memo(({ tasks }: PropsType) => {
+  // это можно сделать в одном ретурне через тернарный оператор
   if (tasks.length === 0) {
     return <div>There is no tasks yet...</div>;
   }

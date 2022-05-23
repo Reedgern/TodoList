@@ -25,6 +25,8 @@ import addTaskFormReducer, {
   ADD_TASK_FORM_REDUCER_NAME,
 } from '@/pages/todo/page/_redux/add-task-form-module';
 
+// - не понятно зачем аргументы
+// - называть переменные более читаемо и там где их несколько применять деструктуризацию
 export const storeInjectConfig = (args: IAdvancedRoute): StoreInjectConfig => {
   return {
     additionalConfig: {
