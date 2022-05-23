@@ -3,11 +3,12 @@ import {
   AddTaskSagaActionPayloadType,
   TaskItemType,
 } from '@/_redux/todo-tasks-module';
+import { FormValues } from '@/pages/todo/page/_redux/add-task-form-module';
 
 export type StatePropsType = {
   tasks: Array<TaskItemType>;
   isLoading: boolean;
-  errors: string[];
+  addTaskFormInitialValues: FormValues;
   addTaskFormIsLoading: boolean;
 };
 
@@ -15,6 +16,3 @@ export type DispatchPropsType = {
   addNewTask: (payload: AddTaskSagaActionPayloadType) => void;
   fetchForm: (payload: FormManagerType) => void;
 };
-
-// файл называем _types.ts
-// см ридми проекта по структуре и именованиям

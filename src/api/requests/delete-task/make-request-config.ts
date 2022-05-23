@@ -1,12 +1,14 @@
 import { todoTasksEndpoint } from '@/api/endpoints/todoTasks';
-import { responseSchema } from './responseSchema';
+import { responseSchema } from './response-schema';
 
-export type DeleteTaskRequestType = string;
+export type DeleteTaskRequestType = {
+  id: string;
+};
 
-export const makeRequestConfig = (id: string) => ({
+export const makeRequestConfig = (params: DeleteTaskRequestType) => ({
   endpoint: `${todoTasksEndpoint}/delete`,
   responseSchema,
-  body: { id },
+  body: params,
   isErrorTextStraightToOutput: true,
   headers: {
     'X-User-Id': '2',

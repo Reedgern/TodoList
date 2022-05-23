@@ -1,102 +1,84 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import {
-  fetchFormManagerSagaAction,
-  FormManagerType,
-} from '@mihanizm56/redux-core-modules';
-import {
-  deleteTaskSagaAction,
-  setTaskIsLoadingFinishAction,
-  setTaskIsLoadingStartAction,
-  TaskItemType,
-  updateTaskByIdAction,
-  updateTaskSagaAction,
-} from '@/_redux/todo-tasks-module';
-import { TaskCardView } from '@/pages/todo/page/_components/tasks-page-view/_components/tasks-list/_components/task-card/_components/task-card-view';
-import { FormSubmitCallbackType } from '@/pages/todo/page/_components/tasks-page-view/_components/task-form/types';
-import { updateTaskRequest } from '@/api/requests/update-task';
+import React, { memo, useCallback, useMemo, useState } from 'react';
+import classnames from 'classnames/bind';
+import { Text } from '@wildberries/ui-kit';
+import { FormValues } from '@/pages/todo/page/_redux/add-task-form-module/_types';
+import { TaskForm } from '../../../task-form';
+import styles from './index.module.scss';
+import { TaskInfo } from './_components/task-info';
 
-type OwnPropsType = {
-  task: TaskItemType;
+const cn = classnames.bind(styles);
+
+type PropsType = {
+  id: string;
+  isLoading: boolean;
+  description: string;
+  isCompleted: boolean;
+  onDelete: (id: string) => void;
+  formSubmitCreator: ({
+    id,
+    callBackOnSuccess,
+  }: {
+    id: string;
+    callBackOnSuccess: () => void;
+  }) => (values: FormValues) => void;
 };
 
-type DispatchPropsType = {
-  deleteTask: (id: string) => void;
-  updateTask: (task: TaskItemType) => void;
-  fetchForm: (payload: FormManagerType) => void;
-};
+export const TaskCardView = memo(
+  ({
+    isLoading,
+    id,
+    description,
+    isCompleted,
+    formSubmitCreator,
+    onDelete,
+  }: PropsType) => {
+    const [isEditMode, setIsEditMode] = useState(false);
 
-type ComponentStateType = {
-  isEditMode: boolean;
-};
-
-// type PropsType = OwnPropsType & DispatchPropsType & ComponentStateType
-
-// недостаточно эфективное проектирование
-// у тебя каждая карточка получает одинаковые медоты который могут быть проброшены на все карточки сразу
-// через один контейнер выше
-export class TaskCard extends React.Component<
-  // PropsType
-  OwnPropsType & DispatchPropsType,
-  ComponentStateType
-> {
-  state: ComponentStateType = {
-    isEditMode: false,
-  };
-
-  // handleCancelClick
-  onCancelClick = () => {
-    this.setState({ isEditMode: false });
-  };
-
-  // handle
-  onSubmitClick: FormSubmitCallbackType = (values, form) => {
-    // const config = getFetchConfig(...)
-    // this.props.fetchForm(config)
-
-    this.props.fetchForm({
-      formValues: values,
-      formRequest: ({ body }) =>
-        updateTaskRequest({ ...body, id: this.props.task.id }),
-      loadingStartAction: () => setTaskIsLoadingStartAction(this.props.task.id),
-      loadingStopAction: () => setTaskIsLoadingFinishAction(this.props.task.id),
-      showNotification: true,
-      responseDataFormatter: (data) => data.updatedTask,
-      formSuccessAction: updateTaskByIdAction,
-      callBackOnSuccess: () => this.setState({ isEditMode: false }),
-      textMessageSuccess: 'Таска успешно изменена!',
-    });
-  };
-
-  // handle
-  onRemoveClick = () => {
-    this.props.deleteTask(this.props.task.id);
-  };
-
-  // handle
-  onEditClick = () => {
-    this.setState({ isEditMode: true });
-  };
-
-  render() {
-    return (
-      <TaskCardView
-        isEditMode={this.state.isEditMode}
-        isLoading={this.props.task.isLoading}
-        onCancelClick={this.onCancelClick}
-        onEditClick={this.onEditClick}
-        onRemoveClick={this.onRemoveClick}
-        onSubmitClick={this.onSubmitClick}
-        task={this.props.task}
-      />
+    const title = useMemo(
+      () => (isEditMode ? 'Режим редактирования' : 'Информация о таске'),
+      [isEditMode],
     );
-  }
-}
 
-const mapDispatchToProps = {
-  deleteTask: deleteTaskSagaAction,
-  updateTask: updateTaskSagaAction,
-  fetchForm: fetchFormManagerSagaAction,
-};
+    const initialValues = useMemo(
+      () => ({ description, isCompleted }),
+      [description, isCompleted],
+    );
 
-export const ConnectedTaskCard = connect(null, mapDispatchToProps)(TaskCard);
+    const handleEditClick = useCallback(() => setIsEditMode(true), []);
+
+    const handleCancelClick = useCallback(() => setIsEditMode(false), []);
+
+    const handleRemove = useCallback(() => onDelete(id), [onDelete, id]);
+
+    const handleSubmit = useMemo(
+      () =>
+        formSubmitCreator({
+          id,
+          callBackOnSuccess: () => setIsEditMode(false),
+        }),
+      [formSubmitCreator, id],
+    );
+
+    return (
+      <div className={cn('wrapper')}>
+        <Text text={title} />
+        {!isEditMode ? (
+          <TaskInfo
+            description={description}
+            isCompleted={isCompleted}
+            isLoading={isLoading}
+            onEditClick={handleEditClick}
+            onRemoveClick={handleRemove}
+          />
+        ) : (
+          <TaskForm
+            initialValues={initialValues}
+            isLoading={isLoading}
+            onCancel={handleCancelClick}
+            onSubmit={handleSubmit}
+          />
+        )}
+      </div>
+    );
+  },
+);

@@ -1,8 +1,4 @@
 import {
-  ADD_ERROR,
-  addErrorAction,
-  RESET_ERRORS,
-  resetErrorsAction,
   SET_TASK_IS_LOADING_FINISH,
   SET_TASK_IS_LOADING_START,
   SET_TASKS,
@@ -16,20 +12,15 @@ import {
   UPDATE_TASK_BY_ID,
   updateTaskByIdAction,
 } from '@/_redux/todo-tasks-module/actions';
-import { TasksStorageType } from './types';
+import { TasksStorageType } from './_types';
 
 export const initialState: TasksStorageType = {
   tasks: [],
   isLoading: false,
-  errors: [],
 };
 
 type ActionsType =
   | ReturnType<typeof setTasksAction>
-  | ReturnType<typeof addErrorAction>
-  | ReturnType<typeof addErrorAction>
-  | ReturnType<typeof resetErrorsAction>
-  | ReturnType<typeof resetErrorsAction>
   | ReturnType<typeof updateTaskByIdAction>
   | ReturnType<typeof setTaskIsLoadingStartAction>
   | ReturnType<typeof setTaskIsLoadingFinishAction>
@@ -77,18 +68,6 @@ const reducer = (
             isLoading: false,
           };
         }),
-      };
-    }
-    case ADD_ERROR: {
-      return {
-        ...state,
-        errors: [...state.errors, action.payload],
-      };
-    }
-    case RESET_ERRORS: {
-      return {
-        ...state,
-        errors: [],
       };
     }
     case SET_TASKS_LOADING_START: {

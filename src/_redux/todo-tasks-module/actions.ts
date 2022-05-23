@@ -3,7 +3,7 @@ import {
   AddTaskSagaActionPayloadType,
   SetTaskActionPayloadType,
   TaskItemType,
-} from '@/_redux/todo-tasks-module/types';
+} from '@/_redux/todo-tasks-module/_types';
 
 export const FETCH_TASKS = 'FETCH_TASKS';
 export const fetchTasksSagaAction: IReduxBaseAction<typeof FETCH_TASKS> =
@@ -66,21 +66,6 @@ export const updateTaskSagaAction: IReduxAction<
   payload,
 });
 updateTaskSagaAction.type = UPDATE_TASK;
-
-export const ADD_ERROR = 'ADD_ERROR';
-export const addErrorAction: IReduxAction<string, typeof ADD_ERROR> = (
-  payload,
-) => ({
-  type: ADD_ERROR,
-  payload,
-});
-addErrorAction.type = ADD_ERROR;
-
-export const RESET_ERRORS = 'RESET_ERRORS';
-export const resetErrorsAction: IReduxBaseAction<typeof RESET_ERRORS> = () => ({
-  type: RESET_ERRORS,
-});
-resetErrorsAction.type = RESET_ERRORS;
 
 export const SET_TASK_IS_LOADING_START = 'SET_TASK_IS_LOADING_START';
 export const setTaskIsLoadingStartAction: IReduxAction<

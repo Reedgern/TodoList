@@ -1,26 +1,86 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import classnames from 'classnames/bind';
-import { ConnectedTaskCard } from '@/pages/todo/page/_components/tasks-page-view/_components/tasks-list/_components/task-card';
+import { connect } from 'react-redux';
+import {
+  fetchFormManagerSagaAction,
+  FormManagerType,
+  InitLoadManagerActionPayloadType,
+  initLoadManagerActionSaga,
+} from '@mihanizm56/redux-core-modules';
+import { Text } from '@wildberries/ui-kit';
 import { TaskItemType } from '@/_redux/todo-tasks-module';
+import {
+  getUpdateTaskConfig,
+  UpdateTaskConfigParamsType,
+} from '@/pages/todo/page/_components/tasks-page-view/_components/tasks-list/_utils/getUpdateTaskConfig';
+import { getDeleteTaskConfig } from '@/pages/todo/page/_components/tasks-page-view/_components/tasks-list/_utils/getDeleteTaskConfig';
+import { FormValues } from '@/pages/todo/page/_redux/add-task-form-module';
 import styles from './index.module.scss';
+import { TaskCardView } from './_components/task-card';
 
 const cn = classnames.bind(styles);
 
-type PropsType = {
+type OwnPropsType = {
   tasks: TaskItemType[];
 };
 
-export const TasksList = memo(({ tasks }: PropsType) => {
-  // это можно сделать в одном ретурне через тернарный оператор
-  if (tasks.length === 0) {
-    return <div>There is no tasks yet...</div>;
-  }
+type DispatchPropsType = {
+  onDelete: (params: InitLoadManagerActionPayloadType) => void;
+  onUpdate: (params: FormManagerType) => void;
+};
 
-  return (
+type PropsType = OwnPropsType & DispatchPropsType;
+
+export const TasksList = memo(({ tasks, onDelete, onUpdate }: PropsType) => {
+  const formSubmitCreator = useCallback(
+    ({
+        callBackOnSuccess,
+        id,
+      }: {
+        callBackOnSuccess: UpdateTaskConfigParamsType['callBackOnSuccess'];
+        id: string;
+      }) =>
+      (values: FormValues) => {
+        const config = getUpdateTaskConfig({
+          formValues: values,
+          id,
+          callBackOnSuccess,
+        });
+        onUpdate(config);
+      },
+    [onUpdate],
+  );
+
+  const handleRemove = useCallback(
+    (id: string) => {
+      const config = getDeleteTaskConfig({ id });
+      onDelete(config);
+    },
+    [onDelete],
+  );
+
+  return tasks.length === 0 ? (
+    <Text text="There is no tasks yet..." />
+  ) : (
     <div className={cn('wrapper')}>
       {tasks.map((task) => (
-        <ConnectedTaskCard key={task.id} task={task} />
+        <TaskCardView
+          key={task.id}
+          description={task.description}
+          formSubmitCreator={formSubmitCreator}
+          id={task.id}
+          isCompleted={task.isCompleted}
+          isLoading={task.isLoading}
+          onDelete={handleRemove}
+        />
       ))}
     </div>
   );
 });
+
+const mapDispatchToProps = {
+  onUpdate: fetchFormManagerSagaAction,
+  onDelete: initLoadManagerActionSaga,
+};
+
+export const ConnectedTaskList = connect(null, mapDispatchToProps)(TasksList);

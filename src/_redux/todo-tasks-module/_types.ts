@@ -21,7 +21,6 @@ export type TaskItemType = {
 export type TasksStorageType = {
   tasks: Array<TaskItemType>;
   isLoading: boolean;
-  errors: string[];
 };
 
 export type TaskStoragePartType = {

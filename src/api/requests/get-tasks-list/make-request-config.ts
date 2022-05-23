@@ -1,5 +1,5 @@
 import { todoTasksEndpoint } from '@/api/endpoints/todoTasks';
-import { responseSchema } from './responseSchema';
+import { responseSchema } from './response-schema';
 
 export const makeRequestConfig = () => ({
   endpoint: `${todoTasksEndpoint}/get`,

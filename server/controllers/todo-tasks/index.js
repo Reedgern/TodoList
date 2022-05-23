@@ -46,7 +46,7 @@ const createTask = async (req, res) => {
         isCompleted: req.body.isCompleted,
       };
 
-      await tasksModel.get('tasks').push(newTask).write();
+      await tasksModel.get('tasks').unshift(newTask).write();
 
       res.status(200).json({
         data: { newTask },

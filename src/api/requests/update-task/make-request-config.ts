@@ -1,7 +1,7 @@
 import { IRequestParams } from '@mihanizm56/fetch-api';
 import { todoTasksEndpoint } from '@/api/endpoints/todoTasks';
 import { TaskItemType } from '@/_redux/todo-tasks-module';
-import { responseSchema } from './responseSchema';
+import { responseSchema } from './response-schema';
 
 export type UpdateTaskRequestType = TaskItemType;
 

@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { AddTaskFormStorageType, AddTaskFormStorageTypePart } from './types';
+import { AddTaskFormStorageType, AddTaskFormStorageTypePart } from './_types';
 import { ADD_TASK_FORM_REDUCER_NAME } from './constants';
 import { initialState } from './reducer';
 

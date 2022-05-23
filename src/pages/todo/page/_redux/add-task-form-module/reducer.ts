@@ -1,13 +1,12 @@
 import {
-  SET_ADD_TASK_FORM_ERROR,
+  SET_ADD_TASK_FORM_INITIAL_VALUES,
   SET_ADD_TASK_FORM_LOADING_FINISH,
   SET_ADD_TASK_FORM_LOADING_START,
-  setAddTaskFormErrorAction,
   setAddTaskFormInitialValuesAction,
   setAddTaskFormLoadingFinishAction,
   setAddTaskFormLoadingStartAction,
 } from '@/pages/todo/page/_redux/add-task-form-module/actions';
-import { AddTaskFormStorageType } from './types';
+import { AddTaskFormStorageType } from './_types';
 
 export const initialState: AddTaskFormStorageType = {
   error: '',
@@ -19,7 +18,6 @@ export const initialState: AddTaskFormStorageType = {
 };
 
 type ActionsType =
-  | ReturnType<typeof setAddTaskFormErrorAction>
   | ReturnType<typeof setAddTaskFormLoadingStartAction>
   | ReturnType<typeof setAddTaskFormLoadingFinishAction>
   | ReturnType<typeof setAddTaskFormInitialValuesAction>;
@@ -29,12 +27,6 @@ const reducer = (
   action: ActionsType,
 ): AddTaskFormStorageType => {
   switch (action.type) {
-    case SET_ADD_TASK_FORM_ERROR: {
-      return {
-        ...state,
-        error: action.payload,
-      };
-    }
     case SET_ADD_TASK_FORM_LOADING_START: {
       return {
         ...state,
@@ -45,6 +37,12 @@ const reducer = (
       return {
         ...state,
         isLoading: false,
+      };
+    }
+    case SET_ADD_TASK_FORM_INITIAL_VALUES: {
+      return {
+        ...state,
+        initialValues: action.payload,
       };
     }
     default: {

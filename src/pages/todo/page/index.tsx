@@ -3,17 +3,17 @@ import { connect } from 'react-redux';
 import { fetchFormManagerSagaAction } from '@mihanizm56/redux-core-modules';
 import {
   addTaskSagaAction,
-  errorsSelector,
   fetchTasksSagaAction,
   isLoadingSelector,
   tasksSelector,
   TaskStoragePartType,
 } from '@/_redux/todo-tasks-module';
 import { TasksPageView } from '@/pages/todo/page/_components/tasks-page-view';
-import { DispatchPropsType, StatePropsType } from '@/pages/todo/page/types';
-import { FormSubmitCallbackType } from '@/pages/todo/page/_components/tasks-page-view/_components/task-form/types';
+import { DispatchPropsType, StatePropsType } from '@/pages/todo/page/_types';
+import { FormSubmitCallbackType } from '@/pages/todo/page/_components/tasks-page-view/_components/task-form/_types';
 import { addTaskRequest } from '@/api/requests/add-task';
 import {
+  addTaskFormInitialValuesSelector,
   addTaskFormIsLoadingSelector,
   AddTaskFormStorageTypePart,
   setAddTaskFormLoadingFinishAction,
@@ -23,12 +23,8 @@ import {
 type PropsType = StatePropsType & DispatchPropsType;
 
 class WrappedComponent extends React.Component<PropsType> {
-  // handleSubmit/handleFormSubmit
-  // методы, передаваемые на компонент = handle (handleClick)
-  // методы, принимаемые компонентом = on (onClick)
-  // <SomeComponent onClick={this.handleClick}/>
-  formHandleSubmit: FormSubmitCallbackType = (values, form) => {
-    this.props.fetchForm({
+  handleFormSubmit: FormSubmitCallbackType = (values, form) => {
+    const config = {
       formValues: values,
       showNotification: true,
       textMessageSuccess: 'Форма успешно отправлена!',
@@ -36,16 +32,19 @@ class WrappedComponent extends React.Component<PropsType> {
       loadingStopAction: setAddTaskFormLoadingFinishAction,
       formRequest: ({ body }) => addTaskRequest(body),
       formSuccessAction: fetchTasksSagaAction,
-    });
+      callBackOnSuccess: () =>
+        form.restart(this.props.addTaskFormInitialValues),
+    };
+    this.props.fetchForm(config);
   };
 
   render() {
     return (
       <TasksPageView
+        addTaskFormInitialValues={this.props.addTaskFormInitialValues}
         addTaskFormIsLoading={this.props.addTaskFormIsLoading}
-        errors={this.props.errors}
-        formHandleSubmit={this.formHandleSubmit}
         isLoading={this.props.isLoading}
+        onFormSubmit={this.handleFormSubmit}
         tasks={this.props.tasks}
       />
     );
@@ -57,7 +56,7 @@ const mapStateToProps = (
 ): StatePropsType => ({
   tasks: tasksSelector(state),
   isLoading: isLoadingSelector(state),
-  errors: errorsSelector(state),
+  addTaskFormInitialValues: addTaskFormInitialValuesSelector(state),
   addTaskFormIsLoading: addTaskFormIsLoadingSelector(state),
 });
 

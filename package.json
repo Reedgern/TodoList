@@ -66,12 +66,14 @@
     "wb": "node ./cli/command-app/index.js"
   },
   "devDependencies": {
+    "@types/react-redux": "7.1.20",
+    "@types/react-transition-group": "4.4.4",
+    "@types/react": "17.0.21",
+    "@types/react-dom": "17.0.15",
     "@commitlint/cli": "8.2.0",
     "@types/enzyme": "3.10.4",
     "@types/jest": "24.9.1",
     "@types/node": "12.11.7",
-    "@types/react": "17.0.21",
-    "@types/react-dom": "17.0.16",
     "@types/react-slick": "0.23.5",
     "@typescript-eslint/eslint-plugin": "5.3.0",
     "@typescript-eslint/parser": "5.3.0",

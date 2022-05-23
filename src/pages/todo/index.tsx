@@ -7,12 +7,12 @@ import { storeInjectConfig } from '@/pages/todo/store-inject-config';
 
 const pageNode = 'todo';
 
-const action: IAction = async ({ store, toState }) => {
+const action: IAction = async ({ toState }) => {
   return {
     title: 'Tasks',
     content: (
       <ReduxStoreLoader
-        storeInjectConfig={storeInjectConfig(toState)}
+        storeInjectConfig={storeInjectConfig()}
         toState={toState}
       >
         <AppLayout>

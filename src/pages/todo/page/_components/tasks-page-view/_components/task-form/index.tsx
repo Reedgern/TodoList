@@ -6,9 +6,10 @@ import {
   FormCheckbox,
   FormTextAreaInput,
 } from '@wildberries/ui-kit';
-import { descriptionValidator } from '@/pages/todo/page/_components/tasks-page-view/_components/task-form/_utils/validators';
-import { FormSubmitCallbackType } from '@/pages/todo/page/_components/tasks-page-view/_components/task-form/types';
+import { FormSubmitCallbackType } from '@/pages/todo/page/_components/tasks-page-view/_components/task-form/_types';
 import { FormValues } from '@/pages/todo/page/_redux/add-task-form-module';
+import { FORM_VALIDATIONS } from '@/pages/todo/page/_components/tasks-page-view/_components/task-form/_utils/validators';
+import { FORM_FIELDS_NAMES } from '@/pages/todo/page/_components/tasks-page-view/_components/task-form/_constants';
 import styles from './index.module.scss';
 
 const cn = classnames.bind(styles);
@@ -17,59 +18,56 @@ type PropsType = {
   isLoading: boolean;
   onSubmit: FormSubmitCallbackType;
   onCancel?: () => void;
-  className?: string;
   initialValues?: FormValues;
 };
 
-export const TaskForm = memo(
-  ({ onSubmit, onCancel, initialValues, className, isLoading }: PropsType) => {
-    return (
-      // заюзать subscriptions
-      <Form onSubmit={onSubmit}>
-        {({ handleSubmit, invalid }) => {
-          return (
-            // запрещается снаружи пробрасывать имена классов на дочерний компонент
-            <form className={cn('wrapper', className)} onSubmit={handleSubmit}>
-              <Field
-                component={FormTextAreaInput}
-                disabled={isLoading}
-                initialValue={initialValues?.description}
-                label="Описание таски"
-                name="description"
-                validate={descriptionValidator}
-              />
-              <Field
-                component={FormCheckbox}
-                disabled={isLoading}
-                // initialValues нужно пробросить на компонент Form
-                // на каждое поле будет не так удобно
-                initialValue={initialValues?.isCompleted}
-                label="Выполнена?"
-                // имена полей формы вынести в константу
-                name="isCompleted"
-                type="checkbox"
-              />
-              <div>
-                <ButtonLink
-                  disabled={invalid || isLoading}
-                  isLoading={isLoading}
-                  text="Сохранить"
-                  type="submit"
-                />
+const BLOCK_NAME = 'task-form';
 
-                {onCancel && (
+export const TaskForm = memo(
+  ({ onSubmit, onCancel, initialValues, isLoading }: PropsType) => {
+    return (
+      <>
+        <Form initialValues={initialValues} onSubmit={onSubmit}>
+          {({ handleSubmit, invalid }) => {
+            return (
+              <form className={cn(BLOCK_NAME)} onSubmit={handleSubmit}>
+                <Field
+                  component={FormTextAreaInput}
+                  disabled={isLoading}
+                  label="Описание таски"
+                  name={FORM_FIELDS_NAMES.description}
+                  validate={FORM_VALIDATIONS.description}
+                />
+                <Field
+                  component={FormCheckbox}
+                  disabled={isLoading}
+                  label="Выполнена?"
+                  name={FORM_FIELDS_NAMES.isCompleted}
+                  type="checkbox"
+                />
+                <div className={cn(`${BLOCK_NAME}__buttons-container`)}>
                   <ButtonLink
                     disabled={invalid || isLoading}
                     isLoading={isLoading}
-                    onClick={onCancel}
-                    text="Отменить"
+                    size="small"
+                    text="Сохранить"
+                    type="submit"
                   />
-                )}
-              </div>
-            </form>
-          );
-        }}
-      </Form>
+                  {onCancel && (
+                    <ButtonLink
+                      disabled={invalid || isLoading}
+                      onClick={onCancel}
+                      size="small"
+                      text="Отменить"
+                      variant="remove"
+                    />
+                  )}
+                </div>
+              </form>
+            );
+          }}
+        </Form>
+      </>
     );
   },
 );

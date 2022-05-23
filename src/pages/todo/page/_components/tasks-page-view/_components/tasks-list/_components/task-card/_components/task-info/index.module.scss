@@ -1,7 +1,12 @@
-.wrapper {
+.TaskInfo {
   display: flex;
   flex-direction: column;
-  grid-gap: 10px; // flexbox only
+  gap: 10px;
+
+  &__buttons-container {
+    display: flex;
+    gap: 10px;
+  }
 
   .completed {
     text-decoration: line-through;
