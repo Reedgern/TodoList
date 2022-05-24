@@ -8,19 +8,10 @@
   &__buttons-container {
     display: flex;
     gap: 10px;
-
     justify-content: end;
   }
 
   &_completed {
     text-decoration: line-through;
-  }
-
-  .removeButton {
-    color: #f00f;
-  }
-
-  .editButton {
-    color: #ffa500ff;
   }
 }
