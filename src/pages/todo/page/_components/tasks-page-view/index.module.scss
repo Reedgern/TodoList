@@ -1,10 +1,12 @@
-.wrapper {
+.Tasks-page-view {
   display: flex;
   justify-content: space-between;
-  padding: 0 40px;
+  padding: 10px 40px;
 
-  .error {
-    border: 1px solid #f00f;
-    border-radius: 5px;
+  &__form-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 }

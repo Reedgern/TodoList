@@ -1,8 +1,5 @@
 import { FormManagerType } from '@mihanizm56/redux-core-modules';
-import {
-  AddTaskSagaActionPayloadType,
-  TaskItemType,
-} from '@/_redux/todo-tasks-module';
+import { TaskItemType } from '@/_redux/todo-tasks-module';
 import { FormValues } from '@/pages/todo/page/_redux/add-task-form-module';
 
 export type StatePropsType = {
@@ -13,6 +10,5 @@ export type StatePropsType = {
 };
 
 export type DispatchPropsType = {
-  addNewTask: (payload: AddTaskSagaActionPayloadType) => void;
   fetchForm: (payload: FormManagerType) => void;
 };

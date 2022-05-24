@@ -1,4 +1,4 @@
-.TaskInfo {
+.Task-info {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -8,7 +8,7 @@
     gap: 10px;
   }
 
-  .completed {
+  &_completed {
     text-decoration: line-through;
   }
 

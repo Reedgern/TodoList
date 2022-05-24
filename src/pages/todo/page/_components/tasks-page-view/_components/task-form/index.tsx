@@ -10,6 +10,7 @@ import { FormSubmitCallbackType } from '@/pages/todo/page/_components/tasks-page
 import { FormValues } from '@/pages/todo/page/_redux/add-task-form-module';
 import { FORM_VALIDATIONS } from '@/pages/todo/page/_components/tasks-page-view/_components/task-form/_utils/validators';
 import { FORM_FIELDS_NAMES } from '@/pages/todo/page/_components/tasks-page-view/_components/task-form/_constants';
+import { PAGE_TEXTS } from '@/pages/todo/page/_constants/text';
 import styles from './index.module.scss';
 
 const cn = classnames.bind(styles);
@@ -34,7 +35,7 @@ export const TaskForm = memo(
                 <Field
                   component={FormTextAreaInput}
                   disabled={isLoading}
-                  label="Описание таски"
+                  label="Описание"
                   name={FORM_FIELDS_NAMES.description}
                   validate={FORM_VALIDATIONS.description}
                 />
@@ -50,7 +51,7 @@ export const TaskForm = memo(
                     disabled={invalid || isLoading}
                     isLoading={isLoading}
                     size="small"
-                    text="Сохранить"
+                    text={PAGE_TEXTS.submitFormButtonText}
                     type="submit"
                   />
                   {onCancel && (
@@ -58,7 +59,7 @@ export const TaskForm = memo(
                       disabled={invalid || isLoading}
                       onClick={onCancel}
                       size="small"
-                      text="Отменить"
+                      text={PAGE_TEXTS.cancelButtonText}
                       variant="remove"
                     />
                   )}

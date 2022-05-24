@@ -2,9 +2,7 @@ import { TASKS_REDUCER_NAME } from './constants';
 
 // action payload types
 
-export type SetTaskActionPayloadType = {
-  tasks: Array<TaskItemType>;
-};
+export type SetTaskActionPayloadType = Array<TaskItemType>;
 
 export type AddTaskSagaActionPayloadType = {
   description: string;

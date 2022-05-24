@@ -1,6 +1,5 @@
 import { IReduxBaseAction, IReduxAction } from '@mihanizm56/redux-core-modules';
 import {
-  AddTaskSagaActionPayloadType,
   SetTaskActionPayloadType,
   TaskItemType,
 } from '@/_redux/todo-tasks-module/_types';
@@ -38,24 +37,25 @@ export const setTasksAction: IReduxAction<
 });
 setTasksAction.type = SET_TASKS;
 
-export const ADD_TASK = 'ADD_TASK';
-export const addTaskSagaAction: IReduxAction<
-  AddTaskSagaActionPayloadType,
-  typeof ADD_TASK
+export const SET_TASK_IS_LOADING_START = 'SET_TASK_IS_LOADING_START';
+export const setTaskIsLoadingStartSagaAction: IReduxAction<
+  string,
+  typeof SET_TASK_IS_LOADING_START
 > = (payload) => ({
-  type: ADD_TASK,
+  type: SET_TASK_IS_LOADING_START,
   payload,
 });
-addTaskSagaAction.type = ADD_TASK;
+setTaskIsLoadingStartSagaAction.type = SET_TASK_IS_LOADING_START;
 
-export const DELETE_TASK = 'DELETE_TASK';
-export const deleteTaskSagaAction: IReduxAction<string, typeof DELETE_TASK> = (
-  payload,
-) => ({
-  type: DELETE_TASK,
+export const SET_TASK_IS_LOADING_FINISH = 'SET_TASK_IS_LOADING_FINISH';
+export const setTaskIsLoadingFinishSagaAction: IReduxAction<
+  string,
+  typeof SET_TASK_IS_LOADING_FINISH
+> = (payload) => ({
+  type: SET_TASK_IS_LOADING_FINISH,
   payload,
 });
-deleteTaskSagaAction.type = DELETE_TASK;
+setTaskIsLoadingFinishSagaAction.type = SET_TASK_IS_LOADING_FINISH;
 
 export const UPDATE_TASK = 'UPDATE_TASK';
 export const updateTaskSagaAction: IReduxAction<
@@ -66,33 +66,3 @@ export const updateTaskSagaAction: IReduxAction<
   payload,
 });
 updateTaskSagaAction.type = UPDATE_TASK;
-
-export const SET_TASK_IS_LOADING_START = 'SET_TASK_IS_LOADING_START';
-export const setTaskIsLoadingStartAction: IReduxAction<
-  string,
-  typeof SET_TASK_IS_LOADING_START
-> = (payload) => ({
-  type: SET_TASK_IS_LOADING_START,
-  payload,
-});
-setTaskIsLoadingStartAction.type = SET_TASK_IS_LOADING_START;
-
-export const SET_TASK_IS_LOADING_FINISH = 'SET_TASK_IS_LOADING_FINISH';
-export const setTaskIsLoadingFinishAction: IReduxAction<
-  string,
-  typeof SET_TASK_IS_LOADING_FINISH
-> = (payload) => ({
-  type: SET_TASK_IS_LOADING_FINISH,
-  payload,
-});
-setTaskIsLoadingFinishAction.type = SET_TASK_IS_LOADING_FINISH;
-
-export const UPDATE_TASK_BY_ID = 'UPDATE_TASK_BY_ID';
-export const updateTaskByIdAction: IReduxAction<
-  TaskItemType,
-  typeof UPDATE_TASK_BY_ID
-> = (payload) => ({
-  type: UPDATE_TASK_BY_ID,
-  payload,
-});
-updateTaskByIdAction.type = UPDATE_TASK_BY_ID;

@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchFormManagerSagaAction } from '@mihanizm56/redux-core-modules';
 import {
-  addTaskSagaAction,
   fetchTasksSagaAction,
   isLoadingSelector,
   tasksSelector,
@@ -61,7 +60,6 @@ const mapStateToProps = (
 });
 
 const mapDispatchToProps = {
-  addNewTask: addTaskSagaAction,
   fetchForm: fetchFormManagerSagaAction,
 };
 

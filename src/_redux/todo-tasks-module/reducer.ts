@@ -1,16 +1,13 @@
 import {
-  SET_TASK_IS_LOADING_FINISH,
-  SET_TASK_IS_LOADING_START,
   SET_TASKS,
   SET_TASKS_LOADING_FINISH,
   SET_TASKS_LOADING_START,
-  setTaskIsLoadingFinishAction,
-  setTaskIsLoadingStartAction,
+  setTaskIsLoadingFinishSagaAction,
+  setTaskIsLoadingStartSagaAction,
   setTasksAction,
   setTasksLoadingFinishAction,
   setTasksLoadingStartAction,
-  UPDATE_TASK_BY_ID,
-  updateTaskByIdAction,
+  updateTaskSagaAction,
 } from '@/_redux/todo-tasks-module/actions';
 import { TasksStorageType } from './_types';
 
@@ -21,9 +18,9 @@ export const initialState: TasksStorageType = {
 
 type ActionsType =
   | ReturnType<typeof setTasksAction>
-  | ReturnType<typeof updateTaskByIdAction>
-  | ReturnType<typeof setTaskIsLoadingStartAction>
-  | ReturnType<typeof setTaskIsLoadingFinishAction>
+  | ReturnType<typeof updateTaskSagaAction>
+  | ReturnType<typeof setTaskIsLoadingStartSagaAction>
+  | ReturnType<typeof setTaskIsLoadingFinishSagaAction>
   | ReturnType<typeof setTasksLoadingStartAction>
   | ReturnType<typeof setTasksLoadingFinishAction>;
 
@@ -35,39 +32,7 @@ const reducer = (
     case SET_TASKS: {
       return {
         ...state,
-        tasks: action.payload.tasks,
-      };
-    }
-    case SET_TASK_IS_LOADING_START: {
-      // не используем логику в редюсере, которую можно написать где то в другом месте (саги/контейнеры)
-      return {
-        ...state,
-        tasks: state.tasks.map((task) => {
-          if (task.id !== action.payload) {
-            return task;
-          }
-
-          return {
-            ...task,
-            isLoading: true,
-          };
-        }),
-      };
-    }
-    case SET_TASK_IS_LOADING_FINISH: {
-      return {
-        ...state,
-        // не используем логику в редюсере, которую можно написать где то в другом месте (саги/контейнеры)
-        tasks: state.tasks.map((task) => {
-          if (task.id !== action.payload) {
-            return task;
-          }
-
-          return {
-            ...task,
-            isLoading: false,
-          };
-        }),
+        tasks: action.payload,
       };
     }
     case SET_TASKS_LOADING_START: {
@@ -80,19 +45,6 @@ const reducer = (
       return {
         ...state,
         isLoading: false,
-      };
-    }
-    case UPDATE_TASK_BY_ID: {
-      return {
-        ...state,
-        // не используем логику в редюсере, которую можно написать где то в другом месте (саги/контейнеры)
-        tasks: state.tasks.map((task) => {
-          if (task.id === action.payload.id) {
-            return action.payload;
-          }
-
-          return task;
-        }),
       };
     }
     default:

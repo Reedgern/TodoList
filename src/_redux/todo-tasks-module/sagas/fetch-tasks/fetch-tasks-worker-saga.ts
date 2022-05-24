@@ -1,4 +1,5 @@
 import { call, put } from 'redux-saga/effects';
+import { IResponse } from '@mihanizm56/fetch-api';
 import { setModalAction } from '@wildberries/notifications';
 import { getTasksListRequest } from '@/api/requests/get-tasks-list';
 import {
@@ -11,24 +12,28 @@ export function* fetchTasksWorkerSaga() {
   yield put(setTasksLoadingStartAction());
 
   try {
-    const response = yield call(getTasksListRequest);
+    const { error, data, errorText }: IResponse = yield call(
+      getTasksListRequest,
+    );
 
-    if (!response.error) {
-      yield put(setTasksAction({ tasks: response.data.tasks }));
-    } else {
-      yield put(
-        setModalAction({
-          status: 'error',
-          text: response.errorText,
-          title: 'Ошибка',
-        }),
-      );
-
-      yield put(setTasksAction({ tasks: [] }));
+    if (error) {
+      throw new Error(errorText);
     }
+
+    yield put(setTasksAction(data.tasks));
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.log(error);
+    console.log(error.message);
+
+    yield put(
+      setModalAction({
+        status: 'error',
+        text: error.message,
+        title: 'Ошибка',
+      }),
+    );
+
+    yield put(setTasksAction([]));
   } finally {
     yield put(setTasksLoadingFinishAction());
   }

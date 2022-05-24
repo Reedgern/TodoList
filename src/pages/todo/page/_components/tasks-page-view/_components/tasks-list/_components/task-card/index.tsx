@@ -2,6 +2,7 @@ import React, { memo, useCallback, useMemo, useState } from 'react';
 import classnames from 'classnames/bind';
 import { Text } from '@wildberries/ui-kit';
 import { FormValues } from '@/pages/todo/page/_redux/add-task-form-module/_types';
+import { PAGE_TEXTS } from '@/pages/todo/page/_constants/text';
 import { TaskForm } from '../../../task-form';
 import styles from './index.module.scss';
 import { TaskInfo } from './_components/task-info';
@@ -23,6 +24,8 @@ type PropsType = {
   }) => (values: FormValues) => void;
 };
 
+const BLOCK_NAME = 'Task-card-view';
+
 export const TaskCardView = memo(
   ({
     isLoading,
@@ -35,7 +38,10 @@ export const TaskCardView = memo(
     const [isEditMode, setIsEditMode] = useState(false);
 
     const title = useMemo(
-      () => (isEditMode ? 'Режим редактирования' : 'Информация о таске'),
+      () =>
+        isEditMode
+          ? PAGE_TEXTS.editModeTaskTitle
+          : PAGE_TEXTS.viewModeTaskTitle,
       [isEditMode],
     );
 
@@ -60,7 +66,7 @@ export const TaskCardView = memo(
     );
 
     return (
-      <div className={cn('wrapper')}>
+      <div className={cn(BLOCK_NAME)}>
         <Text text={title} />
         {!isEditMode ? (
           <TaskInfo

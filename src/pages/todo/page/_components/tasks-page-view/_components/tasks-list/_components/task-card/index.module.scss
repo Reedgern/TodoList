@@ -1,15 +1,6 @@
-// файл написан неопрятно
-.wrapper {
+.Task-card-view {
   background-color: #0fff;
   border: 3px solid #000f;
   padding: 15px;
   width: 500px;
-
-  &:first-child {
-    margin-top: 10px;
-  }
-
-  .title {
-    font-weight: 700;
-  }
 }
