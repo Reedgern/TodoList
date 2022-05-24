@@ -1,5 +1,6 @@
 export const PAGE_TEXTS = {
   addFormTitle: 'Создание новой таски',
+  addTaskFormModalButtonText: 'Добавить новую таску',
   removeButtonText: 'Удалить',
   editButtonText: 'Редактировать',
   cancelButtonText: 'Отменить',

@@ -1,7 +1,7 @@
 import { InitLoadManagerActionPayloadType } from '@mihanizm56/redux-core-modules';
 import { deleteTaskRequest } from '@/api/requests/delete-task';
 import {
-  fetchTasksSagaAction,
+  deleteTaskSagaAction,
   setTaskIsLoadingFinishSagaAction,
   setTaskIsLoadingStartSagaAction,
 } from '@/_redux/todo-tasks-module';
@@ -22,7 +22,7 @@ export const getDeleteTaskConfig = ({
       textMessageSuccess,
       loadingStartAction: () => setTaskIsLoadingStartSagaAction(id),
       loadingStopAction: () => setTaskIsLoadingFinishSagaAction(id),
-      actionSuccess: fetchTasksSagaAction,
+      actionSuccess: () => deleteTaskSagaAction(id),
     },
   ],
 });

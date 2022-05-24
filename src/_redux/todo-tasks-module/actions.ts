@@ -66,3 +66,12 @@ export const updateTaskSagaAction: IReduxAction<
   payload,
 });
 updateTaskSagaAction.type = UPDATE_TASK;
+
+export const DELETE_TASK = 'DELETE_TASK';
+export const deleteTaskSagaAction: IReduxAction<string, typeof DELETE_TASK> = (
+  payload,
+) => ({
+  type: DELETE_TASK,
+  payload,
+});
+deleteTaskSagaAction.type = DELETE_TASK;

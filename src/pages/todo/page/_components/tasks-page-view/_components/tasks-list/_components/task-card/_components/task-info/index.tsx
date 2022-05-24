@@ -1,7 +1,11 @@
 import React, { memo } from 'react';
 import classnames from 'classnames/bind';
-import { ButtonLink, Text } from '@wildberries/ui-kit';
-import { PAGE_TEXTS } from '@/pages/todo/page/_constants/text';
+import {
+  BasicPencilEditIcon,
+  BasicTrashIcon,
+  ButtonLink,
+  Text,
+} from '@wildberries/ui-kit';
 import styles from './index.module.scss';
 
 const cn = classnames.bind(styles);
@@ -32,17 +36,21 @@ export const TaskInfo = memo(
         <div className={cn(`${BLOCK_NAME}__buttons-container`)}>
           <ButtonLink
             disabled={isLoading}
+            isLoading={isLoading}
+            notFullWidthOnMobile
             onClick={onEditClick}
+            rightIcon={BasicPencilEditIcon}
             size="small"
-            text={PAGE_TEXTS.editButtonText}
             type="button"
             variant="add"
           />
           <ButtonLink
             disabled={isLoading}
+            isLoading={isLoading}
+            notFullWidthOnMobile
             onClick={onRemoveClick}
+            rightIcon={BasicTrashIcon}
             size="small"
-            text={PAGE_TEXTS.removeButtonText}
             type="button"
             variant="remove"
           />

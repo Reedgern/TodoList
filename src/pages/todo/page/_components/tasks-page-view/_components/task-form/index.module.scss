@@ -1,37 +1,14 @@
 .task-form {
-  border: 1px solid #000f;
-  border-radius: 5px;
+  //border: 1px solid #000f;
+  //border-radius: 5px;
   padding: 10px;
 
   &__buttons-container {
     display: flex;
     gap: 10px;
-  }
 
-  input,
-  textarea {
-    border-radius: 5px;
+    &_button {
+      max-width: 36px;
+    }
   }
-
-  .error {
-    color: #f00f;
-  }
-
-  .errorField {
-    border: 1px solid #f00f;
-    border-radius: 15px;
-    font-weight: 700;
-    padding: 5px;
-  }
-
-  textarea.error {
-    border: 1px #f00f solid;
-  }
-
-  .row {
-    display: flex;
-    gap: 10px;
-    justify-content: space-between;
-  }
-
 }

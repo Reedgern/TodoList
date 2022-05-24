@@ -1,12 +1,20 @@
+@import "@wildberries/ui-kit/lib/style.module";
+
 .Tasks-page-view {
+  align-items: center;
   display: flex;
-  justify-content: space-between;
-  padding: 10px 40px;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 32px;
+
+  @media #{$mobile} {
+    flex-direction: column;
+    justify-content: normal;
+    padding: 10px 16px;
+  }
 
   &__form-container {
-    align-items: center;
     display: flex;
     flex-direction: column;
-    gap: 10px;
   }
 }

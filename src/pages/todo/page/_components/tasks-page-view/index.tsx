@@ -1,6 +1,6 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import classnames from 'classnames/bind';
-import { Text } from '@wildberries/ui-kit';
+import { ButtonLink, Modal } from '@wildberries/ui-kit';
 import { ConnectedTaskList } from '@/pages/todo/page/_components/tasks-page-view/_components/tasks-list';
 import { TaskForm } from '@/pages/todo/page/_components/tasks-page-view/_components/task-form';
 import { TaskItemType } from '@/_redux/todo-tasks-module';
@@ -12,11 +12,13 @@ import styles from './index.module.scss';
 const cn = classnames.bind(styles);
 
 type PropsType = {
-  addTaskFormIsLoading: boolean;
-  addTaskFormInitialValues: FormValues;
+  formIsLoading: boolean;
+  formInitialValues: FormValues;
   isLoading: boolean;
+  formModalIsOpened: boolean;
   tasks: Array<TaskItemType>;
   onFormSubmit: FormSubmitCallbackType;
+  onToggleFormModal: (isOpened: boolean) => void;
 };
 
 const BLOCK_NAME = 'Tasks-page-view';
@@ -26,20 +28,46 @@ export const TasksPageView = memo(
     isLoading,
     tasks,
     onFormSubmit,
-    addTaskFormIsLoading,
-    addTaskFormInitialValues,
+    formIsLoading,
+    formInitialValues,
+    formModalIsOpened,
+    onToggleFormModal,
   }: PropsType) => {
+    const handleOpen = useCallback(
+      () => onToggleFormModal(true),
+      [onToggleFormModal],
+    );
+
+    const handleClose = useCallback(
+      () => onToggleFormModal(false),
+      [onToggleFormModal],
+    );
+
     return (
       <div className={cn(BLOCK_NAME)}>
         <ConnectedTaskList isLoading={isLoading} tasks={tasks} />
-        <div className={cn(`${BLOCK_NAME}__form-container`)}>
-          <Text text={PAGE_TEXTS.addFormTitle} />
-          <TaskForm
-            initialValues={addTaskFormInitialValues}
-            isLoading={addTaskFormIsLoading}
-            onSubmit={onFormSubmit}
-          />
-        </div>
+        <ButtonLink
+          fullWidth={false}
+          isTextCenter
+          onClick={handleOpen}
+          text={PAGE_TEXTS.addTaskFormModalButtonText}
+          type="button"
+        />
+        <Modal
+          disableOverlayClick
+          isOpened={formModalIsOpened}
+          isShowCloseIcon
+          onClose={handleClose}
+          title={PAGE_TEXTS.addFormTitle}
+        >
+          <div className={cn(`${BLOCK_NAME}__form-container`)}>
+            <TaskForm
+              initialValues={formInitialValues}
+              isLoading={formIsLoading}
+              onSubmit={onFormSubmit}
+            />
+          </div>
+        </Modal>
       </div>
     );
   },

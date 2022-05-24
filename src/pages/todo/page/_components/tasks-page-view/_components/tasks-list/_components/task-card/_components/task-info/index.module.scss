@@ -1,3 +1,5 @@
+@import "@wildberries/ui-kit/lib/style.module";
+
 .Task-info {
   display: flex;
   flex-direction: column;
@@ -6,6 +8,8 @@
   &__buttons-container {
     display: flex;
     gap: 10px;
+
+    justify-content: end;
   }
 
   &_completed {

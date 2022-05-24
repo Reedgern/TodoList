@@ -23,6 +23,10 @@ import {
   UPDATE_TASK_WATCHER_SAGA_NAME,
   updateTaskWatcherSaga,
 } from '@/_redux/todo-tasks-module/sagas/update-task';
+import {
+  DELETE_TASK_WATCHER_SAGA_NAME,
+  deleteTaskWatcherSaga,
+} from '@/_redux/todo-tasks-module/sagas/delete-task';
 
 export const storeInjectConfig = (): StoreInjectConfig => {
   return {
@@ -52,6 +56,7 @@ export const storeInjectConfig = (): StoreInjectConfig => {
         name: FINISH_TASK_IS_LOADING_WATCHER_SAGA_NAME,
       },
       { saga: updateTaskWatcherSaga, name: UPDATE_TASK_WATCHER_SAGA_NAME },
+      { saga: deleteTaskWatcherSaga, name: DELETE_TASK_WATCHER_SAGA_NAME },
     ],
   };
 };

@@ -5,8 +5,8 @@ import { FormValues } from '@/pages/todo/page/_redux/add-task-form-module';
 export type StatePropsType = {
   tasks: Array<TaskItemType>;
   isLoading: boolean;
-  addTaskFormInitialValues: FormValues;
-  addTaskFormIsLoading: boolean;
+  formInitialValues: FormValues;
+  formIsLoading: boolean;
 };
 
 export type DispatchPropsType = {

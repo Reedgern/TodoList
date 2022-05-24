@@ -20,8 +20,15 @@ import {
 } from '@/pages/todo/page/_redux/add-task-form-module';
 
 type PropsType = StatePropsType & DispatchPropsType;
+type StateType = {
+  formIsOpened: boolean;
+};
 
-class WrappedComponent extends React.Component<PropsType> {
+class WrappedComponent extends React.Component<PropsType, StateType> {
+  state: StateType = {
+    formIsOpened: false,
+  };
+
   handleFormSubmit: FormSubmitCallbackType = (values, form) => {
     const config = {
       formValues: values,
@@ -31,19 +38,26 @@ class WrappedComponent extends React.Component<PropsType> {
       loadingStopAction: setAddTaskFormLoadingFinishAction,
       formRequest: ({ body }) => addTaskRequest(body),
       formSuccessAction: fetchTasksSagaAction,
-      callBackOnSuccess: () =>
-        form.restart(this.props.addTaskFormInitialValues),
+      callBackOnSuccess: () => {
+        form.restart(this.props.formInitialValues);
+        this.setState({ formIsOpened: false });
+      },
     };
     this.props.fetchForm(config);
   };
 
+  handleToggleFormModal = (isOpened) =>
+    this.setState({ formIsOpened: isOpened });
+
   render() {
     return (
       <TasksPageView
-        addTaskFormInitialValues={this.props.addTaskFormInitialValues}
-        addTaskFormIsLoading={this.props.addTaskFormIsLoading}
+        formInitialValues={this.props.formInitialValues}
+        formIsLoading={this.props.formIsLoading}
+        formModalIsOpened={this.state.formIsOpened}
         isLoading={this.props.isLoading}
         onFormSubmit={this.handleFormSubmit}
+        onToggleFormModal={this.handleToggleFormModal}
         tasks={this.props.tasks}
       />
     );
@@ -55,8 +69,8 @@ const mapStateToProps = (
 ): StatePropsType => ({
   tasks: tasksSelector(state),
   isLoading: isLoadingSelector(state),
-  addTaskFormInitialValues: addTaskFormInitialValuesSelector(state),
-  addTaskFormIsLoading: addTaskFormIsLoadingSelector(state),
+  formInitialValues: addTaskFormInitialValuesSelector(state),
+  formIsLoading: addTaskFormIsLoadingSelector(state),
 });
 
 const mapDispatchToProps = {
