@@ -5,4 +5,12 @@
 
   max-width: 100%;
   padding: 15px;
+
+  &_completed {
+    background-color: #067b00;
+  }
+
+  &_edit-mode {
+    background-color: #77767e;
+  }
 }

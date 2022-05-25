@@ -66,7 +66,12 @@ export const TaskCardView = memo(
     );
 
     return (
-      <div className={cn(BLOCK_NAME)}>
+      <div
+        className={cn(BLOCK_NAME, {
+          [`${BLOCK_NAME}_completed`]: isCompleted,
+          [`${BLOCK_NAME}_edit-mode`]: isEditMode,
+        })}
+      >
         <Text text={title} />
         {!isEditMode ? (
           <TaskInfo
