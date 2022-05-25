@@ -4,21 +4,22 @@ import { TASKS_REDUCER_NAME } from './constants';
 
 export type SetTaskActionPayloadType = Array<TaskItemType>;
 
-export type AddTaskSagaActionPayloadType = {
-  description: string;
-  isCompleted: boolean;
-};
+export type UpdateTaskSagaActionPayloadType = {
+  id: string;
+} & Partial<TaskItemType>;
 
 export type TaskItemType = {
   id: string;
   description: string;
   isCompleted: boolean;
   isLoading?: boolean;
+  isEditMode?: boolean;
 };
 
 export type TasksStorageType = {
   tasks: Array<TaskItemType>;
   isLoading: boolean;
+  modalIsOpened: boolean;
 };
 
 export type TaskStoragePartType = {

@@ -24,8 +24,6 @@ const reducer = (
   action: ActionsType,
 ): AddTaskFormStorageType => {
   switch (action.type) {
-    // экшены как содержатель констант
-    // и в сагах тоже
     case setAddTaskFormLoadingStartAction.type: {
       return {
         ...state,

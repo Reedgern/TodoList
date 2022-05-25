@@ -1,9 +1,9 @@
-import React, { memo, useCallback, useMemo, useState } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import classnames from 'classnames/bind';
 import { Text } from '@wildberries/ui-kit';
-import { FormValues } from '@/pages/todo/page/_redux/add-task-form-module/_types';
 import { PAGE_TEXTS } from '@/pages/todo/page/_constants/text';
-import { TaskForm } from '../../../task-form';
+import { TaskForm } from '@/pages/todo/page/_components/task-form';
+import { FormValuesType } from '@/pages/todo/page/_components/task-form/_types';
 import styles from './index.module.scss';
 import { TaskInfo } from './_components/task-info';
 
@@ -15,13 +15,10 @@ type PropsType = {
   description: string;
   isCompleted: boolean;
   onDelete: (id: string) => void;
-  formSubmitCreator: ({
-    id,
-    callBackOnSuccess,
-  }: {
-    id: string;
-    callBackOnSuccess: () => void;
-  }) => (values: FormValues) => void;
+  onUpdate: (id: string) => (values: FormValuesType) => void;
+  isEditMode: boolean;
+  onCancel: (id: string) => void;
+  onEdit: (id: string) => void;
 };
 
 const BLOCK_NAME = 'Task-card-view';
@@ -32,11 +29,12 @@ export const TaskCardView = memo(
     id,
     description,
     isCompleted,
-    formSubmitCreator,
+    onUpdate,
     onDelete,
+    onCancel,
+    onEdit,
+    isEditMode,
   }: PropsType) => {
-    const [isEditMode, setIsEditMode] = useState(false);
-
     const title = useMemo(
       () =>
         isEditMode
@@ -50,26 +48,14 @@ export const TaskCardView = memo(
       [description, isCompleted],
     );
 
-    const handleEditClick = useCallback(() => setIsEditMode(true), []);
-
-    const handleCancelClick = useCallback(() => setIsEditMode(false), []);
-
     const handleRemove = useCallback(() => onDelete(id), [onDelete, id]);
-
-    const handleSubmit = useMemo(
-      () =>
-        formSubmitCreator({
-          id,
-          // нарушение flux
-          callBackOnSuccess: () => setIsEditMode(false),
-        }),
-      [formSubmitCreator, id],
-    );
+    const handleSubmit = useMemo(() => onUpdate(id), [onUpdate, id]);
+    const handleEdit = useCallback(() => onEdit(id), [onEdit, id]);
+    const handleCancel = useCallback(() => onCancel(id), [onCancel, id]);
 
     return (
       <div
         className={cn(BLOCK_NAME, {
-          // bem moficators style "--"
           [`${BLOCK_NAME}_completed`]: isCompleted,
           [`${BLOCK_NAME}_edit-mode`]: isEditMode,
         })}
@@ -80,14 +66,14 @@ export const TaskCardView = memo(
             description={description}
             isCompleted={isCompleted}
             isLoading={isLoading}
-            onEditClick={handleEditClick}
+            onEditClick={handleEdit}
             onRemoveClick={handleRemove}
           />
         ) : (
           <TaskForm
             initialValues={initialValues}
             isLoading={isLoading}
-            onCancel={handleCancelClick}
+            onCancel={handleCancel}
             onSubmit={handleSubmit}
           />
         )}

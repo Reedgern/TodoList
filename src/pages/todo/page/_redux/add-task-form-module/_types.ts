@@ -1,16 +1,10 @@
 import { ADD_TASK_FORM_REDUCER_NAME } from '@/pages/todo/page/_redux/add-task-form-module/constants';
-
-// вынести куда то выше
-// redux модуль не должен содержать в себе типы для формы
-export type FormValues = {
-  description: string;
-  isCompleted: boolean;
-};
+import { FormValuesType } from '@/pages/todo/page/_components/task-form/_types';
 
 export type AddTaskFormStorageType = {
   isLoading: boolean;
   error: string;
-  initialValues: FormValues;
+  initialValues: FormValuesType;
 };
 
 export type AddTaskFormStorageTypePart = {

@@ -1,13 +1,8 @@
-import { todoTasksEndpoint } from '@/api/endpoints/todoTasks';
+import { ENDPOINT_FETCH_TASKS } from '@/api/endpoints/todoTasks/urls';
 import { responseSchema } from './response-schema';
 
 export const makeRequestConfig = () => ({
-  // вынести в папку с endpoints чтобы переиспользовать
-  endpoint: `${todoTasksEndpoint}/get`,
+  endpoint: ENDPOINT_FETCH_TASKS,
   responseSchema,
   isErrorTextStraightToOutput: true,
-  // зачем?
-  headers: {
-    'X-User-Id': '2',
-  },
 });

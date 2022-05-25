@@ -3,15 +3,12 @@ import { TaskItemType } from '@/_redux/todo-tasks-module';
 export type updateTaskByIdParamsType = {
   tasks: Array<TaskItemType>;
   id: string;
-  description: string;
-  isCompleted: boolean;
-};
+} & Partial<TaskItemType>;
 
 export const updateTaskById = ({
   tasks,
   id,
-  description,
-  isCompleted,
+  ...taskFields
 }: updateTaskByIdParamsType) => {
   return tasks.map((task) => {
     if (task.id !== id) {
@@ -20,8 +17,7 @@ export const updateTaskById = ({
 
     return {
       ...task,
-      description,
-      isCompleted,
+      ...taskFields,
     };
   });
 };

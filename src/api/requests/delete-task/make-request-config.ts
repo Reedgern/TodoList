@@ -1,4 +1,4 @@
-import { todoTasksEndpoint } from '@/api/endpoints/todoTasks';
+import { ENDPOINT_DELETE_TASK } from '@/api/endpoints/todoTasks/urls';
 import { responseSchema } from './response-schema';
 
 export type DeleteTaskRequestType = {
@@ -6,13 +6,8 @@ export type DeleteTaskRequestType = {
 };
 
 export const makeRequestConfig = (params: DeleteTaskRequestType) => ({
-  // вынести в папку с endpoints чтобы переиспользовать
-  endpoint: `${todoTasksEndpoint}/delete`,
+  endpoint: ENDPOINT_DELETE_TASK,
   responseSchema,
   body: params,
   isErrorTextStraightToOutput: true,
-  // зачем?
-  headers: {
-    'X-User-Id': '2',
-  },
 });

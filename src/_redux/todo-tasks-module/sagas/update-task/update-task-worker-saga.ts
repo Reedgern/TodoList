@@ -6,18 +6,16 @@ import {
 } from '@/_redux/todo-tasks-module';
 import { updateTaskById } from '@/_utils/updateTaskById';
 
-export function* updateTaskWorkerSaga({
-  id,
-  description,
-  isCompleted,
-}: TaskItemType) {
+type ParamsType = {
+  id: string;
+} & Partial<TaskItemType>;
+
+export function* updateTaskWorkerSaga(params: ParamsType) {
   try {
     const tasks: Array<TaskItemType> = yield select(tasksSelector);
     const updatedTasks = updateTaskById({
       tasks,
-      id,
-      description,
-      isCompleted,
+      ...params,
     });
     yield put(setTasksAction(updatedTasks));
   } catch (error) {

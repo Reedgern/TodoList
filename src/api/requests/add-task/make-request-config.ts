@@ -1,4 +1,4 @@
-import { todoTasksEndpoint } from '@/api/endpoints/todoTasks';
+import { ENDPOINT_ADD_TASK } from '@/api/endpoints/todoTasks/urls';
 import { responseSchema } from './response-schema';
 
 export type AddTaskRequestType = {
@@ -7,13 +7,8 @@ export type AddTaskRequestType = {
 };
 
 export const makeRequestConfig = (params: AddTaskRequestType) => ({
-  // вынести в папку с endpoints чтобы переиспользовать
-  endpoint: `${todoTasksEndpoint}/create`,
+  endpoint: ENDPOINT_ADD_TASK,
   responseSchema,
   body: params,
   isErrorTextStraightToOutput: true,
-  // зачем?
-  headers: {
-    'X-User-Id': '2',
-  },
 });

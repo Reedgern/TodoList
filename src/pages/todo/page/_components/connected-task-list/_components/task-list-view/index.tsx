@@ -1,0 +1,52 @@
+import React, { memo } from 'react';
+import { Text } from '@wildberries/ui-kit';
+import classnames from 'classnames/bind';
+import { PAGE_TEXTS } from '@/pages/todo/page/_constants/text';
+import { TaskCardView } from '@/pages/todo/page/_components/connected-task-list/_components/task-list-view/_components/task-card';
+import { TaskItemType } from '@/_redux/todo-tasks-module';
+import { FormValuesType } from '@/pages/todo/page/_components/task-form/_types';
+import styles from './index.module.scss';
+
+type PropsType = {
+  tasks: Array<TaskItemType>;
+  onDeleteTask: (id: string) => void;
+  onCancelEditTask: (id: string) => void;
+  onEditTask: (id: string) => void;
+  onUpdateTask: (id: string) => (values: FormValuesType) => void;
+};
+
+const BLOCK_NAME = 'Task-list-view';
+const cn = classnames.bind(styles);
+
+export const TaskListView = memo(
+  ({
+    tasks,
+    onUpdateTask,
+    onDeleteTask,
+    onEditTask,
+    onCancelEditTask,
+  }: PropsType) => {
+    return (
+      <div className={cn(BLOCK_NAME)}>
+        {tasks.length === 0 ? (
+          <Text text={PAGE_TEXTS.noTasksMessage} />
+        ) : (
+          tasks.map((task) => (
+            <TaskCardView
+              key={task.id}
+              description={task.description}
+              id={task.id}
+              isCompleted={task.isCompleted}
+              isEditMode={task.isEditMode}
+              isLoading={task.isLoading}
+              onCancel={onCancelEditTask}
+              onDelete={onDeleteTask}
+              onEdit={onEditTask}
+              onUpdate={onUpdateTask}
+            />
+          ))
+        )}
+      </div>
+    );
+  },
+);
