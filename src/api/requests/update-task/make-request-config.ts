@@ -8,10 +8,12 @@ export type UpdateTaskRequestType = TaskItemType;
 export const makeRequestConfig = (
   params: UpdateTaskRequestType,
 ): IRequestParams => ({
+  // вынести в папку с endpoints чтобы переиспользовать
   endpoint: `${todoTasksEndpoint}/update`,
   responseSchema,
   body: params,
   isErrorTextStraightToOutput: true,
+  // зачем?
   headers: {
     'X-User-Id': '2',
   },

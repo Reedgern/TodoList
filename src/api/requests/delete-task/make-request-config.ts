@@ -6,10 +6,12 @@ export type DeleteTaskRequestType = {
 };
 
 export const makeRequestConfig = (params: DeleteTaskRequestType) => ({
+  // вынести в папку с endpoints чтобы переиспользовать
   endpoint: `${todoTasksEndpoint}/delete`,
   responseSchema,
   body: params,
   isErrorTextStraightToOutput: true,
+  // зачем?
   headers: {
     'X-User-Id': '2',
   },

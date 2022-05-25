@@ -21,6 +21,7 @@ export const getUpdateTaskConfig = ({
   callBackOnSuccess,
 }: UpdateTaskConfigParamsType): FormManagerType => {
   return {
+    // сделай чтобы показывалась всплывашка при неудачном запросе
     formValues,
     formRequest: ({ body }) => updateTaskRequest({ ...body, id }),
     loadingStartAction: () => setTaskIsLoadingStartSagaAction(id),

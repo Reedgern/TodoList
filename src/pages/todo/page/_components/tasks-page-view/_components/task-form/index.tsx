@@ -53,6 +53,7 @@ const WrappedComponent = memo(
                 type="checkbox"
               />
               <div className={cn(`${BLOCK_NAME}__buttons-container`)}>
+                {/* элемента у элемента быть не может */}
                 <div className={cn(`${BLOCK_NAME}__buttons-container_button`)}>
                   {isMobile ? (
                     <ButtonLink
@@ -76,6 +77,7 @@ const WrappedComponent = memo(
                   )}
                 </div>
                 {onCancel && (
+                  //  элемента у элемента быть не может
                   <div
                     className={cn(`${BLOCK_NAME}__buttons-container_button`)}
                   >

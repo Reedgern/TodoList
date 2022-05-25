@@ -28,6 +28,7 @@ type OwnPropsType = {
 
 const BLOCK_NAME = 'Tasks-list';
 
+// view компонент не должен знать про диспатчи итд ни в коде ни в типах
 type DispatchPropsType = {
   onDelete: (params: InitLoadManagerActionPayloadType) => void;
   onUpdate: (params: FormManagerType) => void;
@@ -42,6 +43,8 @@ export const TasksList = memo(
           callBackOnSuccess,
           id,
         }: {
+          // наружение flux
+          // пересмотри доклад
           callBackOnSuccess: UpdateTaskConfigParamsType['callBackOnSuccess'];
           id: string;
         }) =>
@@ -65,10 +68,12 @@ export const TasksList = memo(
     );
 
     if (isLoading) {
+      // элемент вне блока БЕМ
       return <Preloader size="large" />;
     }
 
     return tasks.length === 0 ? (
+      // элемент вне блока БЕМ
       <Text text={PAGE_TEXTS.noTasksMessage} />
     ) : (
       <div className={cn(BLOCK_NAME)}>
@@ -88,6 +93,10 @@ export const TasksList = memo(
   },
 );
 
+// файл называется по имени экспортируемого компонента
+// функциональный компонент допускается заворачивать в коннект только если мапстейт и нет мапдиспатч
+// если есть мапдиспатч - это уже контейнер
+// у тебя есть уже контейнер выше - либо его заюзать либо создать над список тудух контейнер и с него пробросить методы
 const mapDispatchToProps = {
   onUpdate: fetchFormManagerSagaAction,
   onDelete: initLoadManagerActionSaga,

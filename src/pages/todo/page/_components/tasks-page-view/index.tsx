@@ -60,6 +60,7 @@ export const TasksPageView = memo(
           onClose={handleClose}
           title={PAGE_TEXTS.addFormTitle}
         >
+          {/* лишний элемент - стили для TaskForm должны быть внутри этого компонента */}
           <div className={cn(`${BLOCK_NAME}__form-container`)}>
             <TaskForm
               initialValues={formInitialValues}

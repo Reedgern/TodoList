@@ -6,10 +6,10 @@ const MIN_DESCRIPTION_LENGTH = 10;
 
 export const FORM_VALIDATIONS = {
   description: composeValidators([
-    simpleValidator.requiredValidator('Поле должно быть заполнено.'),
+    simpleValidator.requiredValidator('Поле должно быть заполнено.'), // text -> const
     simpleValidator.minLenghtValidate(
       MIN_DESCRIPTION_LENGTH,
-      'Длина поля должна быть не менее 10 символов.',
+      'Длина поля должна быть не менее 10 символов.', // text -> const
     ),
   ]),
 };

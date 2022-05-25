@@ -1,7 +1,4 @@
 import {
-  SET_ADD_TASK_FORM_INITIAL_VALUES,
-  SET_ADD_TASK_FORM_LOADING_FINISH,
-  SET_ADD_TASK_FORM_LOADING_START,
   setAddTaskFormInitialValuesAction,
   setAddTaskFormLoadingFinishAction,
   setAddTaskFormLoadingStartAction,
@@ -27,19 +24,21 @@ const reducer = (
   action: ActionsType,
 ): AddTaskFormStorageType => {
   switch (action.type) {
-    case SET_ADD_TASK_FORM_LOADING_START: {
+    // экшены как содержатель констант
+    // и в сагах тоже
+    case setAddTaskFormLoadingStartAction.type: {
       return {
         ...state,
         isLoading: true,
       };
     }
-    case SET_ADD_TASK_FORM_LOADING_FINISH: {
+    case setAddTaskFormLoadingFinishAction.type: {
       return {
         ...state,
         isLoading: false,
       };
     }
-    case SET_ADD_TASK_FORM_INITIAL_VALUES: {
+    case setAddTaskFormInitialValuesAction.type: {
       return {
         ...state,
         initialValues: action.payload,

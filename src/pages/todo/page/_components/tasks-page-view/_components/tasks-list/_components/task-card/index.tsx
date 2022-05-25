@@ -60,6 +60,7 @@ export const TaskCardView = memo(
       () =>
         formSubmitCreator({
           id,
+          // нарушение flux
           callBackOnSuccess: () => setIsEditMode(false),
         }),
       [formSubmitCreator, id],
@@ -68,6 +69,7 @@ export const TaskCardView = memo(
     return (
       <div
         className={cn(BLOCK_NAME, {
+          // bem moficators style "--"
           [`${BLOCK_NAME}_completed`]: isCompleted,
           [`${BLOCK_NAME}_edit-mode`]: isEditMode,
         })}

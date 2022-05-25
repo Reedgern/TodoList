@@ -22,6 +22,15 @@ type PropsType = {
   screenType: ScreenType;
 };
 
+// чуть удобнее потом с типами работать если так делать не описывая везде типы
+// type PropsType = {
+//   description: string;
+//   isCompleted: boolean;
+//   onEditClick: () => void;
+//   onRemoveClick: () => void;
+//   isLoading: boolean;
+// } & WithScreenResizePropsType
+
 const BLOCK_NAME = 'Task-info';
 
 const WrappedComponent = memo(
@@ -33,6 +42,8 @@ const WrappedComponent = memo(
     isLoading,
     screenType,
   }: PropsType) => {
+    // тк не много компонентов участвует в перестроении - эффективнее будет переключение компонентов через css
+    // подписка на ресайз достаточно дорогая и должна использоваться аккуратно а не в каждой карточке
     const isMobile = useMemo(() => screenType === 'mobile', [screenType]);
 
     return (
