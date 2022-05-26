@@ -6,20 +6,19 @@ import {
   InitLoadManagerActionPayloadType,
   initLoadManagerActionSaga,
 } from '@mihanizm56/redux-core-modules';
-import { Preloader } from '@wildberries/ui-kit';
 import {
+  deleteTaskSagaAction,
   isLoadingSelector,
+  setTaskEditModeSagaAction,
   TaskItemType,
   tasksSelector,
   updateTaskSagaAction,
   UpdateTaskSagaActionPayloadType,
 } from '@/_redux/todo-tasks-module';
 import { TaskListView } from '@/pages/todo/page/_components/connected-task-list/_components/task-list-view';
-import { getDeleteTaskConfig } from '@/pages/todo/page/_components/connected-task-list/_utils/get-delete-task-config';
-import { getUpdateTaskConfig } from '@/pages/todo/page/_components/connected-task-list/_utils/get-update-task-config';
 import { FormValuesType } from '@/pages/todo/page/_components/task-form/_types';
 
-type StatePropsType = {
+type StateType = {
   tasks: TaskItemType[];
   isLoading: boolean;
 };
@@ -29,37 +28,38 @@ type DispatchPropsType = {
     payload: InitLoadManagerActionPayloadType,
   ) => void;
   fetchFormManagerSagaAction: (payload: FormManagerType) => void;
-  updateTaskSagaAction: (payload: UpdateTaskSagaActionPayloadType) => void;
+  postUpdateTask: (payload: UpdateTaskSagaActionPayloadType) => void;
+  deleteTaskSagaAction: (id: string) => void;
+  setTaskEditModeSagaAction: ({ id: string, isEditMode: boolean }) => void;
 };
 
-type PropsType = StatePropsType & DispatchPropsType;
+type PropsType = StateType & DispatchPropsType;
 
-class WrappedComponent extends React.Component<PropsType, unknown> {
+class WrappedComponent extends React.Component<PropsType> {
   handleDeleteTask = (id: string) => {
-    const deleteTaskConfig = getDeleteTaskConfig(id);
-    this.props.initLoadManagerActionSaga(deleteTaskConfig);
+    this.props.deleteTaskSagaAction(id);
   };
 
   handleUpdateTask = (id: string) => (values: FormValuesType) => {
-    const updateTaskConfig = getUpdateTaskConfig({ id, formValues: values });
-    this.props.fetchFormManagerSagaAction(updateTaskConfig);
+    // const updateTaskConfig = getUpdateTaskConfig({ id, formValues: values });
+
+    // this.props.fetchFormManagerSagaAction(updateTaskConfig);
+
+    this.props.postUpdateTask({ id, ...values });
   };
 
   handleCancel = (id: string) => {
-    this.props.updateTaskSagaAction({ id, isEditMode: false });
+    this.props.setTaskEditModeSagaAction({ id, isEditMode: false });
   };
 
   handleEdit = (id: string) => {
-    this.props.updateTaskSagaAction({ id, isEditMode: true });
+    this.props.setTaskEditModeSagaAction({ id, isEditMode: true });
   };
 
   render() {
-    if (this.props.isLoading) {
-      return <Preloader size="large" />;
-    }
-
     return (
       <TaskListView
+        isLoading={this.props.isLoading}
         onCancelEditTask={this.handleCancel}
         onDeleteTask={this.handleDeleteTask}
         onEditTask={this.handleEdit}
@@ -78,7 +78,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   initLoadManagerActionSaga,
   fetchFormManagerSagaAction,
-  updateTaskSagaAction,
+  postUpdateTask: updateTaskSagaAction,
+  deleteTaskSagaAction,
+  setTaskEditModeSagaAction,
 };
 
 export const ConnectedTaskList = connect(

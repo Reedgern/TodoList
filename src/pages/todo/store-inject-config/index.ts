@@ -10,7 +10,7 @@ import {
 import tasksReducer from '@/_redux/todo-tasks-module/reducer';
 import addTaskFormReducer, {
   ADD_TASK_FORM_REDUCER_NAME,
-} from '@/pages/todo/page/_redux/add-task-form-module';
+} from '@/pages/todo/_redux/add-task-form-module';
 import {
   UPDATE_TASK_WATCHER_SAGA_NAME,
   updateTaskWatcherSaga,
@@ -19,6 +19,10 @@ import {
   DELETE_TASK_WATCHER_SAGA_NAME,
   deleteTaskWatcherSaga,
 } from '@/_redux/todo-tasks-module/sagas/delete-task';
+import {
+  SET_TASK_EDIT_MODE_WATCHER_SAGA,
+  setTaskEditModeWatcherSaga,
+} from '@/_redux/todo-tasks-module/sagas/set-task-edit-mode';
 
 export const storeInjectConfig = (): StoreInjectConfig => {
   return {
@@ -39,8 +43,15 @@ export const storeInjectConfig = (): StoreInjectConfig => {
     ],
     sagasToInject: [
       { saga: fetchTasksWatcherSaga, name: FETCH_TASKS_WATCHER_SAGA_NAME },
-      { saga: updateTaskWatcherSaga, name: UPDATE_TASK_WATCHER_SAGA_NAME },
+      {
+        saga: updateTaskWatcherSaga,
+        name: UPDATE_TASK_WATCHER_SAGA_NAME,
+      },
       { saga: deleteTaskWatcherSaga, name: DELETE_TASK_WATCHER_SAGA_NAME },
+      {
+        saga: setTaskEditModeWatcherSaga,
+        name: SET_TASK_EDIT_MODE_WATCHER_SAGA,
+      },
     ],
   };
 };

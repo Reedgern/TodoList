@@ -6,11 +6,13 @@
   &__buttons-container {
     display: flex;
     gap: 10px;
+  }
+}
 
+@media #{$mobile} {
+  .task-form {
     &_button {
-      @media #{$mobile} {
-        max-width: 36px;
-      }
+      max-width: 36px;
     }
   }
 }

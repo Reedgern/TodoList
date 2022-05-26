@@ -1,25 +1,78 @@
-import { put, select } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
+import { setModalAction } from '@wildberries/notifications';
+import { IResponse } from '@mihanizm56/fetch-api';
 import {
   setTasksAction,
   TaskItemType,
   tasksSelector,
 } from '@/_redux/todo-tasks-module';
-import { updateTaskById } from '@/_utils/updateTaskById';
+import { updateTask } from '@/_redux/todo-tasks-module/sagas/_utils/update-task';
+import { updateTaskRequest } from '@/api/requests/update-task';
+import { setTaskEditModeWorkerSaga } from '@/_redux/todo-tasks-module/sagas/set-task-edit-mode';
 
 type ParamsType = {
   id: string;
 } & Partial<TaskItemType>;
 
-export function* updateTaskWorkerSaga(params: ParamsType) {
+export function* updateTaskWorkerSaga({ id, ...taskFields }: ParamsType) {
   try {
-    const tasks: Array<TaskItemType> = yield select(tasksSelector);
-    const updatedTasks = updateTaskById({
-      tasks,
-      ...params,
+    yield put(
+      setTasksAction(
+        updateTask({
+          tasks: yield select(tasksSelector),
+          id,
+          isLoading: true,
+        }),
+      ),
+    );
+
+    const { error, errorText }: IResponse = yield call(updateTaskRequest, {
+      id,
+      description: taskFields.description,
+      isCompleted: taskFields.isCompleted,
     });
-    yield put(setTasksAction(updatedTasks));
+
+    if (error) {
+      throw new Error(errorText);
+    }
+
+    yield put(
+      setTasksAction(
+        updateTask({
+          tasks: yield select(tasksSelector),
+          id,
+          ...taskFields,
+        }),
+      ),
+    );
+
+    yield put(
+      setModalAction({
+        status: 'success',
+        text: 'Таска изменена успешно',
+      }),
+    );
+
+    yield call(setTaskEditModeWorkerSaga, { id, isEditMode: false });
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.log(error);
+    console.log('Error in setTaskEditModeWorkerSaga', error);
+    yield put(
+      setModalAction({
+        status: 'error',
+        text: error.message,
+        title: 'Ошибка изменения',
+      }),
+    );
+  } finally {
+    yield put(
+      setTasksAction(
+        updateTask({
+          tasks: yield select(tasksSelector),
+          id,
+          isLoading: false,
+        }),
+      ),
+    );
   }
 }

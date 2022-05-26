@@ -23,7 +23,7 @@ export function* fetchTasksWorkerSaga() {
     yield put(setTasksAction(data.tasks));
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.log(error.message);
+    console.log('Error in fetchTasksWorkerSaga', error.message);
 
     yield put(
       setModalAction({

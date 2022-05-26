@@ -7,7 +7,7 @@ const MIN_DESCRIPTION_LENGTH = 10;
 
 const simpleValidator = new SimpleValidator();
 
-export const FORM_VALIDATIONS = {
+export const addTaskFormValidations = {
   description: composeValidators([
     simpleValidator.requiredValidator(REQUIRED_ERROR_TEXT),
     simpleValidator.minLenghtValidate(

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ButtonView } from '@/pages/todo/page/_components/connected-button/_components/button-view';
+import { OpenAddTaskFormModalButtonView } from '@/pages/todo/page/_components/connected-open-add-task-form-modal-button/_components/open-add-task-form-modal-button-view';
 import {
   closeModalAction,
   modalIsOpenedSelector,
@@ -17,7 +17,7 @@ type PropsType = {
 class WrappedComponent extends React.Component<PropsType> {
   render() {
     return (
-      <ButtonView
+      <OpenAddTaskFormModalButtonView
         modalIsOpened={this.props.modalIsOpened}
         onClick={this.props.openModal}
         onModalClose={this.props.closeModal}
@@ -35,7 +35,7 @@ const mapDispatchToProps = {
   openModal: openModalAction,
 };
 
-export const ConnectedButton = connect(
+export const ConnectedOpenAddTaskFormModalButton = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(WrappedComponent);

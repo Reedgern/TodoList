@@ -1,13 +1,14 @@
 import React, { memo } from 'react';
-import { Text } from '@wildberries/ui-kit';
+import { Preloader, Text } from '@wildberries/ui-kit';
 import classnames from 'classnames/bind';
-import { PAGE_TEXTS } from '@/pages/todo/page/_constants/text';
+import { TASKS_PAGE_TEXTS } from '@/pages/todo/page/_constants/text';
 import { TaskCardView } from '@/pages/todo/page/_components/connected-task-list/_components/task-list-view/_components/task-card';
 import { TaskItemType } from '@/_redux/todo-tasks-module';
 import { FormValuesType } from '@/pages/todo/page/_components/task-form/_types';
 import styles from './index.module.scss';
 
 type PropsType = {
+  isLoading: boolean;
   tasks: Array<TaskItemType>;
   onDeleteTask: (id: string) => void;
   onCancelEditTask: (id: string) => void;
@@ -20,16 +21,25 @@ const cn = classnames.bind(styles);
 
 export const TaskListView = memo(
   ({
+    isLoading,
     tasks,
     onUpdateTask,
     onDeleteTask,
     onEditTask,
     onCancelEditTask,
   }: PropsType) => {
+    if (isLoading) {
+      return (
+        <div className={cn(BLOCK_NAME)}>
+          <Preloader size="large" />
+        </div>
+      );
+    }
+
     return (
       <div className={cn(BLOCK_NAME)}>
         {tasks.length === 0 ? (
-          <Text text={PAGE_TEXTS.noTasksMessage} />
+          <Text text={TASKS_PAGE_TEXTS.noTasksMessage} />
         ) : (
           tasks.map((task) => (
             <TaskCardView

@@ -1,7 +1,7 @@
 import { ButtonLink, Modal } from '@wildberries/ui-kit';
 import React, { memo } from 'react';
-import { PAGE_TEXTS } from '@/pages/todo/page/_constants/text';
-import { ConnectedAddTaskForm } from '@/pages/todo/page/_components/connected-button/_components/button-view/_components/connected-add-task-form-modal';
+import { TASKS_PAGE_TEXTS } from '@/pages/todo/page/_constants/text';
+import { ConnectedAddTaskForm } from '@/pages/todo/page/_components/connected-open-add-task-form-modal-button/_components/open-add-task-form-modal-button-view/_components/connected-add-task-form-modal';
 
 type PropsType = {
   modalIsOpened: boolean;
@@ -9,7 +9,7 @@ type PropsType = {
   onModalClose: () => void;
 };
 
-export const ButtonView = memo(
+export const OpenAddTaskFormModalButtonView = memo(
   ({ modalIsOpened, onModalClose, onClick }: PropsType) => {
     return (
       <>
@@ -17,7 +17,7 @@ export const ButtonView = memo(
           fullWidth={false}
           isTextCenter
           onClick={onClick}
-          text={PAGE_TEXTS.addTaskFormModalButtonText}
+          text={TASKS_PAGE_TEXTS.addTaskFormModalButtonText}
           type="button"
         />
         <Modal
@@ -25,7 +25,7 @@ export const ButtonView = memo(
           isOpened={modalIsOpened}
           isShowCloseIcon
           onClose={onModalClose}
-          title={PAGE_TEXTS.addFormTitle}
+          title={TASKS_PAGE_TEXTS.addFormTitle}
         >
           <ConnectedAddTaskForm />
         </Modal>

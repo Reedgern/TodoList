@@ -67,3 +67,13 @@ export const closeModalAction: IReduxBaseAction<typeof CLOSE_MODAL> = () => ({
   type: CLOSE_MODAL,
 });
 closeModalAction.type = CLOSE_MODAL;
+
+export const SET_TASK_EDIT_MODE = 'SET_TASK_EDIT_MODE';
+export const setTaskEditModeSagaAction: IReduxAction<
+  { id: string; isEditMode: boolean },
+  typeof SET_TASK_EDIT_MODE
+> = (payload) => ({
+  type: SET_TASK_EDIT_MODE,
+  payload,
+});
+setTaskEditModeSagaAction.type = SET_TASK_EDIT_MODE;

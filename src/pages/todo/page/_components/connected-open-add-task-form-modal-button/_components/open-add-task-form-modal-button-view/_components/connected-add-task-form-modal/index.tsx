@@ -9,7 +9,7 @@ import {
   addTaskFormIsLoadingSelector,
   setAddTaskFormLoadingFinishAction,
   setAddTaskFormLoadingStartAction,
-} from '@/pages/todo/page/_redux/add-task-form-module';
+} from '@/pages/todo/_redux/add-task-form-module';
 import { addTaskRequest } from '@/api/requests/add-task';
 import {
   closeModalAction,
@@ -30,6 +30,7 @@ class WrappedComponent extends React.Component<PropsType> {
       formValues: values,
       showNotification: true,
       textMessageSuccess: 'Форма успешно отправлена!',
+      titleMessageError: 'Ошибка отправки формы',
       loadingStartAction: setAddTaskFormLoadingStartAction,
       loadingStopAction: setAddTaskFormLoadingFinishAction,
       formRequest: ({ body }) => addTaskRequest(body),

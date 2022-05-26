@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useMemo } from 'react';
 import classnames from 'classnames/bind';
 import { Text } from '@wildberries/ui-kit';
-import { PAGE_TEXTS } from '@/pages/todo/page/_constants/text';
+import { TASKS_PAGE_TEXTS } from '@/pages/todo/page/_constants/text';
 import { TaskForm } from '@/pages/todo/page/_components/task-form';
 import { FormValuesType } from '@/pages/todo/page/_components/task-form/_types';
 import styles from './index.module.scss';
@@ -38,8 +38,8 @@ export const TaskCardView = memo(
     const title = useMemo(
       () =>
         isEditMode
-          ? PAGE_TEXTS.editModeTaskTitle
-          : PAGE_TEXTS.viewModeTaskTitle,
+          ? TASKS_PAGE_TEXTS.editModeTaskTitle
+          : TASKS_PAGE_TEXTS.viewModeTaskTitle,
       [isEditMode],
     );
 
@@ -56,25 +56,26 @@ export const TaskCardView = memo(
     return (
       <div
         className={cn(BLOCK_NAME, {
-          [`${BLOCK_NAME}_completed`]: isCompleted,
+          [`${BLOCK_NAME}--completed`]: isCompleted,
           [`${BLOCK_NAME}_edit-mode`]: isEditMode,
         })}
       >
         <Text text={title} />
-        {!isEditMode ? (
+
+        {isEditMode ? (
+          <TaskForm
+            initialValues={initialValues}
+            isLoading={isLoading}
+            onCancel={handleCancel}
+            onSubmit={handleSubmit}
+          />
+        ) : (
           <TaskInfo
             description={description}
             isCompleted={isCompleted}
             isLoading={isLoading}
             onEditClick={handleEdit}
             onRemoveClick={handleRemove}
-          />
-        ) : (
-          <TaskForm
-            initialValues={initialValues}
-            isLoading={isLoading}
-            onCancel={handleCancel}
-            onSubmit={handleSubmit}
           />
         )}
       </div>

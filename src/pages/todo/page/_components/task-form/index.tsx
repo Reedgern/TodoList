@@ -5,18 +5,19 @@ import {
   ButtonLink,
   FormCheckbox,
   FormTextAreaInput,
-  GadgetsFloppyIcon,
-  NavigationDeleteCircleIcon,
   withScreenResizeDetectHoc,
 } from '@wildberries/ui-kit';
 import { ScreenType } from '@wildberries/ui-kit/lib/hocs/with-screen-resize-detect-hoc/types';
-import { PAGE_TEXTS } from '@/pages/todo/page/_constants/text';
 import {
   FormSubmitCallbackType,
   FormValuesType,
 } from '@/pages/todo/page/_components/task-form/_types';
 import { FORM_FIELDS_NAMES } from '@/pages/todo/page/_components/task-form/_constants';
-import { FORM_VALIDATIONS } from '@/pages/todo/page/_components/task-form/_utils/validators';
+import { addTaskFormValidations } from '@/pages/todo/page/_components/task-form/_utils/validators';
+import {
+  getFormCancelButtonProps,
+  getFormSaveButtonProps,
+} from '@/pages/todo/page/_components/task-form/_utils/getFormButtonProps';
 import styles from './index.module.scss';
 
 const cn = classnames.bind(styles);
@@ -38,13 +39,6 @@ const FORM_SUBSCRIPTION = {
   error: true,
 };
 
-const FIELD_SUBSCRIPTION = {
-  value: true,
-  active: true,
-  touched: true,
-  invalid: true,
-};
-
 const WrappedComponent = memo(
   ({ onSubmit, onCancel, initialValues, isLoading, screenType }: PropsType) => {
     const isMobile = useMemo(() => screenType === 'mobile', [screenType]);
@@ -56,6 +50,18 @@ const WrappedComponent = memo(
         subscription={FORM_SUBSCRIPTION}
       >
         {({ handleSubmit, invalid }) => {
+          const saveButtonProps = getFormSaveButtonProps({
+            invalid,
+            isLoading,
+            isMobile,
+          });
+
+          const cancelButtonProps = getFormCancelButtonProps({
+            isLoading,
+            isMobile,
+            onClick: onCancel,
+          });
+
           return (
             <form className={cn(BLOCK_NAME)} onSubmit={handleSubmit}>
               <Field
@@ -64,61 +70,20 @@ const WrappedComponent = memo(
                 label="Описание"
                 name={FORM_FIELDS_NAMES.description}
                 required
-                subscription={FIELD_SUBSCRIPTION}
-                validate={FORM_VALIDATIONS.description}
+                validate={addTaskFormValidations.description}
               />
               <Field
                 component={FormCheckbox}
                 disabled={isLoading}
                 label="Выполнена?"
                 name={FORM_FIELDS_NAMES.isCompleted}
-                subscription={FIELD_SUBSCRIPTION}
                 type="checkbox"
               />
               <div className={cn(`${BLOCK_NAME}__buttons-container`)}>
-                {isMobile ? (
-                  <ButtonLink
-                    disabled={invalid || isLoading}
-                    isLoading={isLoading}
-                    isTextCenter
-                    rightIcon={GadgetsFloppyIcon}
-                    size="small"
-                    type="submit"
-                  />
-                ) : (
-                  <ButtonLink
-                    disabled={invalid || isLoading}
-                    fullWidth
-                    isLoading={isLoading}
-                    isTextCenter
-                    size="small"
-                    text={PAGE_TEXTS.submitFormButtonText}
-                    type="submit"
-                  />
-                )}
-                {onCancel &&
-                  (isMobile ? (
-                    <ButtonLink
-                      disabled={isLoading}
-                      isLoading={isLoading}
-                      isTextCenter
-                      onClick={onCancel}
-                      rightIcon={NavigationDeleteCircleIcon}
-                      size="small"
-                      variant="remove"
-                    />
-                  ) : (
-                    <ButtonLink
-                      disabled={isLoading}
-                      fullWidth
-                      isLoading={isLoading}
-                      isTextCenter
-                      onClick={onCancel}
-                      size="small"
-                      text={PAGE_TEXTS.cancelButtonText}
-                      variant="remove"
-                    />
-                  ))}
+                {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+                <ButtonLink {...saveButtonProps} />
+                {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+                {onCancel && <ButtonLink {...cancelButtonProps} />}
               </div>
             </form>
           );

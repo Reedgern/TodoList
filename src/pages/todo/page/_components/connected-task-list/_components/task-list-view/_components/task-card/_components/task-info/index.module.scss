@@ -8,8 +8,12 @@
   &__buttons-container {
     display: flex;
     gap: 10px;
+  }
+}
 
-    @media #{$mobile} {
+@media #{$mobile} {
+  .Task-info {
+    &_buttons-container {
       justify-content: end;
     }
   }

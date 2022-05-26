@@ -2,7 +2,7 @@ import {
   setAddTaskFormInitialValuesAction,
   setAddTaskFormLoadingFinishAction,
   setAddTaskFormLoadingStartAction,
-} from '@/pages/todo/page/_redux/add-task-form-module/actions';
+} from '@/pages/todo/_redux/add-task-form-module/actions';
 import { AddTaskFormStorageType } from './_types';
 
 export const initialState: AddTaskFormStorageType = {

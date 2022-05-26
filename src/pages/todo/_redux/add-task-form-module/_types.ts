@@ -1,4 +1,4 @@
-import { ADD_TASK_FORM_REDUCER_NAME } from '@/pages/todo/page/_redux/add-task-form-module/constants';
+import { ADD_TASK_FORM_REDUCER_NAME } from '@/pages/todo/_redux/add-task-form-module/constants';
 import { FormValuesType } from '@/pages/todo/page/_components/task-form/_types';
 
 export type AddTaskFormStorageType = {

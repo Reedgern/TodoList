@@ -1,4 +1,4 @@
-export const PAGE_TEXTS = {
+export const TASKS_PAGE_TEXTS = {
   addFormTitle: 'Создание новой таски',
   addTaskFormModalButtonText: 'Добавить новую таску',
   removeButtonText: 'Удалить',
