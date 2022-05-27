@@ -12,6 +12,8 @@ export function* setTaskEditModeWorkerSaga({ id, isEditMode }: ParamsType) {
   try {
     yield put(
       setTasksAction(
+        // не пишем вызов функции в вызове. извлеки внутренний вызов в переменную и назови читаемо
+        // везде поправь в проекте
         updateTask({
           tasks: yield select(tasksSelector),
           id,
@@ -22,6 +24,7 @@ export function* setTaskEditModeWorkerSaga({ id, isEditMode }: ParamsType) {
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log('Error in setTaskEditModeWorkerSaga', error);
+    // console.error выше надо
     yield put(
       setModalAction({
         status: 'error',

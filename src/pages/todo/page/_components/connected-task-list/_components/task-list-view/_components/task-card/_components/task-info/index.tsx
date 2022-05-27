@@ -46,6 +46,7 @@ export const TaskInfo = memo(
           />
           <ButtonLink
             disabled={isLoading}
+            // не очень понял почему при загрузке тут лоадер
             isLoading={isLoading}
             notFullWidthOnMobile
             onClick={onRemoveClick}

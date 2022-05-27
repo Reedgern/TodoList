@@ -15,12 +15,19 @@ type PropsType = {
 
 // eslint-disable-next-line react/prefer-stateless-function
 class WrappedComponent extends React.Component<PropsType> {
+  handleClose = () => {
+    this.props.closeModal();
+  };
+
   render() {
     return (
+      // too long name
       <OpenAddTaskFormModalButtonView
+        // не передаем анпрямую экшены
+        // через метод в классе обязательно
         modalIsOpened={this.props.modalIsOpened}
         onClick={this.props.openModal}
-        onModalClose={this.props.closeModal}
+        onModalClose={this.handleClose}
       />
     );
   }
@@ -35,6 +42,7 @@ const mapDispatchToProps = {
   openModal: openModalAction,
 };
 
+// too long name
 export const ConnectedOpenAddTaskFormModalButton = connect(
   mapStateToProps,
   mapDispatchToProps,

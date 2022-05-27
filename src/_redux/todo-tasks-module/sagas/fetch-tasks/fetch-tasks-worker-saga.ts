@@ -8,6 +8,7 @@ import {
   setTasksLoadingFinishAction,
 } from '../../actions';
 
+// сага лишняя - переписать на конфиг
 export function* fetchTasksWorkerSaga() {
   yield put(setTasksLoadingStartAction());
 

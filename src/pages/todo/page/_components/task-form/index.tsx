@@ -17,7 +17,7 @@ import { addTaskFormValidations } from '@/pages/todo/page/_components/task-form/
 import {
   getFormCancelButtonProps,
   getFormSaveButtonProps,
-} from '@/pages/todo/page/_components/task-form/_utils/getFormButtonProps';
+} from '@/pages/todo/page/_components/task-form/_utils/get-form-button-props';
 import styles from './index.module.scss';
 
 const cn = classnames.bind(styles);

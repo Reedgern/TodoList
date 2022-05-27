@@ -14,6 +14,7 @@ type ParamsType = {
   id: string;
 } & Partial<TaskItemType>;
 
+// спред лишний. обычные переменные {id, description, isCompleted} были бы читаемыми - а так + 2 оператора
 export function* updateTaskWorkerSaga({ id, ...taskFields }: ParamsType) {
   try {
     yield put(

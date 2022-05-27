@@ -9,6 +9,7 @@ type PropsType = {
   onModalClose: () => void;
 };
 
+// need to decouple modal with form - from one view component
 export const OpenAddTaskFormModalButtonView = memo(
   ({ modalIsOpened, onModalClose, onClick }: PropsType) => {
     return (

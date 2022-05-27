@@ -33,6 +33,8 @@ export function* deleteTaskWorkerSaga(id: string) {
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log('Error in deleteTaskWorkerSaga', error.message);
+
+    // batching actions below
     yield put(
       setModalAction({
         status: 'error',

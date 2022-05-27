@@ -26,6 +26,7 @@ type PropsType = {
 
 class WrappedComponent extends React.Component<PropsType> {
   handleSubmit = (values) => {
+    // вынести конфиг в константы и за компонент
     const config: FormManagerType = {
       formValues: values,
       showNotification: true,
