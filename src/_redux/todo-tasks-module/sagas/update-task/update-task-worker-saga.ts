@@ -8,7 +8,6 @@ import {
 } from '@/_redux/todo-tasks-module';
 import { updateTask } from '@/_redux/todo-tasks-module/sagas/_utils/update-task';
 import { updateTaskRequest } from '@/api/requests/update-task';
-import { setTaskEditModeWorkerSaga } from '@/_redux/todo-tasks-module/sagas/set-task-edit-mode';
 
 type ParamsType = {
   id: string;
@@ -54,7 +53,15 @@ export function* updateTaskWorkerSaga({ id, ...taskFields }: ParamsType) {
       }),
     );
 
-    yield call(setTaskEditModeWorkerSaga, { id, isEditMode: false });
+    yield put(
+      setTasksAction(
+        updateTask({
+          tasks: yield select(tasksSelector),
+          id,
+          isEditMode: false,
+        }),
+      ),
+    );
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log('Error in setTaskEditModeWorkerSaga', error);

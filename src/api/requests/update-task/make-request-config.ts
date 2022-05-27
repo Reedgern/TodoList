@@ -3,7 +3,7 @@ import { TaskItemType } from '@/_redux/todo-tasks-module';
 import { ENDPOINT_UPDATE_TASK } from '@/api/endpoints/todoTasks/urls';
 import { responseSchema } from './response-schema';
 
-export type UpdateTaskRequestType = TaskItemType;
+export type UpdateTaskRequestType = TaskItemType & { abortRequestId?: string };
 
 export const makeRequestConfig = (
   params: UpdateTaskRequestType,

@@ -1,15 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  fetchFormManagerSagaAction,
-  FormManagerType,
-  InitLoadManagerActionPayloadType,
-  initLoadManagerActionSaga,
-} from '@mihanizm56/redux-core-modules';
-import {
   deleteTaskSagaAction,
   isLoadingSelector,
-  setTaskEditModeSagaAction,
+  SetTaskActionPayloadType,
+  setTasksAction,
   TaskItemType,
   tasksSelector,
   updateTaskSagaAction,
@@ -17,6 +12,7 @@ import {
 } from '@/_redux/todo-tasks-module';
 import { TaskListView } from '@/pages/todo/page/_components/connected-task-list/_components/task-list-view';
 import { FormValuesType } from '@/pages/todo/page/_components/task-form/_types';
+import { updateTask } from '@/_redux/todo-tasks-module/sagas/_utils/update-task';
 
 type StateType = {
   tasks: TaskItemType[];
@@ -24,13 +20,9 @@ type StateType = {
 };
 
 type DispatchPropsType = {
-  initLoadManagerActionSaga: (
-    payload: InitLoadManagerActionPayloadType,
-  ) => void;
-  fetchFormManagerSagaAction: (payload: FormManagerType) => void;
   postUpdateTask: (payload: UpdateTaskSagaActionPayloadType) => void;
   deleteTaskSagaAction: (id: string) => void;
-  setTaskEditModeSagaAction: ({ id: string, isEditMode: boolean }) => void;
+  setTasksAction: (payload: SetTaskActionPayloadType) => void;
 };
 
 type PropsType = StateType & DispatchPropsType;
@@ -41,19 +33,19 @@ class WrappedComponent extends React.Component<PropsType> {
   };
 
   handleUpdateTask = (id: string) => (values: FormValuesType) => {
-    // const updateTaskConfig = getUpdateTaskConfig({ id, formValues: values });
-
-    // this.props.fetchFormManagerSagaAction(updateTaskConfig);
-
     this.props.postUpdateTask({ id, ...values });
   };
 
   handleCancel = (id: string) => {
-    this.props.setTaskEditModeSagaAction({ id, isEditMode: false });
+    this.props.setTasksAction(
+      updateTask({ tasks: this.props.tasks, id, isEditMode: false }),
+    );
   };
 
   handleEdit = (id: string) => {
-    this.props.setTaskEditModeSagaAction({ id, isEditMode: true });
+    this.props.setTasksAction(
+      updateTask({ tasks: this.props.tasks, id, isEditMode: true }),
+    );
   };
 
   render() {
@@ -76,11 +68,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  initLoadManagerActionSaga,
-  fetchFormManagerSagaAction,
   postUpdateTask: updateTaskSagaAction,
   deleteTaskSagaAction,
-  setTaskEditModeSagaAction,
+  setTasksAction,
 };
 
 export const ConnectedTaskList = connect(

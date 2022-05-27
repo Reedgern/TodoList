@@ -5,7 +5,11 @@ type ParamsType = {
   id: string;
 } & Partial<TaskItemType>;
 
-export const updateTask = ({ tasks, id, ...taskFields }: ParamsType) => {
+export const updateTask = ({
+  tasks,
+  id,
+  ...taskFields
+}: ParamsType): TaskItemType[] => {
   return tasks.map((task) => {
     if (task.id !== id) {
       return task;

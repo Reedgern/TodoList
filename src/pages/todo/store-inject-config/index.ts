@@ -1,12 +1,8 @@
-import { StoreInjectConfig } from '@mihanizm56/redux-core-modules';
 import {
-  fetchTasksSagaAction,
-  TASKS_REDUCER_NAME,
-} from '@/_redux/todo-tasks-module';
-import {
-  FETCH_TASKS_WATCHER_SAGA_NAME,
-  fetchTasksWatcherSaga,
-} from '@/_redux/todo-tasks-module/sagas/fetch-tasks';
+  initLoadManagerActionSaga,
+  StoreInjectConfig,
+} from '@mihanizm56/redux-core-modules';
+import { TASKS_REDUCER_NAME } from '@/_redux/todo-tasks-module';
 import tasksReducer from '@/_redux/todo-tasks-module/reducer';
 import addTaskFormReducer, {
   ADD_TASK_FORM_REDUCER_NAME,
@@ -19,16 +15,13 @@ import {
   DELETE_TASK_WATCHER_SAGA_NAME,
   deleteTaskWatcherSaga,
 } from '@/_redux/todo-tasks-module/sagas/delete-task';
-import {
-  SET_TASK_EDIT_MODE_WATCHER_SAGA,
-  setTaskEditModeWatcherSaga,
-} from '@/_redux/todo-tasks-module/sagas/set-task-edit-mode';
+import { getFetchTasksConfig } from '@/pages/todo/_utils/get-fetch-tasks-config';
 
 export const storeInjectConfig = (): StoreInjectConfig => {
   return {
     additionalConfig: {
       callbackOnMount: (dispatch) => {
-        dispatch(fetchTasksSagaAction());
+        dispatch(initLoadManagerActionSaga(getFetchTasksConfig()));
       },
     },
     reducersToInject: [
@@ -42,16 +35,11 @@ export const storeInjectConfig = (): StoreInjectConfig => {
       },
     ],
     sagasToInject: [
-      { saga: fetchTasksWatcherSaga, name: FETCH_TASKS_WATCHER_SAGA_NAME },
       {
         saga: updateTaskWatcherSaga,
         name: UPDATE_TASK_WATCHER_SAGA_NAME,
       },
       { saga: deleteTaskWatcherSaga, name: DELETE_TASK_WATCHER_SAGA_NAME },
-      {
-        saga: setTaskEditModeWatcherSaga,
-        name: SET_TASK_EDIT_MODE_WATCHER_SAGA,
-      },
     ],
   };
 };

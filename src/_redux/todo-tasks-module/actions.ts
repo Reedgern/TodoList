@@ -4,13 +4,6 @@ import {
   UpdateTaskSagaActionPayloadType,
 } from '@/_redux/todo-tasks-module/_types';
 
-export const FETCH_TASKS = 'FETCH_TASKS';
-export const fetchTasksSagaAction: IReduxBaseAction<typeof FETCH_TASKS> =
-  () => ({
-    type: FETCH_TASKS,
-  });
-fetchTasksSagaAction.type = FETCH_TASKS;
-
 export const SET_TASKS_LOADING_START = 'SET_TASKS_LOADING_START';
 export const setTasksLoadingStartAction: IReduxBaseAction<
   typeof SET_TASKS_LOADING_START
@@ -67,13 +60,3 @@ export const closeModalAction: IReduxBaseAction<typeof CLOSE_MODAL> = () => ({
   type: CLOSE_MODAL,
 });
 closeModalAction.type = CLOSE_MODAL;
-
-export const SET_TASK_EDIT_MODE = 'SET_TASK_EDIT_MODE';
-export const setTaskEditModeSagaAction: IReduxAction<
-  { id: string; isEditMode: boolean },
-  typeof SET_TASK_EDIT_MODE
-> = (payload) => ({
-  type: SET_TASK_EDIT_MODE,
-  payload,
-});
-setTaskEditModeSagaAction.type = SET_TASK_EDIT_MODE;
