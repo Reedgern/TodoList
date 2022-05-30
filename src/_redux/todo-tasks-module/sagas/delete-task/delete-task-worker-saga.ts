@@ -2,10 +2,12 @@ import { call, put, select } from 'redux-saga/effects';
 import { IResponse } from '@mihanizm56/fetch-api';
 import { setModalAction } from '@wildberries/notifications';
 import { batchActions } from 'redux-batched-actions';
+import i18next from 'i18next';
 import { setTasksAction, tasksSelector } from '@/_redux/todo-tasks-module';
 import { updateTask } from '@/_redux/todo-tasks-module/sagas/_utils/update-task';
 import { deleteTaskRequest } from '@/api/requests/delete-task';
 import { deleteTask } from '@/_redux/todo-tasks-module/sagas/_utils/delete-task';
+import { TASKS_PAGE_TRANSLATIONS } from '@/pages/todo/page/_constants/translations';
 
 export function* deleteTaskWorkerSaga(id: string) {
   try {
@@ -33,8 +35,7 @@ export function* deleteTaskWorkerSaga(id: string) {
       batchActions([
         setModalAction({
           status: 'success',
-          title: 'Успех',
-          text: 'Таска успешно удалена!',
+          text: i18next.t(TASKS_PAGE_TRANSLATIONS.deleteTaskSuccessModalText),
         }),
         setTasksAction(tasksWithoutDeletedTask),
       ]),
@@ -53,7 +54,7 @@ export function* deleteTaskWorkerSaga(id: string) {
         setModalAction({
           status: 'error',
           text: error.message,
-          title: 'Ошибка удаления',
+          title: i18next.t(TASKS_PAGE_TRANSLATIONS.deleteTaskErrorModalTitle),
         }),
         setTasksAction(tasksWithLoadingTask),
       ]),

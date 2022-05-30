@@ -2,6 +2,7 @@ import { call, put, select } from 'redux-saga/effects';
 import { setModalAction } from '@wildberries/notifications';
 import { IResponse } from '@mihanizm56/fetch-api';
 import { batchActions } from 'redux-batched-actions';
+import i18next from 'i18next';
 import {
   setTasksAction,
   TaskItemType,
@@ -9,6 +10,7 @@ import {
 } from '@/_redux/todo-tasks-module';
 import { updateTask } from '@/_redux/todo-tasks-module/sagas/_utils/update-task';
 import { updateTaskRequest } from '@/api/requests/update-task';
+import { TASKS_PAGE_TRANSLATIONS } from '@/pages/todo/page/_constants/translations';
 
 export function* updateTaskWorkerSaga({
   id,
@@ -40,7 +42,7 @@ export function* updateTaskWorkerSaga({
       batchActions([
         setModalAction({
           status: 'success',
-          text: 'Таска изменена успешно',
+          text: i18next.t(TASKS_PAGE_TRANSLATIONS.updateTaskSuccessModalText),
         }),
         setTasksAction(
           updateTask({
@@ -59,7 +61,7 @@ export function* updateTaskWorkerSaga({
       setModalAction({
         status: 'error',
         text: error.message,
-        title: 'Ошибка изменения',
+        title: i18next.t(TASKS_PAGE_TRANSLATIONS.updateTaskErrorModalTitle),
       }),
     );
   } finally {
