@@ -1,0 +1,20 @@
+@import "@wildberries/ui-kit/lib/style.module";
+
+.Task-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__buttons-container {
+    display: flex;
+    gap: 10px;
+  }
+}
+
+@media #{$mobile} {
+  .Task-info {
+    &_buttons-container {
+      justify-content: end;
+    }
+  }
+}

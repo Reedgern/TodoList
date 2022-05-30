@@ -1,0 +1,18 @@
+@import "@wildberries/ui-kit/lib/style.module";
+
+.task-form {
+  padding: 10px;
+
+  &__buttons-container {
+    display: flex;
+    gap: 10px;
+  }
+}
+
+@media #{$mobile} {
+  .task-form {
+    &_button {
+      max-width: 36px;
+    }
+  }
+}
