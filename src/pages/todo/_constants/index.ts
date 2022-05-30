@@ -1,1 +1,1 @@
-export const PAGE_SUB_NAMESPACE = 'tasks-sub-namespace';
+export const PAGE_SUB_NAMESPACE = 'tasks';

@@ -7,8 +7,8 @@ type ParamsType = {
 
 const REQUEST_TIMEOUT = 30000;
 
-export const i18nextRequest = ({ endpoint }: ParamsType) =>
-  new PureRestRequest().getRequest({
+export const i18nextRequest = ({ endpoint }: ParamsType) => {
+  return new PureRestRequest().getRequest({
     extraValidationCallback: () => true,
     endpoint,
     parseType: 'json',
@@ -19,3 +19,4 @@ export const i18nextRequest = ({ endpoint }: ParamsType) =>
     isErrorTextStraightToOutput: true,
     retry: 3,
   });
+};

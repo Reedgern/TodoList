@@ -10,7 +10,7 @@ import {
 } from '@/pages/todo/_redux/add-task-form-module';
 import { TaskForm } from '@/pages/todo/page/_components/task-form';
 import { FormValuesType } from '@/pages/todo/page/_components/task-form/_types';
-import { getFormSubmitConfig } from '@/pages/todo/page/_components/connected-open-add-task-form-modal-button/_components/open-add-task-form-modal-button-view/_components/connected-add-task-form-modal/_utils/getFormSubmitConfig';
+import { getFormSubmitConfig } from '@/pages/todo/page/_components/connected-add-task-form-modal/_components/add-task-form-modal-view/_components/connected-add-task-form-modal/_utils/getFormSubmitConfig';
 
 type PropsType = {
   initialValues: FormValuesType;

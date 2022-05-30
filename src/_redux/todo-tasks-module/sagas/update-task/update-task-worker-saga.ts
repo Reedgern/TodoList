@@ -1,6 +1,7 @@
 import { call, put, select } from 'redux-saga/effects';
 import { setModalAction } from '@wildberries/notifications';
 import { IResponse } from '@mihanizm56/fetch-api';
+import { batchActions } from 'redux-batched-actions';
 import {
   setTasksAction,
   TaskItemType,
@@ -9,12 +10,11 @@ import {
 import { updateTask } from '@/_redux/todo-tasks-module/sagas/_utils/update-task';
 import { updateTaskRequest } from '@/api/requests/update-task';
 
-type ParamsType = {
-  id: string;
-} & Partial<TaskItemType>;
-
-// спред лишний. обычные переменные {id, description, isCompleted} были бы читаемыми - а так + 2 оператора
-export function* updateTaskWorkerSaga({ id, ...taskFields }: ParamsType) {
+export function* updateTaskWorkerSaga({
+  id,
+  description,
+  isCompleted,
+}: TaskItemType) {
   try {
     yield put(
       setTasksAction(
@@ -28,8 +28,8 @@ export function* updateTaskWorkerSaga({ id, ...taskFields }: ParamsType) {
 
     const { error, errorText }: IResponse = yield call(updateTaskRequest, {
       id,
-      description: taskFields.description,
-      isCompleted: taskFields.isCompleted,
+      description,
+      isCompleted,
     });
 
     if (error) {
@@ -37,34 +37,24 @@ export function* updateTaskWorkerSaga({ id, ...taskFields }: ParamsType) {
     }
 
     yield put(
-      setTasksAction(
-        updateTask({
-          tasks: yield select(tasksSelector),
-          id,
-          ...taskFields,
+      batchActions([
+        setModalAction({
+          status: 'success',
+          text: 'Таска изменена успешно',
         }),
-      ),
-    );
-
-    yield put(
-      setModalAction({
-        status: 'success',
-        text: 'Таска изменена успешно',
-      }),
-    );
-
-    yield put(
-      setTasksAction(
-        updateTask({
-          tasks: yield select(tasksSelector),
-          id,
-          isEditMode: false,
-        }),
-      ),
+        setTasksAction(
+          updateTask({
+            tasks: yield select(tasksSelector),
+            id,
+            description,
+            isCompleted,
+            isEditMode: false,
+          }),
+        ),
+      ]),
     );
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.log('Error in setTaskEditModeWorkerSaga', error);
+    console.error('Error in setTaskEditModeWorkerSaga', error);
     yield put(
       setModalAction({
         status: 'error',

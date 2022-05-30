@@ -1,19 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { OpenAddTaskFormModalButtonView } from '@/pages/todo/page/_components/connected-open-add-task-form-modal-button/_components/open-add-task-form-modal-button-view';
+import { AddTaskFormModalView } from '@/pages/todo/page/_components/connected-add-task-form-modal/_components/add-task-form-modal-view';
 import {
   closeModalAction,
   modalIsOpenedSelector,
-  openModalAction,
 } from '@/_redux/todo-tasks-module';
 
 type PropsType = {
   modalIsOpened: boolean;
   closeModal: () => void;
-  openModal: () => void;
 };
 
-// eslint-disable-next-line react/prefer-stateless-function
 class WrappedComponent extends React.Component<PropsType> {
   handleClose = () => {
     this.props.closeModal();
@@ -21,12 +18,8 @@ class WrappedComponent extends React.Component<PropsType> {
 
   render() {
     return (
-      // too long name
-      <OpenAddTaskFormModalButtonView
-        // не передаем анпрямую экшены
-        // через метод в классе обязательно
+      <AddTaskFormModalView
         modalIsOpened={this.props.modalIsOpened}
-        onClick={this.props.openModal}
         onModalClose={this.handleClose}
       />
     );
@@ -39,11 +32,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   closeModal: closeModalAction,
-  openModal: openModalAction,
 };
 
-// too long name
-export const ConnectedOpenAddTaskFormModalButton = connect(
+export const ConnectedAddTaskFormModal = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(WrappedComponent);

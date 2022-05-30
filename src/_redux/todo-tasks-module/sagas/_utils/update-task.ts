@@ -8,21 +8,16 @@ type ParamsType = {
 export const updateTask = ({
   tasks,
   id,
-  ...taskFields
+  ...taskNewParams
 }: ParamsType): TaskItemType[] => {
-  return tasks.map((task) => {
-    if (task.id !== id) {
-      return task;
+  return tasks.map((taskParams) => {
+    if (taskParams.id !== id) {
+      return taskParams;
     }
 
-    // тут можешь получить неприятную багу когда случайно поменяешь местами task и taskFields
-    // чтобы от этого защититься - надо явно передать айдишник и остальные поля - и уже их явно записать
-    // например
-    // return newTaskData
-
     return {
-      ...task,
-      ...taskFields,
+      ...taskParams,
+      ...taskNewParams,
     };
   });
 };

@@ -1,7 +1,4 @@
-import {
-  initLoadManagerActionSaga,
-  StoreInjectConfig,
-} from '@mihanizm56/redux-core-modules';
+import { StoreInjectConfig } from '@mihanizm56/redux-core-modules';
 import { TASKS_REDUCER_NAME } from '@/_redux/todo-tasks-module';
 import tasksReducer from '@/_redux/todo-tasks-module/reducer';
 import addTaskFormReducer, {
@@ -16,18 +13,19 @@ import {
   deleteTaskWatcherSaga,
 } from '@/_redux/todo-tasks-module/sagas/delete-task';
 import { getFetchTasksConfig } from '@/pages/todo/_utils/get-fetch-tasks-config';
+import reducerUI, { MODULE_REDUCER_NAME } from '@/_redux/ui-module';
 
 export const storeInjectConfig = (): StoreInjectConfig => {
   return {
-    additionalConfig: {
-      callbackOnMount: (dispatch) => {
-        dispatch(initLoadManagerActionSaga(getFetchTasksConfig()));
-      },
-    },
+    initialLoadManagerConfig: getFetchTasksConfig(),
     reducersToInject: [
       {
         name: TASKS_REDUCER_NAME,
         reducer: tasksReducer,
+      },
+      {
+        name: MODULE_REDUCER_NAME,
+        reducer: reducerUI,
       },
       {
         name: ADD_TASK_FORM_REDUCER_NAME,

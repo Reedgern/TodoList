@@ -1,0 +1,22 @@
+{
+  "tasks": {
+    "page-title": "Список задач",
+    "empty-list-message": "На данный момент нет ни одной задачи...",
+    "task-edit-mode-title": "Режим редактирования",
+    "task-view-mode-title": "Информация о задаче",
+    "form": {
+      "open-modal-button": "Добавить задачу",
+      "title": "Создание новой задачи",
+      "buttons": {
+        "save": "Сохранить",
+        "delete": "Удалить",
+        "cancel": "Отменить",
+        "edit": "Редактировать"
+      },
+      "fields": {
+        "description": "Описание",
+        "isCompleted": "Выполнена?"
+      }
+    }
+  }
+}
