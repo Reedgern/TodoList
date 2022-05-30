@@ -5,20 +5,19 @@ type ParamsType = {
   id: string;
 } & Partial<TaskItemType>;
 
-export const updateTask = ({ tasks, id, ...taskFields }: ParamsType) => {
-  return tasks.map((task) => {
-    if (task.id !== id) {
-      return task;
+export const updateTask = ({
+  tasks,
+  id,
+  ...taskNewParams
+}: ParamsType): TaskItemType[] => {
+  return tasks.map((taskParams) => {
+    if (taskParams.id !== id) {
+      return taskParams;
     }
 
-    // тут можешь получить неприятную багу когда случайно поменяешь местами task и taskFields
-    // чтобы от этого защититься - надо явно передать айдишник и остальные поля - и уже их явно записать
-    // например
-    // return newTaskData
-
     return {
-      ...task,
-      ...taskFields,
+      ...taskParams,
+      ...taskNewParams,
     };
   });
 };

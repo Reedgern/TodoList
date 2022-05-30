@@ -1,7 +1,8 @@
 import React, { memo, useCallback, useMemo } from 'react';
 import classnames from 'classnames/bind';
 import { Text } from '@wildberries/ui-kit';
-import { TASKS_PAGE_TEXTS } from '@/pages/todo/page/_constants/text';
+import i18next from 'i18next';
+import { TASKS_PAGE_TRANSLATIONS } from '@/pages/todo/page/_constants/translations';
 import { TaskForm } from '@/pages/todo/page/_components/task-form';
 import { FormValuesType } from '@/pages/todo/page/_components/task-form/_types';
 import styles from './index.module.scss';
@@ -37,9 +38,11 @@ export const TaskCardView = memo(
   }: PropsType) => {
     const title = useMemo(
       () =>
-        isEditMode
-          ? TASKS_PAGE_TEXTS.editModeTaskTitle
-          : TASKS_PAGE_TEXTS.viewModeTaskTitle,
+        i18next.t(
+          isEditMode
+            ? TASKS_PAGE_TRANSLATIONS.editModeTaskTitle
+            : TASKS_PAGE_TRANSLATIONS.viewModeTaskTitle,
+        ),
       [isEditMode],
     );
 
@@ -57,7 +60,7 @@ export const TaskCardView = memo(
       <div
         className={cn(BLOCK_NAME, {
           [`${BLOCK_NAME}--completed`]: isCompleted,
-          [`${BLOCK_NAME}_edit-mode`]: isEditMode,
+          [`${BLOCK_NAME}--edit-mode`]: isEditMode,
         })}
       >
         <Text text={title} />

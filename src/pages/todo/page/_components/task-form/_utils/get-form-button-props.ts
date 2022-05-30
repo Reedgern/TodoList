@@ -3,7 +3,8 @@ import {
   NavigationDeleteCircleIcon,
 } from '@wildberries/ui-kit';
 import { ButtonLinkPropsType } from '@wildberries/ui-kit/lib/button-link/button-link';
-import { TASKS_PAGE_TEXTS } from '@/pages/todo/page/_constants/text';
+import i18next from 'i18next';
+import { TASKS_PAGE_TRANSLATIONS } from '@/pages/todo/page/_constants/translations';
 
 type SaveButtonParamsType = {
   isMobile: boolean;
@@ -17,7 +18,6 @@ type CancelButtonParamsType = {
   onClick: () => void;
 };
 
-// Filename!!!
 export const getFormSaveButtonProps = ({
   invalid,
   isMobile,
@@ -38,7 +38,7 @@ export const getFormSaveButtonProps = ({
     disabled: invalid || isLoading,
     isLoading,
     isTextCenter: true,
-    text: TASKS_PAGE_TEXTS.submitFormButtonText,
+    text: i18next.t(TASKS_PAGE_TRANSLATIONS.submitFormButtonText),
     size: 'small',
     type: 'submit',
   };
@@ -52,7 +52,6 @@ export const getFormCancelButtonProps = ({
   if (isMobile) {
     return {
       disabled: isLoading,
-      isLoading,
       isTextCenter: true,
       rightIcon: NavigationDeleteCircleIcon,
       size: 'small',
@@ -63,10 +62,9 @@ export const getFormCancelButtonProps = ({
 
   return {
     disabled: isLoading,
-    isLoading,
     isTextCenter: true,
     onClick,
-    text: TASKS_PAGE_TEXTS.cancelButtonText,
+    text: i18next.t(TASKS_PAGE_TRANSLATIONS.cancelButtonText),
     size: 'small',
     type: 'submit',
   };

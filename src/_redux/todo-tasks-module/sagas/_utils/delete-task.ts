@@ -1,10 +1,10 @@
 import { TaskItemType } from '@/_redux/todo-tasks-module';
 
 type ParamsType = {
-  tasks: Array<TaskItemType>;
+  tasks: TaskItemType[];
   id: string;
 };
 
-export const deleteTask = ({ tasks, id }: ParamsType) => {
+export const deleteTask = ({ tasks, id }: ParamsType): TaskItemType[] => {
   return tasks.filter((task) => task.id !== id);
 };

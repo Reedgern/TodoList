@@ -1,6 +1,8 @@
 import { call, put, select } from 'redux-saga/effects';
 import { setModalAction } from '@wildberries/notifications';
 import { IResponse } from '@mihanizm56/fetch-api';
+import { batchActions } from 'redux-batched-actions';
+import i18next from 'i18next';
 import {
   setTasksAction,
   TaskItemType,
@@ -8,14 +10,13 @@ import {
 } from '@/_redux/todo-tasks-module';
 import { updateTask } from '@/_redux/todo-tasks-module/sagas/_utils/update-task';
 import { updateTaskRequest } from '@/api/requests/update-task';
-import { setTaskEditModeWorkerSaga } from '@/_redux/todo-tasks-module/sagas/set-task-edit-mode';
+import { TASKS_PAGE_TRANSLATIONS } from '@/pages/todo/page/_constants/translations';
 
-type ParamsType = {
-  id: string;
-} & Partial<TaskItemType>;
-
-// спред лишний. обычные переменные {id, description, isCompleted} были бы читаемыми - а так + 2 оператора
-export function* updateTaskWorkerSaga({ id, ...taskFields }: ParamsType) {
+export function* updateTaskWorkerSaga({
+  id,
+  description,
+  isCompleted,
+}: TaskItemType) {
   try {
     yield put(
       setTasksAction(
@@ -29,8 +30,8 @@ export function* updateTaskWorkerSaga({ id, ...taskFields }: ParamsType) {
 
     const { error, errorText }: IResponse = yield call(updateTaskRequest, {
       id,
-      description: taskFields.description,
-      isCompleted: taskFields.isCompleted,
+      description,
+      isCompleted,
     });
 
     if (error) {
@@ -38,31 +39,29 @@ export function* updateTaskWorkerSaga({ id, ...taskFields }: ParamsType) {
     }
 
     yield put(
-      setTasksAction(
-        updateTask({
-          tasks: yield select(tasksSelector),
-          id,
-          ...taskFields,
+      batchActions([
+        setModalAction({
+          status: 'success',
+          text: i18next.t(TASKS_PAGE_TRANSLATIONS.updateTaskSuccessModalText),
         }),
-      ),
+        setTasksAction(
+          updateTask({
+            tasks: yield select(tasksSelector),
+            id,
+            description,
+            isCompleted,
+            isEditMode: false,
+          }),
+        ),
+      ]),
     );
-
-    yield put(
-      setModalAction({
-        status: 'success',
-        text: 'Таска изменена успешно',
-      }),
-    );
-
-    yield call(setTaskEditModeWorkerSaga, { id, isEditMode: false });
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.log('Error in setTaskEditModeWorkerSaga', error);
+    console.error('Error in setTaskEditModeWorkerSaga', error);
     yield put(
       setModalAction({
         status: 'error',
         text: error.message,
-        title: 'Ошибка изменения',
+        title: i18next.t(TASKS_PAGE_TRANSLATIONS.updateTaskErrorModalTitle),
       }),
     );
   } finally {

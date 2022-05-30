@@ -1,0 +1,39 @@
+{
+  "backend-errors": {
+    "authorization-error": "Не удалось авторизоваться",
+    "get-supplier-error": "Не удалось получить данные поставщика",
+    "get-costs-error": "Не удалось найти стоимости хранения",
+    "Failed to fetch": "Системная ошибка",
+    "network-error": "Системная ошибка",
+    "timeout-error": "Превышено время ожидания запроса"
+  },
+  "notifications": {
+    "form-submit-error-title": "Ошибка отправки формы",
+    "fetch-tasks-error-title": "Ошибка получения списка задач",
+    "add-task-error-title": "Ошибка добавления новой задачи",
+    "update-task-error-title": "Ошибка изменения задачи",
+    "update-task-success-text": "Задача успешно изменена",
+    "delete-task-error-title": "Ошибка удаления задачи",
+    "delete-task-success-text": "Задача успешно удалена"
+  },
+  "tasks": {
+    "page-title": "Список задач",
+    "empty-list-message": "На данный момент нет ни одной задачи...",
+    "task-edit-mode-title": "Режим редактирования",
+    "task-view-mode-title": "Информация о задаче",
+    "form": {
+      "open-modal-button": "Добавить задачу",
+      "title": "Создание новой задачи",
+      "buttons": {
+        "save": "Сохранить",
+        "delete": "Удалить",
+        "cancel": "Отменить",
+        "edit": "Редактировать"
+      },
+      "fields": {
+        "description": "Описание",
+        "isCompleted": "Выполнена?"
+      }
+    }
+  }
+}

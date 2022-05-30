@@ -1,10 +1,11 @@
 import React, { memo } from 'react';
 import { Preloader, Text } from '@wildberries/ui-kit';
 import classnames from 'classnames/bind';
-import { TASKS_PAGE_TEXTS } from '@/pages/todo/page/_constants/text';
+import i18next from 'i18next';
 import { TaskCardView } from '@/pages/todo/page/_components/connected-task-list/_components/task-list-view/_components/task-card';
 import { TaskItemType } from '@/_redux/todo-tasks-module';
 import { FormValuesType } from '@/pages/todo/page/_components/task-form/_types';
+import { TASKS_PAGE_TRANSLATIONS } from '@/pages/todo/page/_constants/translations';
 import styles from './index.module.scss';
 
 type PropsType = {
@@ -39,7 +40,7 @@ export const TaskListView = memo(
     return (
       <div className={cn(BLOCK_NAME)}>
         {tasks.length === 0 ? (
-          <Text text={TASKS_PAGE_TEXTS.noTasksMessage} />
+          <Text text={i18next.t(TASKS_PAGE_TRANSLATIONS.noTasksMessage)} />
         ) : (
           tasks.map((task) => (
             <TaskCardView

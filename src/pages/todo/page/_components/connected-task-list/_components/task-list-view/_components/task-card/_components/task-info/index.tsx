@@ -1,11 +1,10 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import classnames from 'classnames/bind';
+import { ButtonLink, Text } from '@wildberries/ui-kit';
 import {
-  BasicPencilEditIcon,
-  BasicTrashIcon,
-  ButtonLink,
-  Text,
-} from '@wildberries/ui-kit';
+  getRemoveButtonProps,
+  getTaskEditButtonProps,
+} from '@/pages/todo/page/_components/connected-task-list/_components/task-list-view/_components/task-card/_components/task-info/_utils/get-button-props';
 import styles from './index.module.scss';
 
 const cn = classnames.bind(styles);
@@ -28,33 +27,25 @@ export const TaskInfo = memo(
     onEditClick,
     isLoading,
   }: PropsType) => {
+    const editButtonProps = useMemo(
+      () => getTaskEditButtonProps({ isLoading, onClick: onEditClick }),
+      [isLoading, onEditClick],
+    );
+    const removeButtonProps = useMemo(
+      () => getRemoveButtonProps({ isLoading, onClick: onRemoveClick }),
+      [isLoading, onRemoveClick],
+    );
+
     return (
       <div
         className={cn(BLOCK_NAME, { [`${BLOCK_NAME}_completed`]: isCompleted })}
       >
         <Text text={description} />
         <div className={cn(`${BLOCK_NAME}__buttons-container`)}>
-          <ButtonLink
-            disabled={isLoading}
-            isLoading={isLoading}
-            notFullWidthOnMobile
-            onClick={onEditClick}
-            rightIcon={BasicPencilEditIcon}
-            size="small"
-            type="button"
-            variant="add"
-          />
-          <ButtonLink
-            disabled={isLoading}
-            // не очень понял почему при загрузке тут лоадер
-            isLoading={isLoading}
-            notFullWidthOnMobile
-            onClick={onRemoveClick}
-            rightIcon={BasicTrashIcon}
-            size="small"
-            type="button"
-            variant="remove"
-          />
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          <ButtonLink {...editButtonProps} />
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          <ButtonLink {...removeButtonProps} />
         </div>
       </div>
     );
