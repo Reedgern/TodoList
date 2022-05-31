@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Preloader, Text } from '@wildberries/ui-kit';
 import classnames from 'classnames/bind';
 import i18next from 'i18next';
-import { TaskCardView } from '@/pages/todo/page/_components/connected-task-list/_components/task-list-view/_components/task-card';
+import { TaskCardView } from '@/pages/todo/page/_components/connected-task-list/_components/task-list-view/_components/task-card-view';
 import { TaskItemType } from '@/_redux/todo-tasks-module';
 import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form-view/_types';
 import { TASKS_PAGE_TRANSLATIONS } from '@/pages/todo/page/_constants/translations';
@@ -42,20 +42,23 @@ export const TaskListView = memo(
         {tasks.length === 0 ? (
           <Text text={i18next.t(TASKS_PAGE_TRANSLATIONS.noTasksMessage)} />
         ) : (
-          tasks.map((task) => (
-            <TaskCardView
-              key={task.id}
-              description={task.description}
-              id={task.id}
-              isCompleted={task.isCompleted}
-              isEditMode={task.isEditMode}
-              isLoading={task.isLoading}
-              onCancel={onCancelEditTask}
-              onDelete={onDeleteTask}
-              onEdit={onEditTask}
-              onUpdate={onUpdateTask}
-            />
-          ))
+          <ul>
+            {tasks.map((task) => (
+              <li key={task.id} className={cn(`${BLOCK_NAME}__list-item`)}>
+                <TaskCardView
+                  description={task.description}
+                  id={task.id}
+                  isCompleted={task.isCompleted}
+                  isEditMode={task.isEditMode}
+                  isLoading={task.isLoading}
+                  onCancel={onCancelEditTask}
+                  onDelete={onDeleteTask}
+                  onEdit={onEditTask}
+                  onUpdate={onUpdateTask}
+                />
+              </li>
+            ))}
+          </ul>
         )}
       </div>
     );

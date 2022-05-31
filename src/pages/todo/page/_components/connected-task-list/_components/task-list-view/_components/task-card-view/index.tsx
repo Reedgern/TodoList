@@ -1,10 +1,10 @@
-import React, { memo, useCallback, useMemo } from 'react';
+import React, { memo, useMemo } from 'react';
 import classnames from 'classnames/bind';
 import { Text } from '@wildberries/ui-kit';
 import i18next from 'i18next';
 import { TASKS_PAGE_TRANSLATIONS } from '@/pages/todo/page/_constants/translations';
-import { TaskFormView } from '@/pages/todo/page/_components/task-form-view';
 import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form-view/_types';
+import { EditTaskFormView } from '@/pages/todo/page/_components/connected-task-list/_components/task-list-view/_components/task-card-view/_components/edit-task-form-view';
 import styles from './index.module.scss';
 import { TaskInfo } from './_components/task-info';
 
@@ -49,9 +49,6 @@ export const TaskCardView = memo(
       [description, isCompleted],
     );
 
-    const handleSubmit = useMemo(() => onUpdate(id), [onUpdate, id]);
-    const handleCancel = useCallback(() => onCancel(id), [onCancel, id]);
-
     return (
       <div
         className={cn(BLOCK_NAME, {
@@ -62,11 +59,12 @@ export const TaskCardView = memo(
         <Text text={title} />
 
         {isEditMode ? (
-          <TaskFormView
+          <EditTaskFormView
+            id={id}
             initialValues={initialValues}
             isLoading={isLoading}
-            onCancel={handleCancel}
-            onSubmit={handleSubmit}
+            onCancel={onCancel}
+            onSubmit={onUpdate}
           />
         ) : (
           <TaskInfo

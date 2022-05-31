@@ -9,6 +9,7 @@ import {
 } from '@wildberries/ui-kit';
 import { ScreenType } from '@wildberries/ui-kit/lib/hocs/with-screen-resize-detect-hoc/types';
 import { FormApi } from 'final-form';
+import i18next from 'i18next';
 import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form-view/_types';
 import { ADD_TASK_FORM_FIELDS_NAMES } from '@/pages/todo/page/_components/task-form-view/_constants';
 import { addTaskFormValidations } from '@/pages/todo/page/_components/task-form-view/_utils/validators';
@@ -16,6 +17,7 @@ import {
   getFormCancelButtonProps,
   getFormSaveButtonProps,
 } from '@/pages/todo/page/_components/task-form-view/_utils/get-form-button-props';
+import { TASKS_PAGE_TRANSLATIONS } from '@/pages/todo/page/_constants/translations';
 import styles from './index.module.scss';
 
 const cn = classnames.bind(styles);
@@ -29,6 +31,7 @@ type PropsType = {
   onCancel?: () => void;
   initialValues?: AddTaskFormValuesType;
   screenType: ScreenType;
+  id?: string;
 };
 
 const BLOCK_NAME = 'Task-form';
@@ -41,7 +44,14 @@ const FORM_SUBSCRIPTION = {
 };
 
 const WrappedComponent = memo(
-  ({ onSubmit, onCancel, initialValues, isLoading, screenType }: PropsType) => {
+  ({
+    onSubmit,
+    onCancel,
+    initialValues,
+    isLoading,
+    screenType,
+    id,
+  }: PropsType) => {
     const isMobile = useMemo(() => screenType === 'mobile', [screenType]);
 
     return (
@@ -68,7 +78,9 @@ const WrappedComponent = memo(
               <Field
                 component={FormTextAreaInput}
                 disabled={isLoading}
-                label="Описание"
+                label={i18next.t(
+                  TASKS_PAGE_TRANSLATIONS.taskFormDescriptionLabel,
+                )}
                 name={ADD_TASK_FORM_FIELDS_NAMES.description}
                 required
                 validate={addTaskFormValidations.description}
@@ -76,7 +88,9 @@ const WrappedComponent = memo(
               <Field
                 component={FormCheckbox}
                 disabled={isLoading}
-                label="Выполнена?"
+                label={i18next.t(
+                  TASKS_PAGE_TRANSLATIONS.taskFormIsCompletedLabel,
+                )}
                 name={ADD_TASK_FORM_FIELDS_NAMES.isCompleted}
                 type="checkbox"
               />

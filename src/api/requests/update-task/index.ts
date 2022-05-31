@@ -7,4 +7,4 @@ import {
 export const updateTaskRequest = (
   params: RequestParamsType,
 ): Promise<IResponse> =>
-  new RestRequest().postRequest(makeRequestConfig(params));
+  new RestRequest().putRequest(makeRequestConfig(params));

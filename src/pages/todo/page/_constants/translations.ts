@@ -21,4 +21,6 @@ export const TASKS_PAGE_TRANSLATIONS = {
   updateTaskSuccessModalText: `${appNamespace}:${NOTIFICATIONS_SUB_NAMESPACE}.update-task-success-text`,
   deleteTaskErrorModalTitle: `${appNamespace}:${NOTIFICATIONS_SUB_NAMESPACE}.delete-task-error-title`,
   deleteTaskSuccessModalText: `${appNamespace}:${NOTIFICATIONS_SUB_NAMESPACE}.delete-task-success-text`,
+  taskFormDescriptionLabel: `${appNamespace}:${PAGE_SUB_NAMESPACE}.form.field-labels.description`,
+  taskFormIsCompletedLabel: `${appNamespace}:${PAGE_SUB_NAMESPACE}.form.field-labels.is-completed`,
 };

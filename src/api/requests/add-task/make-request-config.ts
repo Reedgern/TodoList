@@ -1,6 +1,6 @@
 import { IRequestParams } from '@mihanizm56/fetch-api';
-import { ENDPOINT_ADD_TASK } from '@/api/endpoints/todo-tasks/urls';
 import { requestTranslateFunction } from '@/_constants/i18next/i18next-constants';
+import { TASKS_ENDPOINT } from '@/api/endpoints';
 import { responseSchema } from './response-schema';
 
 export type AddTaskRequestType = {
@@ -13,7 +13,7 @@ export const makeRequestConfig = ({
   abortRequestId,
   ...params
 }: AddTaskRequestType): IRequestParams => ({
-  endpoint: ENDPOINT_ADD_TASK,
+  endpoint: TASKS_ENDPOINT,
   responseSchema,
   translateFunction: requestTranslateFunction,
   body: params,

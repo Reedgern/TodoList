@@ -30,9 +30,9 @@
         "cancel": "Отменить",
         "edit": "Редактировать"
       },
-      "fields": {
+      "field-labels": {
         "description": "Описание",
-        "isCompleted": "Выполнена?"
+        "is-completed": "Выполнена?"
       }
     }
   }

@@ -1,13 +1,11 @@
 @import "@wildberries/ui-kit/lib/style.module";
 
 .Task-info {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 
   &__buttons-container {
     display: flex;
     gap: 10px;
+    margin-top: 10px;
   }
 }
 
