@@ -11,7 +11,7 @@ import { TasksStorageType } from './_types';
 export const initialState: TasksStorageType = {
   tasks: [],
   isLoading: false,
-  modalIsOpened: false,
+  isModalOpened: false,
 };
 
 type ActionsType =
@@ -48,13 +48,13 @@ const reducer = (
     case openModalAction.type: {
       return {
         ...state,
-        modalIsOpened: true,
+        isModalOpened: true,
       };
     }
     case closeModalAction.type: {
       return {
         ...state,
-        modalIsOpened: false,
+        isModalOpened: false,
       };
     }
     default:

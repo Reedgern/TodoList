@@ -9,4 +9,12 @@ module.exports = (app) => {
       changeOrigin: true,
     }),
   );
+
+  app.use(
+    '/I18N',
+    proxy({
+      target: 'http://localhost:8081',
+      changeOrigin: true,
+    }),
+  );
 };

@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { memo, useMemo } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import classnames from 'classnames/bind';
 import { ButtonLink, Text } from '@wildberries/ui-kit';
 import {
@@ -11,39 +11,35 @@ import styles from './index.module.scss';
 const cn = classnames.bind(styles);
 
 type PropsType = {
+  id: string;
   description: string;
-  isCompleted: boolean;
-  onEditClick: () => void;
-  onRemoveClick: () => void;
+  onEditClick: (id: string) => void;
+  onRemoveClick: (id: string) => void;
   isLoading: boolean;
 };
 
 const BLOCK_NAME = 'Task-info';
 
 export const TaskInfo = memo(
-  ({
-    description,
-    isCompleted,
-    onRemoveClick,
-    onEditClick,
-    isLoading,
-  }: PropsType) => {
+  ({ description, onRemoveClick, onEditClick, isLoading, id }: PropsType) => {
+    const handleRemove = useCallback(
+      () => onRemoveClick(id),
+      [onRemoveClick, id],
+    );
+
+    const handleEdit = useCallback(() => onEditClick(id), [onEditClick, id]);
+
     const editButtonProps = useMemo(
-      () => getTaskEditButtonProps({ isLoading, onClick: onEditClick }),
-      [isLoading, onEditClick],
+      () => getTaskEditButtonProps({ isLoading, onClick: handleEdit }),
+      [isLoading, handleEdit],
     );
     const removeButtonProps = useMemo(
-      () => getRemoveButtonProps({ isLoading, onClick: onRemoveClick }),
-      [isLoading, onRemoveClick],
+      () => getRemoveButtonProps({ isLoading, onClick: handleRemove }),
+      [isLoading, handleRemove],
     );
 
     return (
-      <div
-        className={cn(BLOCK_NAME, {
-          // проверь чтобы ВСЕ модификаторы в проекте были по единообразной, принятой конвенции БЭМ
-          [`${BLOCK_NAME}_completed`]: isCompleted,
-        })}
-      >
+      <div className={cn(BLOCK_NAME)}>
         <Text text={description} />
 
         <div className={cn(`${BLOCK_NAME}__buttons-container`)}>

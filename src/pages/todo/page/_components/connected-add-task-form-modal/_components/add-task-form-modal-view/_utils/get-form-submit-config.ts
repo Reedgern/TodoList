@@ -11,15 +11,15 @@ import { addTaskRequest } from '@/api/requests/add-task';
 import { closeModalAction } from '@/_redux/todo-tasks-module';
 import { getFetchTasksConfig } from '@/pages/todo/_utils/get-fetch-tasks-config';
 import { TASKS_PAGE_TRANSLATIONS } from '@/pages/todo/page/_constants/translations';
+import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form-view/_types';
 
 const TITLE_MESSAGE_ERROR = i18next.t(
   TASKS_PAGE_TRANSLATIONS.formSubmitErrorModalTitle,
 );
 
-// FILENAME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-
-// params type
-export const getFormSubmitConfig = (values): FormManagerType => {
+export const getFormSubmitConfig = (
+  values: AddTaskFormValuesType,
+): FormManagerType => {
   return {
     formValues: values,
     showNotification: true,

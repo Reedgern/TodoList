@@ -1,26 +1,43 @@
 import { Modal } from '@wildberries/ui-kit';
 import React, { memo } from 'react';
 import i18next from 'i18next';
+import { FormApi } from 'final-form';
 import { TASKS_PAGE_TRANSLATIONS } from '@/pages/todo/page/_constants/translations';
-import { ConnectedAddTaskForm } from '@/pages/todo/page/_components/connected-add-task-form-modal/_components/add-task-form-modal-view/_components/connected-add-task-form-modal';
+import { TaskFormView } from '@/pages/todo/page/_components/task-form-view';
+import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form-view/_types';
 
 type PropsType = {
-  modalIsOpened: boolean;
+  isModalOpened: boolean;
   onModalClose: () => void;
+  isFormLoading: boolean;
+  formInitialValues: AddTaskFormValuesType;
+  onSubmit: (
+    values: AddTaskFormValuesType,
+    form: FormApi<AddTaskFormValuesType>,
+  ) => void;
 };
 
 export const AddTaskFormModalView = memo(
-  ({ modalIsOpened, onModalClose }: PropsType) => {
+  ({
+    isModalOpened,
+    onModalClose,
+    isFormLoading,
+    formInitialValues,
+    onSubmit,
+  }: PropsType) => {
     return (
       <Modal
         disableOverlayClick
-        isOpened={modalIsOpened}
+        isOpened={isModalOpened}
         isShowCloseIcon
         onClose={onModalClose}
         title={i18next.t(TASKS_PAGE_TRANSLATIONS.addFormTitle)}
       >
-        {/* коннектед рендерит коннектед. причём кроме как оборачивания в модалку нет ничего */}
-        <ConnectedAddTaskForm />
+        <TaskFormView
+          initialValues={formInitialValues}
+          isLoading={isFormLoading}
+          onSubmit={onSubmit}
+        />
       </Modal>
     );
   },

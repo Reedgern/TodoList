@@ -3,8 +3,8 @@ import classnames from 'classnames/bind';
 import { Text } from '@wildberries/ui-kit';
 import i18next from 'i18next';
 import { TASKS_PAGE_TRANSLATIONS } from '@/pages/todo/page/_constants/translations';
-import { TaskForm } from '@/pages/todo/page/_components/task-form';
-import { FormValuesType } from '@/pages/todo/page/_components/task-form/_types';
+import { TaskFormView } from '@/pages/todo/page/_components/task-form-view';
+import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form-view/_types';
 import styles from './index.module.scss';
 import { TaskInfo } from './_components/task-info';
 
@@ -16,7 +16,7 @@ type PropsType = {
   description: string;
   isCompleted: boolean;
   onDelete: (id: string) => void;
-  onUpdate: (id: string) => (values: FormValuesType) => void;
+  onUpdate: (id: string) => (values: AddTaskFormValuesType) => void;
   isEditMode: boolean;
   onCancel: (id: string) => void;
   onEdit: (id: string) => void;
@@ -36,28 +36,20 @@ export const TaskCardView = memo(
     onEdit,
     isEditMode,
   }: PropsType) => {
-    const title = useMemo(
-      () =>
-        // ключ вынести в переменную и в вызове НИКОГДА не делать тернарного оператора
-        // const option = a ? b : c
-        // func(option)
-        i18next.t(
-          isEditMode
-            ? TASKS_PAGE_TRANSLATIONS.editModeTaskTitle
-            : TASKS_PAGE_TRANSLATIONS.viewModeTaskTitle,
-        ),
-      [isEditMode],
-    );
+    const title = useMemo(() => {
+      const titleToTranslate = isEditMode
+        ? TASKS_PAGE_TRANSLATIONS.editModeTaskTitle
+        : TASKS_PAGE_TRANSLATIONS.viewModeTaskTitle;
+
+      return i18next.t(titleToTranslate);
+    }, [isEditMode]);
 
     const initialValues = useMemo(
       () => ({ description, isCompleted }),
       [description, isCompleted],
     );
 
-    const handleRemove = useCallback(() => onDelete(id), [onDelete, id]);
-    // не поправил
     const handleSubmit = useMemo(() => onUpdate(id), [onUpdate, id]);
-    const handleEdit = useCallback(() => onEdit(id), [onEdit, id]);
     const handleCancel = useCallback(() => onCancel(id), [onCancel, id]);
 
     return (
@@ -70,7 +62,7 @@ export const TaskCardView = memo(
         <Text text={title} />
 
         {isEditMode ? (
-          <TaskForm
+          <TaskFormView
             initialValues={initialValues}
             isLoading={isLoading}
             onCancel={handleCancel}
@@ -79,10 +71,10 @@ export const TaskCardView = memo(
         ) : (
           <TaskInfo
             description={description}
-            isCompleted={isCompleted}
+            id={id}
             isLoading={isLoading}
-            onEditClick={handleEdit}
-            onRemoveClick={handleRemove}
+            onEditClick={onEdit}
+            onRemoveClick={onDelete}
           />
         )}
       </div>

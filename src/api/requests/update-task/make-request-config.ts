@@ -1,6 +1,6 @@
 import { IRequestParams } from '@mihanizm56/fetch-api';
 import { TaskItemType } from '@/_redux/todo-tasks-module';
-import { ENDPOINT_UPDATE_TASK } from '@/api/endpoints/todoTasks/urls';
+import { ENDPOINT_UPDATE_TASK } from '@/api/endpoints/todo-tasks/urls';
 import { requestTranslateFunction } from '@/_constants/i18next/i18next-constants';
 import { responseSchema } from './response-schema';
 

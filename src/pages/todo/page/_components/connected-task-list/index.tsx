@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   deleteTaskSagaAction,
@@ -11,49 +11,34 @@ import {
   UpdateTaskSagaActionPayloadType,
 } from '@/_redux/todo-tasks-module';
 import { TaskListView } from '@/pages/todo/page/_components/connected-task-list/_components/task-list-view';
-import { FormValuesType } from '@/pages/todo/page/_components/task-form/_types';
+import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form-view/_types';
 import { updateTask } from '@/_redux/todo-tasks-module/sagas/_utils/update-task';
 
-// ???? у тебя же нет стейта внутреннего
-type StateType = {
+type PropsType = {
   tasks: TaskItemType[];
   isLoading: boolean;
-};
-
-type DispatchPropsType = {
   postUpdateTask: (payload: UpdateTaskSagaActionPayloadType) => void;
-  deleteTaskSagaAction: (id: string) => void;
-  setTasksAction: (payload: SetTaskActionPayloadType) => void;
+  deleteTask: (id: string) => void;
+  setTasks: (payload: SetTaskActionPayloadType) => void;
 };
 
-type PropsType = StateType & DispatchPropsType;
-
-// type PropsType  = {
-//   tasks: TaskItemType[];
-//   isLoading: boolean;
-//   postUpdateTask: (payload: UpdateTaskSagaActionPayloadType) => void;
-//   deleteTaskSagaAction: (id: string) => void;
-//   setTasksAction: (payload: SetTaskActionPayloadType) => void;
-// }
-
-// деструктурируй из реакт
-class WrappedComponent extends React.Component<PropsType> {
+class WrappedComponent extends Component<PropsType> {
   handleDeleteTask = (id: string) => {
-    this.props.deleteTaskSagaAction(id);
+    this.props.deleteTask(id);
   };
 
-  handleUpdateTask = (id: string) => (values: FormValuesType) => {
+  handleUpdateTask = (id: string) => (values: AddTaskFormValuesType) => {
     this.props.postUpdateTask({ id, ...values });
   };
 
   handleCancel = (id: string) => {
-    this.props.setTasksAction(
+    this.props.setTasks(
       updateTask({ tasks: this.props.tasks, id, isEditMode: false }),
     );
   };
 
   handleEdit = (id: string) => {
-    this.props.setTasksAction(
+    this.props.setTasks(
       updateTask({ tasks: this.props.tasks, id, isEditMode: true }),
     );
   };
@@ -79,10 +64,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   postUpdateTask: updateTaskSagaAction,
-  // пропсы не надо называть с постфиксом саги. просто deleteTask
-  deleteTaskSagaAction,
-  // пропсы не надо называть с постфиксом саги. просто setTasks
-  setTasksAction,
+  deleteTask: deleteTaskSagaAction,
+  setTasks: setTasksAction,
 };
 
 export const ConnectedTaskList = connect(

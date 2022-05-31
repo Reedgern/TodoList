@@ -8,30 +8,30 @@ import {
   withScreenResizeDetectHoc,
 } from '@wildberries/ui-kit';
 import { ScreenType } from '@wildberries/ui-kit/lib/hocs/with-screen-resize-detect-hoc/types';
-import {
-  FormSubmitCallbackType,
-  FormValuesType,
-} from '@/pages/todo/page/_components/task-form/_types';
-import { FORM_FIELDS_NAMES } from '@/pages/todo/page/_components/task-form/_constants';
-import { addTaskFormValidations } from '@/pages/todo/page/_components/task-form/_utils/validators';
+import { FormApi } from 'final-form';
+import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form-view/_types';
+import { ADD_TASK_FORM_FIELDS_NAMES } from '@/pages/todo/page/_components/task-form-view/_constants';
+import { addTaskFormValidations } from '@/pages/todo/page/_components/task-form-view/_utils/validators';
 import {
   getFormCancelButtonProps,
   getFormSaveButtonProps,
-} from '@/pages/todo/page/_components/task-form/_utils/get-form-button-props';
+} from '@/pages/todo/page/_components/task-form-view/_utils/get-form-button-props';
 import styles from './index.module.scss';
 
 const cn = classnames.bind(styles);
 
 type PropsType = {
   isLoading: boolean;
-  onSubmit: FormSubmitCallbackType;
+  onSubmit: (
+    values: AddTaskFormValuesType,
+    form: FormApi<AddTaskFormValuesType>,
+  ) => void;
   onCancel?: () => void;
-  initialValues?: FormValuesType;
+  initialValues?: AddTaskFormValuesType;
   screenType: ScreenType;
 };
 
-// пройдись по проекту и поправь - имена блоков Всегда с большой буквы начинаться должны!
-const BLOCK_NAME = 'task-form';
+const BLOCK_NAME = 'Task-form';
 
 const FORM_SUBSCRIPTION = {
   invalid: true,
@@ -69,7 +69,7 @@ const WrappedComponent = memo(
                 component={FormTextAreaInput}
                 disabled={isLoading}
                 label="Описание"
-                name={FORM_FIELDS_NAMES.description}
+                name={ADD_TASK_FORM_FIELDS_NAMES.description}
                 required
                 validate={addTaskFormValidations.description}
               />
@@ -77,7 +77,7 @@ const WrappedComponent = memo(
                 component={FormCheckbox}
                 disabled={isLoading}
                 label="Выполнена?"
-                name={FORM_FIELDS_NAMES.isCompleted}
+                name={ADD_TASK_FORM_FIELDS_NAMES.isCompleted}
                 type="checkbox"
               />
               <div className={cn(`${BLOCK_NAME}__buttons-container`)}>
@@ -94,6 +94,6 @@ const WrappedComponent = memo(
   },
 );
 
-export const TaskForm = withScreenResizeDetectHoc<
+export const TaskFormView = withScreenResizeDetectHoc<
   Omit<PropsType, 'screenType'>
 >({})(WrappedComponent);

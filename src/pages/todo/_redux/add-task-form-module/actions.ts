@@ -1,5 +1,5 @@
 import { IReduxAction, IReduxBaseAction } from '@mihanizm56/redux-core-modules';
-import { FormValuesType } from '@/pages/todo/page/_components/task-form/_types';
+import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form-view/_types';
 
 export const SET_LOADING_START = 'SET_LOADING_START';
 export const setAddTaskFormLoadingStartAction: IReduxBaseAction<
@@ -19,7 +19,7 @@ setAddTaskFormLoadingFinishAction.type = SET_LOADING_FINISH;
 
 export const SET_INITIAL_VALUES = 'SET_INITIAL_VALUES';
 export const setAddTaskFormInitialValuesAction: IReduxAction<
-  FormValuesType,
+  AddTaskFormValuesType,
   typeof SET_INITIAL_VALUES
 > = (payload) => ({
   type: SET_INITIAL_VALUES,

@@ -13,7 +13,7 @@
 
 @media #{$mobile} {
   .Task-info {
-    &_buttons-container {
+    &__buttons-container {
       justify-content: end;
     }
   }
