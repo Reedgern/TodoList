@@ -1,5 +1,6 @@
 import React, { lazy, memo, Suspense } from 'react';
 import classnames from 'classnames/bind';
+import { Preview } from '@wildberries/preview-component';
 import styles from './index.module.scss';
 
 const cn = classnames.bind(styles);
@@ -19,7 +20,7 @@ const ConnectedAddTaskFormModal = lazy(
 export const Page = memo(() => {
   return (
     <div className={cn(BLOCK_NAME)}>
-      <Suspense fallback={<></>}>
+      <Suspense fallback={<Preview mobileOnly />}>
         <ConnectedTaskList />
       </Suspense>
       <Suspense fallback={<></>}>
