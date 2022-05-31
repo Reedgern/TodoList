@@ -1,10 +1,10 @@
 import { IResponse, RestRequest } from '@mihanizm56/fetch-api';
 import {
   makeRequestConfig,
-  UpdateTaskRequestType,
+  RequestParamsType,
 } from '@/api/requests/update-task/make-request-config';
 
 export const updateTaskRequest = (
-  params: UpdateTaskRequestType,
+  params: RequestParamsType,
 ): Promise<IResponse> =>
   new RestRequest().postRequest(makeRequestConfig(params));

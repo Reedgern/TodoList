@@ -15,6 +15,7 @@ import {
 import { getFetchTasksConfig } from '@/pages/todo/_utils/get-fetch-tasks-config';
 import reducerUI, { MODULE_REDUCER_NAME } from '@/_redux/ui-module';
 
+// why func?
 export const storeInjectConfig = (): StoreInjectConfig => {
   return {
     initialLoadManagerConfig: getFetchTasksConfig(),
@@ -37,7 +38,10 @@ export const storeInjectConfig = (): StoreInjectConfig => {
         saga: updateTaskWatcherSaga,
         name: UPDATE_TASK_WATCHER_SAGA_NAME,
       },
-      { saga: deleteTaskWatcherSaga, name: DELETE_TASK_WATCHER_SAGA_NAME },
+      {
+        saga: deleteTaskWatcherSaga,
+        name: DELETE_TASK_WATCHER_SAGA_NAME,
+      },
     ],
   };
 };

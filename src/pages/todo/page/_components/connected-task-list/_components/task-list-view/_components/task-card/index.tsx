@@ -38,6 +38,9 @@ export const TaskCardView = memo(
   }: PropsType) => {
     const title = useMemo(
       () =>
+        // ключ вынести в переменную и в вызове НИКОГДА не делать тернарного оператора
+        // const option = a ? b : c
+        // func(option)
         i18next.t(
           isEditMode
             ? TASKS_PAGE_TRANSLATIONS.editModeTaskTitle
@@ -52,6 +55,7 @@ export const TaskCardView = memo(
     );
 
     const handleRemove = useCallback(() => onDelete(id), [onDelete, id]);
+    // не поправил
     const handleSubmit = useMemo(() => onUpdate(id), [onUpdate, id]);
     const handleEdit = useCallback(() => onEdit(id), [onEdit, id]);
     const handleCancel = useCallback(() => onCancel(id), [onCancel, id]);

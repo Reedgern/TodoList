@@ -4,10 +4,10 @@ import { ENDPOINT_UPDATE_TASK } from '@/api/endpoints/todoTasks/urls';
 import { requestTranslateFunction } from '@/_constants/i18next/i18next-constants';
 import { responseSchema } from './response-schema';
 
-export type UpdateTaskRequestType = TaskItemType & { abortRequestId?: string };
+export type RequestParamsType = TaskItemType & { abortRequestId?: string };
 
 export const makeRequestConfig = (
-  params: UpdateTaskRequestType,
+  params: RequestParamsType,
 ): IRequestParams => ({
   endpoint: ENDPOINT_UPDATE_TASK,
   translateFunction: requestTranslateFunction,

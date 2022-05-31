@@ -14,6 +14,7 @@ import { TaskListView } from '@/pages/todo/page/_components/connected-task-list/
 import { FormValuesType } from '@/pages/todo/page/_components/task-form/_types';
 import { updateTask } from '@/_redux/todo-tasks-module/sagas/_utils/update-task';
 
+// ???? у тебя же нет стейта внутреннего
 type StateType = {
   tasks: TaskItemType[];
   isLoading: boolean;
@@ -27,6 +28,15 @@ type DispatchPropsType = {
 
 type PropsType = StateType & DispatchPropsType;
 
+// type PropsType  = {
+//   tasks: TaskItemType[];
+//   isLoading: boolean;
+//   postUpdateTask: (payload: UpdateTaskSagaActionPayloadType) => void;
+//   deleteTaskSagaAction: (id: string) => void;
+//   setTasksAction: (payload: SetTaskActionPayloadType) => void;
+// }
+
+// деструктурируй из реакт
 class WrappedComponent extends React.Component<PropsType> {
   handleDeleteTask = (id: string) => {
     this.props.deleteTaskSagaAction(id);
@@ -69,7 +79,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   postUpdateTask: updateTaskSagaAction,
+  // пропсы не надо называть с постфиксом саги. просто deleteTask
   deleteTaskSagaAction,
+  // пропсы не надо называть с постфиксом саги. просто setTasks
   setTasksAction,
 };
 

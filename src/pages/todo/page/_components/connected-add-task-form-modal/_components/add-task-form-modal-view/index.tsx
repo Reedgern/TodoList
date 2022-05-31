@@ -19,6 +19,7 @@ export const AddTaskFormModalView = memo(
         onClose={onModalClose}
         title={i18next.t(TASKS_PAGE_TRANSLATIONS.addFormTitle)}
       >
+        {/* коннектед рендерит коннектед. причём кроме как оборачивания в модалку нет ничего */}
         <ConnectedAddTaskForm />
       </Modal>
     );

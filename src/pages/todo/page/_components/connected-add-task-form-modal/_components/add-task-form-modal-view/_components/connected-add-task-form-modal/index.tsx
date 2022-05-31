@@ -9,12 +9,11 @@ import {
   addTaskFormIsLoadingSelector,
 } from '@/pages/todo/_redux/add-task-form-module';
 import { TaskForm } from '@/pages/todo/page/_components/task-form';
-import { FormValuesType } from '@/pages/todo/page/_components/task-form/_types';
 import { getFormSubmitConfig } from '@/pages/todo/page/_components/connected-add-task-form-modal/_components/add-task-form-modal-view/_components/connected-add-task-form-modal/_utils/getFormSubmitConfig';
 
 type PropsType = {
-  initialValues: FormValuesType;
-  isLoading: boolean;
+  initialValues: ReturnType<typeof addTaskFormInitialValuesSelector>;
+  isLoading: ReturnType<typeof addTaskFormIsLoadingSelector>;
   fetchFormManagerSagaAction: (payload: FormManagerType) => void;
 };
 
@@ -25,6 +24,7 @@ class WrappedComponent extends React.Component<PropsType> {
 
   render() {
     return (
+      // TaskForm => TaskFormView
       <TaskForm
         initialValues={this.props.initialValues}
         isLoading={this.props.isLoading}
@@ -40,6 +40,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
+  // fetchFormManagerSagaAction => fetchFormManager
   fetchFormManagerSagaAction,
 };
 

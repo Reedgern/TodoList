@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { memo, useMemo } from 'react';
 import classnames from 'classnames/bind';
 import { ButtonLink, Text } from '@wildberries/ui-kit';
@@ -38,13 +39,15 @@ export const TaskInfo = memo(
 
     return (
       <div
-        className={cn(BLOCK_NAME, { [`${BLOCK_NAME}_completed`]: isCompleted })}
+        className={cn(BLOCK_NAME, {
+          // проверь чтобы ВСЕ модификаторы в проекте были по единообразной, принятой конвенции БЭМ
+          [`${BLOCK_NAME}_completed`]: isCompleted,
+        })}
       >
         <Text text={description} />
+
         <div className={cn(`${BLOCK_NAME}__buttons-container`)}>
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <ButtonLink {...editButtonProps} />
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <ButtonLink {...removeButtonProps} />
         </div>
       </div>

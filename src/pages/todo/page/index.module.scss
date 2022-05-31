@@ -2,5 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  // не может быть margin у блока!! - нарушение БЭМ
   margin: 10px 32px;
 }

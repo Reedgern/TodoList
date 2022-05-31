@@ -1,3 +1,5 @@
+// delete unnecessary files!!!
+
 interface IParseTypesMap {
   json: 'json';
   blob: 'blob';

@@ -9,6 +9,7 @@ import { PAGE_SUB_NAMESPACE } from '@/pages/todo/_constants';
 
 const pageNode = 'todo';
 
+// whar for "store" param?
 const action: IAction = async ({ fromState, toState, store }) => {
   return {
     i18n: [appNamespace],
@@ -20,15 +21,8 @@ const action: IAction = async ({ fromState, toState, store }) => {
         toState={toState}
       >
         <AppLayout>
-          <RouteNode nodeName={pageNode}>
-            {({ route, content }) => {
-              if (route.name === pageNode) {
-                return <Page />;
-              }
-
-              return content;
-            }}
-          </RouteNode>
+          {/* когда нет чилдов в роуте то можно так */}
+          <RouteNode nodeName={pageNode}>{() => <Page />}</RouteNode>
         </AppLayout>
       </ReduxStoreLoader>
     ),

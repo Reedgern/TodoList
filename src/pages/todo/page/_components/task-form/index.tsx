@@ -30,6 +30,7 @@ type PropsType = {
   screenType: ScreenType;
 };
 
+// пройдись по проекту и поправь - имена блоков Всегда с большой буквы начинаться должны!
 const BLOCK_NAME = 'task-form';
 
 const FORM_SUBSCRIPTION = {

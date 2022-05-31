@@ -1,5 +1,6 @@
 import React from 'react';
 import { ButtonLink } from '@wildberries/ui-kit';
+// import { ButtonLink as OpenModalButtonView } from '@wildberries/ui-kit';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
 import { openModalAction } from '@/_redux/todo-tasks-module';
@@ -16,6 +17,7 @@ class WrappedComponent extends React.Component<PropsType> {
 
   render() {
     return (
+      // ButtonLink => OpenModalButtonView
       <ButtonLink
         fullWidth={false}
         isTextCenter
