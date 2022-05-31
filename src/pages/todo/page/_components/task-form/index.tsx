@@ -10,13 +10,13 @@ import {
 import { ScreenType } from '@wildberries/ui-kit/lib/hocs/with-screen-resize-detect-hoc/types';
 import { FormApi } from 'final-form';
 import i18next from 'i18next';
-import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form-view/_types';
-import { ADD_TASK_FORM_FIELDS_NAMES } from '@/pages/todo/page/_components/task-form-view/_constants';
-import { addTaskFormValidations } from '@/pages/todo/page/_components/task-form-view/_utils/validators';
+import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form/_types';
+import { ADD_TASK_FORM_FIELDS_NAMES } from '@/pages/todo/page/_components/task-form/_constants';
+import { addTaskFormValidations } from '@/pages/todo/page/_components/task-form/_utils/validators';
 import {
   getFormCancelButtonProps,
   getFormSaveButtonProps,
-} from '@/pages/todo/page/_components/task-form-view/_utils/get-form-button-props';
+} from '@/pages/todo/page/_components/task-form/_utils/get-form-button-props';
 import { TASKS_PAGE_TRANSLATIONS } from '@/pages/todo/page/_constants/translations';
 import styles from './index.module.scss';
 
@@ -108,6 +108,6 @@ const WrappedComponent = memo(
   },
 );
 
-export const TaskFormView = withScreenResizeDetectHoc<
+export const TaskForm = withScreenResizeDetectHoc<
   Omit<PropsType, 'screenType'>
 >({})(WrappedComponent);

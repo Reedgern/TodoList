@@ -12,11 +12,11 @@ import {
   DELETE_TASK_WATCHER_SAGA_NAME,
   deleteTaskWatcherSaga,
 } from '@/_redux/todo-tasks-module/sagas/delete-task';
-import { getFetchTasksConfig } from '@/pages/todo/_utils/get-fetch-tasks-config';
+import { fetchTasksConfig } from '@/pages/todo/_utils/fetch-tasks-config';
 import reducerUI, { MODULE_REDUCER_NAME } from '@/_redux/ui-module';
 
 export const storeInjectConfig: StoreInjectConfig = {
-  initialLoadManagerConfig: getFetchTasksConfig,
+  initialLoadManagerConfig: fetchTasksConfig,
   reducersToInject: [
     {
       name: TASKS_REDUCER_NAME,

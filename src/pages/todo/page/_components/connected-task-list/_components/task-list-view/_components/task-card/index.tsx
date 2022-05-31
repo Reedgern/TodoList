@@ -1,10 +1,9 @@
 import React, { memo, useMemo } from 'react';
 import classnames from 'classnames/bind';
 import { Text } from '@wildberries/ui-kit';
-import i18next from 'i18next';
-import { TASKS_PAGE_TRANSLATIONS } from '@/pages/todo/page/_constants/translations';
-import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form-view/_types';
-import { EditTaskFormView } from '@/pages/todo/page/_components/connected-task-list/_components/task-list-view/_components/task-card-view/_components/edit-task-form-view';
+import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form/_types';
+import { EditTaskForm } from '@/pages/todo/page/_components/connected-task-list/_components/task-list-view/_components/task-card/_components/edit-task-form';
+import { getTaskTitle } from '@/pages/todo/page/_components/connected-task-list/_components/task-list-view/_components/task-card/_utils/getTaskTitle';
 import styles from './index.module.scss';
 import { TaskInfo } from './_components/task-info';
 
@@ -16,15 +15,15 @@ type PropsType = {
   description: string;
   isCompleted: boolean;
   onDelete: (id: string) => void;
-  onUpdate: (id: string) => (values: AddTaskFormValuesType) => void;
+  onUpdate: (values: AddTaskFormValuesType) => void;
   isEditMode: boolean;
   onCancel: (id: string) => void;
   onEdit: (id: string) => void;
 };
 
-const BLOCK_NAME = 'Task-card-view';
+const BLOCK_NAME = 'Task-card';
 
-export const TaskCardView = memo(
+export const TaskCard = memo(
   ({
     isLoading,
     id,
@@ -37,11 +36,7 @@ export const TaskCardView = memo(
     isEditMode,
   }: PropsType) => {
     const title = useMemo(() => {
-      const titleToTranslate = isEditMode
-        ? TASKS_PAGE_TRANSLATIONS.editModeTaskTitle
-        : TASKS_PAGE_TRANSLATIONS.viewModeTaskTitle;
-
-      return i18next.t(titleToTranslate);
+      return getTaskTitle(isEditMode);
     }, [isEditMode]);
 
     const initialValues = useMemo(
@@ -59,7 +54,7 @@ export const TaskCardView = memo(
         <Text text={title} />
 
         {isEditMode ? (
-          <EditTaskFormView
+          <EditTaskForm
             id={id}
             initialValues={initialValues}
             isLoading={isLoading}

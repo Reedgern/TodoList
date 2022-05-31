@@ -1,22 +1,25 @@
-import React, { memo, useCallback, useMemo } from 'react';
-import { TaskFormView } from '@/pages/todo/page/_components/task-form-view';
-import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form-view/_types';
+import React, { memo, useCallback } from 'react';
+import { TaskForm } from '@/pages/todo/page/_components/task-form';
+import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form/_types';
 
 type PropsType = {
   onCancel: (id: string) => void;
-  onSubmit: (id: string) => (values: AddTaskFormValuesType) => void;
+  onSubmit: (values: AddTaskFormValuesType) => void;
   initialValues: AddTaskFormValuesType;
   id: string;
   isLoading: boolean;
 };
 
-export const EditTaskFormView = memo(
+export const EditTaskForm = memo(
   ({ onSubmit, onCancel, initialValues, id, isLoading }: PropsType) => {
-    const handleSubmit = useMemo(() => onSubmit(id), [onSubmit, id]);
+    const handleSubmit = useCallback(
+      (values) => onSubmit({ id, ...values }),
+      [onSubmit, id],
+    );
     const handleCancel = useCallback(() => onCancel(id), [onCancel, id]);
 
     return (
-      <TaskFormView
+      <TaskForm
         initialValues={initialValues}
         isLoading={isLoading}
         onCancel={handleCancel}

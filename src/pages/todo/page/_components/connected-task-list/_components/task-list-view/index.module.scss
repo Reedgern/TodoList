@@ -1,4 +1,8 @@
 .Task-list-view {
+  &_list {
+    display: block;
+  }
+
   &__list-item {
     &:not(:first-child) {
       margin-top: 16px;

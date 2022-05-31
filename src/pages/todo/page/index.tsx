@@ -13,7 +13,7 @@ const ConnectedOpenModalButton = lazy(
   () => import('./_components/connected-open-modal-button'),
 );
 const ConnectedAddTaskFormModal = lazy(
-  () => import('./_components/connected-add-task-form-modal'),
+  () => import('./_components/connected-add-task-form'),
 );
 
 export const Page = memo(() => {

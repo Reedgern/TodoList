@@ -4,7 +4,7 @@ import {
   fetchFormManagerSagaAction,
   FormManagerType,
 } from '@mihanizm56/redux-core-modules';
-import { AddTaskFormModalView } from '@/pages/todo/page/_components/connected-add-task-form-modal/_components/add-task-form-modal-view';
+import { AddTaskFormView } from '@/pages/todo/page/_components/connected-add-task-form/_components/add-task-form-view';
 import {
   closeModalAction,
   isModalOpenedSelector,
@@ -13,8 +13,8 @@ import {
   addTaskFormInitialValuesSelector,
   addTaskFormIsLoadingSelector,
 } from '@/pages/todo/_redux/add-task-form-module';
-import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form-view/_types';
-import { getFormSubmitConfig } from '@/pages/todo/page/_components/connected-add-task-form-modal/_components/add-task-form-modal-view/_utils/get-form-submit-config';
+import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form/_types';
+import { getFormSubmitConfig } from '@/pages/todo/page/_components/connected-add-task-form/_components/add-task-form-view/_utils/get-form-submit-config';
 
 type PropsType = {
   isModalOpened: ReturnType<typeof isModalOpenedSelector>;
@@ -35,7 +35,7 @@ class WrappedComponent extends Component<PropsType> {
 
   render() {
     return (
-      <AddTaskFormModalView
+      <AddTaskFormView
         formInitialValues={this.props.formInitialValues}
         isFormLoading={this.props.isFormLoading}
         isModalOpened={this.props.isModalOpened}
@@ -57,7 +57,7 @@ const mapDispatchToProps = {
   fetchFormManager: fetchFormManagerSagaAction,
 };
 
-export const ConnectedAddTaskFormModal = connect(
+export const ConnectedAddTaskForm = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(WrappedComponent);

@@ -11,7 +11,7 @@ import {
   UpdateTaskSagaActionPayloadType,
 } from '@/_redux/todo-tasks-module';
 import { TaskListView } from '@/pages/todo/page/_components/connected-task-list/_components/task-list-view';
-import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form-view/_types';
+import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form/_types';
 import { updateTask } from '@/_redux/todo-tasks-module/sagas/_utils/update-task';
 
 type PropsType = {
@@ -27,8 +27,8 @@ class WrappedComponent extends Component<PropsType> {
     this.props.deleteTask(id);
   };
 
-  handleUpdateTask = (id: string) => (values: AddTaskFormValuesType) => {
-    this.props.postUpdateTask({ id, ...values });
+  handleUpdateTask = (values: AddTaskFormValuesType & { id: string }) => {
+    this.props.postUpdateTask({ ...values });
   };
 
   handleCancel = (id: string) => {

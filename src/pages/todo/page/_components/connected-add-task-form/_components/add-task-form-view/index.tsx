@@ -3,8 +3,8 @@ import React, { memo } from 'react';
 import i18next from 'i18next';
 import { FormApi } from 'final-form';
 import { TASKS_PAGE_TRANSLATIONS } from '@/pages/todo/page/_constants/translations';
-import { TaskFormView } from '@/pages/todo/page/_components/task-form-view';
-import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form-view/_types';
+import { TaskForm } from '@/pages/todo/page/_components/task-form';
+import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form/_types';
 
 type PropsType = {
   isModalOpened: boolean;
@@ -17,7 +17,7 @@ type PropsType = {
   ) => void;
 };
 
-export const AddTaskFormModalView = memo(
+export const AddTaskFormView = memo(
   ({
     isModalOpened,
     onModalClose,
@@ -33,7 +33,7 @@ export const AddTaskFormModalView = memo(
         onClose={onModalClose}
         title={i18next.t(TASKS_PAGE_TRANSLATIONS.addFormTitle)}
       >
-        <TaskFormView
+        <TaskForm
           initialValues={formInitialValues}
           isLoading={isFormLoading}
           onSubmit={onSubmit}

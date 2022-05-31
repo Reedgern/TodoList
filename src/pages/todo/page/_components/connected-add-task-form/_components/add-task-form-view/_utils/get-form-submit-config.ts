@@ -9,9 +9,9 @@ import {
 } from '@/pages/todo/_redux/add-task-form-module';
 import { addTaskRequest } from '@/api/requests/add-task';
 import { closeModalAction } from '@/_redux/todo-tasks-module';
-import { getFetchTasksConfig } from '@/pages/todo/_utils/get-fetch-tasks-config';
+import { fetchTasksConfig } from '@/pages/todo/_utils/fetch-tasks-config';
 import { TASKS_PAGE_TRANSLATIONS } from '@/pages/todo/page/_constants/translations';
-import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form-view/_types';
+import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form/_types';
 
 const TITLE_MESSAGE_ERROR = i18next.t(
   TASKS_PAGE_TRANSLATIONS.formSubmitErrorModalTitle,
@@ -29,7 +29,7 @@ export const getFormSubmitConfig = (
     formRequest: ({ body }) => addTaskRequest(body),
     formSuccessActionsArray: [
       closeModalAction,
-      () => initLoadManagerActionSaga(getFetchTasksConfig),
+      () => initLoadManagerActionSaga(fetchTasksConfig),
     ],
   };
 };
