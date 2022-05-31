@@ -29,7 +29,7 @@ export const getFormSubmitConfig = (
     formRequest: ({ body }) => addTaskRequest(body),
     formSuccessActionsArray: [
       closeModalAction,
-      () => initLoadManagerActionSaga(getFetchTasksConfig()),
+      () => initLoadManagerActionSaga(getFetchTasksConfig),
     ],
   };
 };

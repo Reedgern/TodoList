@@ -16,7 +16,7 @@ const action: IAction = async ({ fromState, toState }) => {
     content: (
       <ReduxStoreLoader
         fromState={fromState}
-        storeInjectConfig={storeInjectConfig()}
+        storeInjectConfig={storeInjectConfig}
         toState={toState}
       >
         <AppLayout>

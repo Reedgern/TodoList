@@ -12,20 +12,17 @@ const TITLE_MESSAGE_ERROR = i18next.t(
   TASKS_PAGE_TRANSLATIONS.fetchTasksErrorModalTitle,
 );
 
-// why func?
-export const getFetchTasksConfig = (): InitLoadManagerActionPayloadType => {
-  return {
-    requestConfigList: [
-      {
-        request: getTasksListRequest,
-        loadingStartAction: setTasksLoadingStartAction,
-        loadingStopAction: setTasksLoadingFinishAction,
-        responseDataFormatter: (data) => data.tasks,
-        actionSuccess: setTasksAction,
-        titleMessageError: TITLE_MESSAGE_ERROR,
-        showErrorNotification: true,
-        errorAction: () => setTasksAction([]),
-      },
-    ],
-  };
+export const getFetchTasksConfig: InitLoadManagerActionPayloadType = {
+  requestConfigList: [
+    {
+      request: getTasksListRequest,
+      loadingStartAction: setTasksLoadingStartAction,
+      loadingStopAction: setTasksLoadingFinishAction,
+      responseDataFormatter: (data) => data.tasks,
+      actionSuccess: setTasksAction,
+      titleMessageError: TITLE_MESSAGE_ERROR,
+      showErrorNotification: true,
+      errorAction: () => setTasksAction([]),
+    },
+  ],
 };
