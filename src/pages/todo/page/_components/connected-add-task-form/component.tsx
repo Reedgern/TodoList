@@ -28,6 +28,7 @@ class WrappedComponent extends Component<PropsType> {
 
   handleSubmit = (values: AddTaskFormValuesType) => {
     const formSubmitConfig = getFormSubmitConfig(values);
+
     this.props.fetchFormManager(formSubmitConfig);
   };
 

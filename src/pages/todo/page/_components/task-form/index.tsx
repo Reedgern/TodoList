@@ -27,7 +27,6 @@ type ExternalPropsType = {
   onSubmit: (values: AddTaskFormValuesType) => void;
   onCancel?: () => void;
   initialValues?: AddTaskFormValuesType;
-  id?: string;
 };
 
 type PropsType = ExternalPropsType & WithScreenResizePropsType;

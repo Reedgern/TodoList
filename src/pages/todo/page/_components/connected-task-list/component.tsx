@@ -38,6 +38,7 @@ class WrappedComponent extends Component<PropsType> {
       id,
       isEditMode: false,
     });
+
     this.props.setTasks(updatedTasks);
   };
 
@@ -47,6 +48,7 @@ class WrappedComponent extends Component<PropsType> {
       id,
       isEditMode: true,
     });
+
     this.props.setTasks(updatedTasks);
   };
 
