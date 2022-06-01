@@ -11,7 +11,7 @@ import { addTaskRequest } from '@/api/requests/add-task';
 import { closeModalAction } from '@/_redux/todo-tasks-module';
 import { fetchTasksConfig } from '@/pages/todo/_utils/fetch-tasks-config';
 import { TASKS_PAGE_TRANSLATIONS } from '@/pages/todo/page/_constants/translations';
-import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form/_types';
+import { AddTaskFormValuesType } from '@/pages/todo/_types';
 
 const TITLE_MESSAGE_ERROR = i18next.t(
   TASKS_PAGE_TRANSLATIONS.formSubmitErrorModalTitle,

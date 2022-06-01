@@ -1,21 +1,16 @@
 import { Modal } from '@wildberries/ui-kit';
 import React, { memo } from 'react';
 import i18next from 'i18next';
-import { FormApi } from 'final-form';
 import { TASKS_PAGE_TRANSLATIONS } from '@/pages/todo/page/_constants/translations';
 import { TaskForm } from '@/pages/todo/page/_components/task-form';
-import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form/_types';
+import { AddTaskFormValuesType } from '@/pages/todo/_types';
 
 type PropsType = {
   isModalOpened: boolean;
   onModalClose: () => void;
   isFormLoading: boolean;
   formInitialValues: AddTaskFormValuesType;
-  onSubmit: (
-    // multiple params send through object
-    values: AddTaskFormValuesType,
-    form: FormApi<AddTaskFormValuesType>,
-  ) => void;
+  onSubmit: (values: AddTaskFormValuesType) => void;
 };
 
 export const AddTaskFormView = memo(

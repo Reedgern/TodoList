@@ -5,19 +5,20 @@ import {
   isLoadingSelector,
   SetTaskActionPayloadType,
   setTasksAction,
-  TaskItemType,
   tasksSelector,
   updateTaskSagaAction,
-  UpdateTaskSagaActionPayloadType,
 } from '@/_redux/todo-tasks-module';
 import { TaskListView } from '@/pages/todo/page/_components/connected-task-list/_components/task-list-view';
-import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form/_types';
 import { updateTask } from '@/_redux/todo-tasks-module/sagas/_utils/update-task';
+import {
+  EditTaskFormSubmitParamsType,
+  TaskItemType,
+} from '@/pages/todo/_types';
 
 type PropsType = {
   tasks: TaskItemType[];
   isLoading: boolean;
-  postUpdateTask: (payload: UpdateTaskSagaActionPayloadType) => void;
+  postUpdateTask: (payload: EditTaskFormSubmitParamsType) => void;
   deleteTask: (id: string) => void;
   setTasks: (payload: SetTaskActionPayloadType) => void;
 };
@@ -27,23 +28,30 @@ class WrappedComponent extends Component<PropsType> {
     this.props.deleteTask(id);
   };
 
-  handleUpdateTask = (values: AddTaskFormValuesType & { id: string }) => {
-    // why spread?
-    this.props.postUpdateTask({ ...values });
+  handleUpdateTask = (values: EditTaskFormSubmitParamsType) => {
+    this.props.postUpdateTask({
+      id: values.id,
+      description: values.description,
+      isCompleted: values.isCompleted,
+    });
   };
 
   handleCancel = (id: string) => {
-    // get this.props.tasks in saga
-    this.props.setTasks(
-      updateTask({ tasks: this.props.tasks, id, isEditMode: false }),
-    );
+    const updatedTasks = updateTask({
+      tasks: this.props.tasks,
+      id,
+      isEditMode: false,
+    });
+    this.props.setTasks(updatedTasks);
   };
 
   handleEdit = (id: string) => {
-    // get this.props.tasks in saga
-    this.props.setTasks(
-      updateTask({ tasks: this.props.tasks, id, isEditMode: true }),
-    );
+    const updatedTasks = updateTask({
+      tasks: this.props.tasks,
+      id,
+      isEditMode: true,
+    });
+    this.props.setTasks(updatedTasks);
   };
 
   render() {

@@ -3,9 +3,11 @@ import { Preloader, Text } from '@wildberries/ui-kit';
 import classnames from 'classnames/bind';
 import i18next from 'i18next';
 import { TaskCard } from '@/pages/todo/page/_components/connected-task-list/_components/task-list-view/_components/task-card';
-import { TaskItemType } from '@/_redux/todo-tasks-module';
-import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form/_types';
 import { TASKS_PAGE_TRANSLATIONS } from '@/pages/todo/page/_constants/translations';
+import {
+  EditTaskFormSubmitParamsType,
+  TaskItemType,
+} from '@/pages/todo/_types';
 import styles from './index.module.scss';
 
 type PropsType = {
@@ -14,7 +16,7 @@ type PropsType = {
   onDeleteTask: (id: string) => void;
   onCancelEditTask: (id: string) => void;
   onEditTask: (id: string) => void;
-  onUpdateTask: (values: AddTaskFormValuesType & { id: string }) => void;
+  onUpdateTask: (values: EditTaskFormSubmitParamsType) => void;
 };
 
 const BLOCK_NAME = 'Task-list-view';

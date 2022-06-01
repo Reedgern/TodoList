@@ -1,8 +1,13 @@
 import { composeValidators, SimpleValidator } from '@wildberries/validators';
+import i18next from 'i18next';
+import { TASKS_PAGE_TRANSLATIONS } from '@/pages/todo/page/_constants/translations';
 
-// i18n
-const REQUIRED_ERROR_TEXT = 'Поле должно быть заполнено.';
-const MIN_LENGTH_ERROR_TEXT = 'Длина поля должна быть не менее 10 символов.';
+const REQUIRED_ERROR_TEXT = i18next.t(
+  TASKS_PAGE_TRANSLATIONS.requiredFieldErrorText,
+);
+const MIN_LENGTH_ERROR_TEXT = i18next.t(
+  TASKS_PAGE_TRANSLATIONS.minLengthFieldErrorText,
+);
 
 const MIN_DESCRIPTION_LENGTH = 10;
 

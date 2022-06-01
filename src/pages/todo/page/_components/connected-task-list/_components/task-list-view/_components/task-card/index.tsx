@@ -1,9 +1,9 @@
 import React, { memo, useMemo } from 'react';
 import classnames from 'classnames/bind';
 import { Text } from '@wildberries/ui-kit';
-import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form/_types';
 import { EditTaskForm } from '@/pages/todo/page/_components/connected-task-list/_components/task-list-view/_components/task-card/_components/edit-task-form';
 import { getTaskTitle } from '@/pages/todo/page/_components/connected-task-list/_components/task-list-view/_components/task-card/_utils/get-task-title';
+import { EditTaskFormSubmitParamsType } from '@/pages/todo/_types';
 import styles from './index.module.scss';
 import { TaskInfo } from './_components/task-info';
 
@@ -15,7 +15,7 @@ type PropsType = {
   description: string;
   isCompleted: boolean;
   onDelete: (id: string) => void;
-  onUpdate: (values: AddTaskFormValuesType) => void;
+  onUpdate: (values: EditTaskFormSubmitParamsType) => void;
   isEditMode: boolean;
   onCancel: (id: string) => void;
   onEdit: (id: string) => void;

@@ -1,5 +1,5 @@
 import { IReduxAction, IReduxBaseAction } from '@mihanizm56/redux-core-modules';
-import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form/_types';
+import { AddTaskFormValuesType } from '@/pages/todo/_types';
 
 export const SET_LOADING_START = 'SET_LOADING_START';
 export const setAddTaskFormLoadingStartAction: IReduxBaseAction<

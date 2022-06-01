@@ -22,6 +22,10 @@
     "task-edit-mode-title": "Режим редактирования",
     "task-view-mode-title": "Информация о задаче",
     "form": {
+      "validation-errors": {
+        "required": "Поле должно быть заполнено.",
+        "min-length": "Длина поля должна быть не менее 10 символов."
+      },
       "open-modal-button": "Добавить задачу",
       "title": "Создание новой задачи",
       "buttons": {

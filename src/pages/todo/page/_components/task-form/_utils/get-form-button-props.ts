@@ -8,7 +8,6 @@ import { TASKS_PAGE_TRANSLATIONS } from '@/pages/todo/page/_constants/translatio
 
 type SaveButtonParamsType = {
   isMobile: boolean;
-  invalid: boolean;
   isLoading: boolean;
 };
 
@@ -19,30 +18,24 @@ type CancelButtonParamsType = {
 };
 
 export const getFormSaveButtonProps = ({
-  invalid,
   isMobile,
   isLoading,
 }: SaveButtonParamsType): ButtonLinkPropsType => {
-  // кажется можно сделать возвратом одного обхекта
-  if (isMobile) {
-    return {
-      disabled: invalid || isLoading,
-      isLoading,
-      isTextCenter: true,
-      rightIcon: GadgetsFloppyIcon,
-      size: 'small',
-      type: 'submit',
-    };
-  }
-
-  return {
-    disabled: invalid || isLoading,
+  const buttonProps: ButtonLinkPropsType = {
+    disabled: isLoading,
     isLoading,
     isTextCenter: true,
-    text: i18next.t(TASKS_PAGE_TRANSLATIONS.submitFormButtonText),
     size: 'small',
     type: 'submit',
   };
+
+  if (isMobile) {
+    buttonProps.rightIcon = GadgetsFloppyIcon;
+  } else {
+    buttonProps.text = i18next.t(TASKS_PAGE_TRANSLATIONS.submitFormButtonText);
+  }
+
+  return buttonProps;
 };
 
 export const getFormCancelButtonProps = ({
@@ -51,23 +44,20 @@ export const getFormCancelButtonProps = ({
   onClick,
 }: CancelButtonParamsType): ButtonLinkPropsType => {
   // кажется можно сделать возвратом одного обхекта
-  if (isMobile) {
-    return {
-      disabled: isLoading,
-      isTextCenter: true,
-      rightIcon: NavigationDeleteCircleIcon,
-      size: 'small',
-      type: 'submit',
-      onClick,
-    };
-  }
 
-  return {
+  const buttonProps: ButtonLinkPropsType = {
     disabled: isLoading,
     isTextCenter: true,
-    onClick,
-    text: i18next.t(TASKS_PAGE_TRANSLATIONS.cancelButtonText),
     size: 'small',
     type: 'submit',
+    onClick,
   };
+
+  if (isMobile) {
+    buttonProps.rightIcon = NavigationDeleteCircleIcon;
+  } else {
+    buttonProps.text = i18next.t(TASKS_PAGE_TRANSLATIONS.cancelButtonText);
+  }
+
+  return buttonProps;
 };

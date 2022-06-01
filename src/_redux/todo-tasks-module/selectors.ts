@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
-import { TaskItemType, TasksStorageType, TaskStoragePartType } from './_types';
+import { TaskItemType } from '@/pages/todo/_types';
+import { TasksStorageType, TaskStoragePartType } from './_types';
 import { TASKS_REDUCER_NAME } from './constants';
 import { initialState } from './reducer';
 

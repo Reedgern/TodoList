@@ -13,8 +13,8 @@ import {
   addTaskFormInitialValuesSelector,
   addTaskFormIsLoadingSelector,
 } from '@/pages/todo/_redux/add-task-form-module';
-import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form/_types';
 import { getFormSubmitConfig } from '@/pages/todo/page/_components/connected-add-task-form/_components/add-task-form-view/_utils/get-form-submit-config';
+import { AddTaskFormValuesType } from '@/pages/todo/_types';
 
 type PropsType = {
   isModalOpened: ReturnType<typeof isModalOpenedSelector>;
@@ -30,8 +30,8 @@ class WrappedComponent extends Component<PropsType> {
   };
 
   handleSubmit = (values: AddTaskFormValuesType) => {
-    // not call in call
-    this.props.fetchFormManager(getFormSubmitConfig(values));
+    const formSubmitConfig = getFormSubmitConfig(values);
+    this.props.fetchFormManager(formSubmitConfig);
   };
 
   render() {

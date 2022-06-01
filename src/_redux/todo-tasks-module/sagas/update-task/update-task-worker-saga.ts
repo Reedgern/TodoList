@@ -3,14 +3,11 @@ import { setModalAction } from '@wildberries/notifications';
 import { IResponse } from '@mihanizm56/fetch-api';
 import { batchActions } from 'redux-batched-actions';
 import i18next from 'i18next';
-import {
-  setTasksAction,
-  TaskItemType,
-  tasksSelector,
-} from '@/_redux/todo-tasks-module';
+import { setTasksAction, tasksSelector } from '@/_redux/todo-tasks-module';
 import { updateTask } from '@/_redux/todo-tasks-module/sagas/_utils/update-task';
 import { updateTaskRequest } from '@/api/requests/update-task';
 import { TASKS_PAGE_TRANSLATIONS } from '@/pages/todo/page/_constants/translations';
+import { TaskItemType } from '@/pages/todo/_types';
 
 export function* updateTaskWorkerSaga({
   id,

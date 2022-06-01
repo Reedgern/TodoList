@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { memo, useMemo } from 'react';
 import { Field, Form } from 'react-final-form';
 import classnames from 'classnames/bind';
@@ -8,9 +9,7 @@ import {
   withScreenResizeDetectHoc,
 } from '@wildberries/ui-kit';
 import { ScreenType } from '@wildberries/ui-kit/lib/hocs/with-screen-resize-detect-hoc/types';
-import { FormApi } from 'final-form';
 import i18next from 'i18next';
-import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form/_types';
 import { ADD_TASK_FORM_FIELDS_NAMES } from '@/pages/todo/page/_components/task-form/_constants';
 import { addTaskFormValidations } from '@/pages/todo/page/_components/task-form/_utils/validators';
 import {
@@ -18,16 +17,14 @@ import {
   getFormSaveButtonProps,
 } from '@/pages/todo/page/_components/task-form/_utils/get-form-button-props';
 import { TASKS_PAGE_TRANSLATIONS } from '@/pages/todo/page/_constants/translations';
+import { AddTaskFormValuesType } from '@/pages/todo/_types';
 import styles from './index.module.scss';
 
 const cn = classnames.bind(styles);
 
 type PropsType = {
   isLoading: boolean;
-  onSubmit: (
-    values: AddTaskFormValuesType,
-    form: FormApi<AddTaskFormValuesType>,
-  ) => void;
+  onSubmit: (values: AddTaskFormValuesType) => void;
   onCancel?: () => void;
   initialValues?: AddTaskFormValuesType;
   screenType: ScreenType;
@@ -37,21 +34,13 @@ type PropsType = {
 const BLOCK_NAME = 'Task-form';
 
 const FORM_SUBSCRIPTION = {
-  invalid: true,
   touched: true,
   errors: true,
   error: true,
 };
 
 const WrappedComponent = memo(
-  ({
-    onSubmit,
-    onCancel,
-    initialValues,
-    isLoading,
-    screenType,
-    id, // лишний
-  }: PropsType) => {
+  ({ onSubmit, onCancel, initialValues, isLoading, screenType }: PropsType) => {
     const isMobile = useMemo(() => screenType === 'mobile', [screenType]);
 
     return (
@@ -60,15 +49,12 @@ const WrappedComponent = memo(
         onSubmit={onSubmit}
         subscription={FORM_SUBSCRIPTION}
       >
-        {({ handleSubmit, invalid }) => {
-          // invalid downgrade performance
+        {({ handleSubmit }) => {
           const saveButtonProps = getFormSaveButtonProps({
-            invalid,
             isLoading,
             isMobile,
           });
 
-          // invalid downgrade performance
           const cancelButtonProps = getFormCancelButtonProps({
             isLoading,
             isMobile,
@@ -97,10 +83,7 @@ const WrappedComponent = memo(
                 type="checkbox"
               />
               <div className={cn(`${BLOCK_NAME}__buttons-container`)}>
-                {/* move to top of file */}
-                {/* eslint-disable-next-line react/jsx-props-no-spreading */}
                 <ButtonLink {...saveButtonProps} />
-                {/* eslint-disable-next-line react/jsx-props-no-spreading */}
                 {onCancel && <ButtonLink {...cancelButtonProps} />}
               </div>
             </form>

@@ -1,8 +1,6 @@
 import { IReduxBaseAction, IReduxAction } from '@mihanizm56/redux-core-modules';
-import {
-  SetTaskActionPayloadType,
-  UpdateTaskSagaActionPayloadType,
-} from '@/_redux/todo-tasks-module/_types';
+import { SetTaskActionPayloadType } from '@/_redux/todo-tasks-module/_types';
+import { EditTaskFormSubmitParamsType } from '@/pages/todo/_types';
 
 export const SET_TASKS_LOADING_START = 'SET_TASKS_LOADING_START';
 export const setTasksLoadingStartAction: IReduxBaseAction<
@@ -32,7 +30,7 @@ setTasksAction.type = SET_TASKS;
 
 export const UPDATE_TASK = 'UPDATE_TASK';
 export const updateTaskSagaAction: IReduxAction<
-  UpdateTaskSagaActionPayloadType,
+  EditTaskFormSubmitParamsType,
   typeof UPDATE_TASK
 > = (payload) => ({
   type: UPDATE_TASK,
