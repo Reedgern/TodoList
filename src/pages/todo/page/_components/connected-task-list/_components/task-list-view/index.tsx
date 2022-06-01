@@ -44,7 +44,7 @@ export const TaskListView = memo(
         {tasks.length === 0 ? (
           <Text text={i18next.t(TASKS_PAGE_TRANSLATIONS.noTasksMessage)} />
         ) : (
-          <ul className={`${BLOCK_NAME}__list`}>
+          <ul className={cn(`${BLOCK_NAME}__list`)}>
             {tasks.map((task) => (
               <li key={task.id} className={cn(`${BLOCK_NAME}__list-item`)}>
                 <TaskCard
