@@ -30,6 +30,7 @@ class WrappedComponent extends Component<PropsType> {
   };
 
   handleSubmit = (values: AddTaskFormValuesType) => {
+    // not call in call
     this.props.fetchFormManager(getFormSubmitConfig(values));
   };
 

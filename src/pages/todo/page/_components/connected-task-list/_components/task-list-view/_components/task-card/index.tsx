@@ -35,9 +35,7 @@ export const TaskCard = memo(
     onEdit,
     isEditMode,
   }: PropsType) => {
-    const title = useMemo(() => {
-      return getTaskTitle(isEditMode);
-    }, [isEditMode]);
+    const title = useMemo(() => getTaskTitle(isEditMode), [isEditMode]);
 
     const initialValues = useMemo(
       () => ({ description, isCompleted }),

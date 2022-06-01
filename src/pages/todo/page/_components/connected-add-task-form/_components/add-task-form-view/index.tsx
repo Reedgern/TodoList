@@ -12,6 +12,7 @@ type PropsType = {
   isFormLoading: boolean;
   formInitialValues: AddTaskFormValuesType;
   onSubmit: (
+    // multiple params send through object
     values: AddTaskFormValuesType,
     form: FormApi<AddTaskFormValuesType>,
   ) => void;

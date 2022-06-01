@@ -28,16 +28,19 @@ class WrappedComponent extends Component<PropsType> {
   };
 
   handleUpdateTask = (values: AddTaskFormValuesType & { id: string }) => {
+    // why spread?
     this.props.postUpdateTask({ ...values });
   };
 
   handleCancel = (id: string) => {
+    // get this.props.tasks in saga
     this.props.setTasks(
       updateTask({ tasks: this.props.tasks, id, isEditMode: false }),
     );
   };
 
   handleEdit = (id: string) => {
+    // get this.props.tasks in saga
     this.props.setTasks(
       updateTask({ tasks: this.props.tasks, id, isEditMode: true }),
     );

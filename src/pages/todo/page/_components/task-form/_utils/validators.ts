@@ -1,5 +1,6 @@
 import { composeValidators, SimpleValidator } from '@wildberries/validators';
 
+// i18n
 const REQUIRED_ERROR_TEXT = 'Поле должно быть заполнено.';
 const MIN_LENGTH_ERROR_TEXT = 'Длина поля должна быть не менее 10 символов.';
 

@@ -33,6 +33,7 @@ export const TaskInfo = memo(
       () => getTaskEditButtonProps({ isLoading, onClick: handleEdit }),
       [isLoading, handleEdit],
     );
+
     const removeButtonProps = useMemo(
       () => getRemoveButtonProps({ isLoading, onClick: handleRemove }),
       [isLoading, handleRemove],

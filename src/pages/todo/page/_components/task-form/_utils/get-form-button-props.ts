@@ -23,6 +23,7 @@ export const getFormSaveButtonProps = ({
   isMobile,
   isLoading,
 }: SaveButtonParamsType): ButtonLinkPropsType => {
+  // кажется можно сделать возвратом одного обхекта
   if (isMobile) {
     return {
       disabled: invalid || isLoading,
@@ -49,6 +50,7 @@ export const getFormCancelButtonProps = ({
   isLoading,
   onClick,
 }: CancelButtonParamsType): ButtonLinkPropsType => {
+  // кажется можно сделать возвратом одного обхекта
   if (isMobile) {
     return {
       disabled: isLoading,

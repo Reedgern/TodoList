@@ -50,7 +50,7 @@ const WrappedComponent = memo(
     initialValues,
     isLoading,
     screenType,
-    id,
+    id, // лишний
   }: PropsType) => {
     const isMobile = useMemo(() => screenType === 'mobile', [screenType]);
 
@@ -61,12 +61,14 @@ const WrappedComponent = memo(
         subscription={FORM_SUBSCRIPTION}
       >
         {({ handleSubmit, invalid }) => {
+          // invalid downgrade performance
           const saveButtonProps = getFormSaveButtonProps({
             invalid,
             isLoading,
             isMobile,
           });
 
+          // invalid downgrade performance
           const cancelButtonProps = getFormCancelButtonProps({
             isLoading,
             isMobile,
@@ -95,6 +97,7 @@ const WrappedComponent = memo(
                 type="checkbox"
               />
               <div className={cn(`${BLOCK_NAME}__buttons-container`)}>
+                {/* move to top of file */}
                 {/* eslint-disable-next-line react/jsx-props-no-spreading */}
                 <ButtonLink {...saveButtonProps} />
                 {/* eslint-disable-next-line react/jsx-props-no-spreading */}
