@@ -2,25 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   deleteTaskSagaAction,
-  isLoadingSelector,
-  SetTaskActionPayloadType,
+  isTasksLoadingSelector,
   setTasksAction,
   tasksSelector,
   updateTaskSagaAction,
 } from '@/_redux/todo-tasks-module';
 import { TaskListView } from '@/pages/todo/page/_components/connected-task-list/_components/task-list-view';
 import { updateTask } from '@/_redux/todo-tasks-module/sagas/_utils/update-task';
-import {
-  EditTaskFormSubmitParamsType,
-  TaskItemType,
-} from '@/pages/todo/_types';
+import { EditTaskFormSubmitParamsType } from '@/pages/todo/_types';
 
 type PropsType = {
-  tasks: TaskItemType[];
-  isLoading: boolean;
-  postUpdateTask: (payload: EditTaskFormSubmitParamsType) => void;
-  deleteTask: (id: string) => void;
-  setTasks: (payload: SetTaskActionPayloadType) => void;
+  tasks: ReturnType<typeof tasksSelector>;
+  isLoading: ReturnType<typeof isTasksLoadingSelector>;
+  postUpdateTask: typeof updateTaskSagaAction;
+  deleteTask: typeof deleteTaskSagaAction;
+  setTasks: typeof setTasksAction;
 };
 
 class WrappedComponent extends Component<PropsType> {
@@ -69,7 +65,7 @@ class WrappedComponent extends Component<PropsType> {
 }
 
 const mapStateToProps = (state) => ({
-  isLoading: isLoadingSelector(state),
+  isLoading: isTasksLoadingSelector(state),
   tasks: tasksSelector(state),
 });
 

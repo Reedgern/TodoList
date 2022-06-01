@@ -6,7 +6,7 @@ import { openModalAction } from '@/_redux/todo-tasks-module';
 import { TASKS_PAGE_TRANSLATIONS } from '@/pages/todo/page/_constants/translations';
 
 type PropsType = {
-  onClick: () => void;
+  onClick: typeof openModalAction;
 };
 
 class WrappedComponent extends Component<PropsType> {

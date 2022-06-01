@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  fetchFormManagerSagaAction,
-  FormManagerType,
-} from '@mihanizm56/redux-core-modules';
+import { fetchFormManagerSagaAction } from '@mihanizm56/redux-core-modules';
 import { AddTaskFormView } from '@/pages/todo/page/_components/connected-add-task-form/_components/add-task-form-view';
 import {
   closeModalAction,
@@ -18,10 +15,10 @@ import { AddTaskFormValuesType } from '@/pages/todo/_types';
 
 type PropsType = {
   isModalOpened: ReturnType<typeof isModalOpenedSelector>;
-  closeModal: () => void;
+  closeModal: typeof closeModalAction;
   isFormLoading: ReturnType<typeof addTaskFormIsLoadingSelector>;
   formInitialValues: ReturnType<typeof addTaskFormInitialValuesSelector>;
-  fetchFormManager: (payload: FormManagerType) => void;
+  fetchFormManager: typeof fetchFormManagerSagaAction;
 };
 
 class WrappedComponent extends Component<PropsType> {

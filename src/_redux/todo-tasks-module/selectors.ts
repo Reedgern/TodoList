@@ -12,7 +12,7 @@ export const tasksSelector = createSelector(
   ({ tasks }: TasksStorageType): Array<TaskItemType> => tasks,
 );
 
-export const isLoadingSelector = createSelector(
+export const isTasksLoadingSelector = createSelector(
   [tasksStorageSelector],
   ({ isLoading }: TasksStorageType): boolean => isLoading,
 );

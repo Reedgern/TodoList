@@ -4,6 +4,7 @@ import {
 } from '@mihanizm56/redux-core-modules';
 import i18next from 'i18next';
 import {
+  setAddTaskFormInitialValuesAction,
   setAddTaskFormLoadingFinishAction,
   setAddTaskFormLoadingStartAction,
 } from '@/pages/todo/_redux/add-task-form-module';
@@ -22,6 +23,7 @@ export const getFormSubmitConfig = (
 ): FormManagerType => {
   return {
     formValues: values,
+    resetInitialDataAction: setAddTaskFormInitialValuesAction,
     showNotification: true,
     titleMessageError: TITLE_MESSAGE_ERROR,
     loadingStartAction: setAddTaskFormLoadingStartAction,

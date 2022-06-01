@@ -21,7 +21,7 @@ export const getFormSaveButtonProps = ({
   isMobile,
   isLoading,
 }: SaveButtonParamsType): ButtonLinkPropsType => {
-  const buttonProps: ButtonLinkPropsType = {
+  const baseButtonProps: ButtonLinkPropsType = {
     disabled: isLoading,
     isLoading,
     isTextCenter: true,
@@ -30,12 +30,16 @@ export const getFormSaveButtonProps = ({
   };
 
   if (isMobile) {
-    buttonProps.rightIcon = GadgetsFloppyIcon;
-  } else {
-    buttonProps.text = i18next.t(TASKS_PAGE_TRANSLATIONS.submitFormButtonText);
+    return {
+      ...baseButtonProps,
+      rightIcon: GadgetsFloppyIcon,
+    };
   }
 
-  return buttonProps;
+  return {
+    ...baseButtonProps,
+    text: i18next.t(TASKS_PAGE_TRANSLATIONS.submitFormButtonText),
+  };
 };
 
 export const getFormCancelButtonProps = ({
@@ -43,7 +47,7 @@ export const getFormCancelButtonProps = ({
   isLoading,
   onClick,
 }: CancelButtonParamsType): ButtonLinkPropsType => {
-  const buttonProps: ButtonLinkPropsType = {
+  const baseButtonProps: ButtonLinkPropsType = {
     disabled: isLoading,
     isTextCenter: true,
     size: 'small',
@@ -52,10 +56,14 @@ export const getFormCancelButtonProps = ({
   };
 
   if (isMobile) {
-    buttonProps.rightIcon = NavigationDeleteCircleIcon;
-  } else {
-    buttonProps.text = i18next.t(TASKS_PAGE_TRANSLATIONS.cancelButtonText);
+    return {
+      ...baseButtonProps,
+      rightIcon: NavigationDeleteCircleIcon,
+    };
   }
 
-  return buttonProps;
+  return {
+    ...baseButtonProps,
+    text: i18next.t(TASKS_PAGE_TRANSLATIONS.cancelButtonText),
+  };
 };

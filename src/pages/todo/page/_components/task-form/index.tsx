@@ -7,8 +7,8 @@ import {
   FormCheckbox,
   FormTextAreaInput,
   withScreenResizeDetectHoc,
+  WithScreenResizePropsType,
 } from '@wildberries/ui-kit';
-import { ScreenType } from '@wildberries/ui-kit/lib/hocs/with-screen-resize-detect-hoc/types';
 import i18next from 'i18next';
 import { ADD_TASK_FORM_FIELDS_NAMES } from '@/pages/todo/page/_components/task-form/_constants';
 import { addTaskFormValidations } from '@/pages/todo/page/_components/task-form/_utils/validators';
@@ -22,14 +22,15 @@ import styles from './index.module.scss';
 
 const cn = classnames.bind(styles);
 
-type PropsType = {
+type ExternalPropsType = {
   isLoading: boolean;
   onSubmit: (values: AddTaskFormValuesType) => void;
   onCancel?: () => void;
   initialValues?: AddTaskFormValuesType;
-  screenType: ScreenType;
   id?: string;
 };
+
+type PropsType = ExternalPropsType & WithScreenResizePropsType;
 
 const BLOCK_NAME = 'Task-form';
 
@@ -94,6 +95,6 @@ const WrappedComponent = memo(
   },
 );
 
-export const TaskForm = withScreenResizeDetectHoc<
-  Omit<PropsType, 'screenType'>
->({})(WrappedComponent);
+export const TaskForm = withScreenResizeDetectHoc<ExternalPropsType>({})(
+  WrappedComponent,
+);
