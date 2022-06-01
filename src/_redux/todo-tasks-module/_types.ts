@@ -1,5 +1,5 @@
 import { TaskItemType } from '@/pages/todo/_types';
-import { TASKS_REDUCER_NAME } from './constants';
+import { TASKS_REDUCER_NAME } from './_constants';
 
 export type SetTaskActionPayloadType = Array<TaskItemType>;
 

@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { TaskItemType } from '@/pages/todo/_types';
 import { TasksStorageType, TaskStoragePartType } from './_types';
-import { TASKS_REDUCER_NAME } from './constants';
+import { TASKS_REDUCER_NAME } from './_constants';
 import { initialState } from './reducer';
 
 export const tasksStorageSelector = (state: TaskStoragePartType) =>

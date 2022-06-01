@@ -43,8 +43,6 @@ export const getFormCancelButtonProps = ({
   isLoading,
   onClick,
 }: CancelButtonParamsType): ButtonLinkPropsType => {
-  // кажется можно сделать возвратом одного обхекта
-
   const buttonProps: ButtonLinkPropsType = {
     disabled: isLoading,
     isTextCenter: true,
