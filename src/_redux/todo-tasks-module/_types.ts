@@ -1,16 +1,7 @@
-import { TASKS_REDUCER_NAME } from './constants';
+import { TaskItemType } from '@/pages/todo/_types';
+import { TASKS_REDUCER_NAME } from './_constants';
 
 export type SetTaskActionPayloadType = Array<TaskItemType>;
-
-export type UpdateTaskSagaActionPayloadType = TaskItemType;
-
-export type TaskItemType = {
-  id: string;
-  description: string;
-  isCompleted: boolean;
-  isLoading?: boolean;
-  isEditMode?: boolean;
-};
 
 export type TasksStorageType = {
   tasks: Array<TaskItemType>;

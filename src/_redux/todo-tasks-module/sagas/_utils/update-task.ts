@@ -1,4 +1,4 @@
-import { TaskItemType } from '@/_redux/todo-tasks-module';
+import { TaskItemType } from '@/pages/todo/_types';
 
 type ParamsType = {
   tasks: Array<TaskItemType>;

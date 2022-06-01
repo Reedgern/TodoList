@@ -11,7 +11,6 @@ const pageNode = 'todo';
 
 const action: IAction = async ({ fromState, toState }) => {
   return {
-    i18n: [appNamespace], // useless
     title: `${appNamespace}:${PAGE_SUB_NAMESPACE}.page-title`,
     content: (
       <ReduxStoreLoader

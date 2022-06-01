@@ -2,10 +2,7 @@
 import React, { memo, useCallback, useMemo } from 'react';
 import classnames from 'classnames/bind';
 import { ButtonLink, Text } from '@wildberries/ui-kit';
-import {
-  getRemoveButtonProps,
-  getTaskEditButtonProps,
-} from '@/pages/todo/page/_components/connected-task-list/_components/task-list-view/_components/task-card/_components/task-info/_utils/get-button-props';
+import { getTaskButtonProps } from '@/pages/todo/page/_components/connected-task-list/_components/task-list-view/_components/task-card/_components/task-info/_utils/get-task-button-props';
 import styles from './index.module.scss';
 
 const cn = classnames.bind(styles);
@@ -30,12 +27,18 @@ export const TaskInfo = memo(
     const handleEdit = useCallback(() => onEditClick(id), [onEditClick, id]);
 
     const editButtonProps = useMemo(
-      () => getTaskEditButtonProps({ isLoading, onClick: handleEdit }),
+      () =>
+        getTaskButtonProps({ isLoading, onClick: handleEdit, type: 'edit' }),
       [isLoading, handleEdit],
     );
 
     const removeButtonProps = useMemo(
-      () => getRemoveButtonProps({ isLoading, onClick: handleRemove }),
+      () =>
+        getTaskButtonProps({
+          isLoading,
+          onClick: handleRemove,
+          type: 'remove',
+        }),
       [isLoading, handleRemove],
     );
 

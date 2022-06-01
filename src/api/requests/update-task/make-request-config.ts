@@ -1,7 +1,7 @@
 import { IRequestParams } from '@mihanizm56/fetch-api';
-import { TaskItemType } from '@/_redux/todo-tasks-module';
 import { requestTranslateFunction } from '@/_constants/i18next/i18next-constants';
 import { TASKS_ENDPOINT } from '@/api/endpoints';
+import { TaskItemType } from '@/pages/todo/_types';
 import { responseSchema } from './response-schema';
 
 export type RequestParamsType = TaskItemType & { abortRequestId?: string };

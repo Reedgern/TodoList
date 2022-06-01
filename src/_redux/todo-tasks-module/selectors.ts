@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
-import { TaskItemType, TasksStorageType, TaskStoragePartType } from './_types';
-import { TASKS_REDUCER_NAME } from './constants';
+import { TaskItemType } from '@/pages/todo/_types';
+import { TasksStorageType, TaskStoragePartType } from './_types';
+import { TASKS_REDUCER_NAME } from './_constants';
 import { initialState } from './reducer';
 
 export const tasksStorageSelector = (state: TaskStoragePartType) =>
@@ -11,7 +12,7 @@ export const tasksSelector = createSelector(
   ({ tasks }: TasksStorageType): Array<TaskItemType> => tasks,
 );
 
-export const isLoadingSelector = createSelector(
+export const isTasksLoadingSelector = createSelector(
   [tasksStorageSelector],
   ({ isLoading }: TasksStorageType): boolean => isLoading,
 );

@@ -1,10 +1,13 @@
 import React, { memo, useCallback } from 'react';
 import { TaskForm } from '@/pages/todo/page/_components/task-form';
-import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form/_types';
+import {
+  AddTaskFormValuesType,
+  EditTaskFormSubmitParamsType,
+} from '@/pages/todo/_types';
 
 type PropsType = {
   onCancel: (id: string) => void;
-  onSubmit: (values: AddTaskFormValuesType) => void;
+  onSubmit: (values: EditTaskFormSubmitParamsType) => void;
   initialValues: AddTaskFormValuesType;
   id: string;
   isLoading: boolean;
@@ -13,7 +16,12 @@ type PropsType = {
 export const EditTaskForm = memo(
   ({ onSubmit, onCancel, initialValues, id, isLoading }: PropsType) => {
     const handleSubmit = useCallback(
-      (values) => onSubmit({ id, ...values }),
+      (values: AddTaskFormValuesType) =>
+        onSubmit({
+          id,
+          description: values.description,
+          isCompleted: values.isCompleted,
+        }),
       [onSubmit, id],
     );
     const handleCancel = useCallback(() => onCancel(id), [onCancel, id]);

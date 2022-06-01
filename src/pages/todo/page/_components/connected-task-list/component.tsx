@@ -2,24 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   deleteTaskSagaAction,
-  isLoadingSelector,
-  SetTaskActionPayloadType,
+  isTasksLoadingSelector,
   setTasksAction,
-  TaskItemType,
   tasksSelector,
   updateTaskSagaAction,
-  UpdateTaskSagaActionPayloadType,
 } from '@/_redux/todo-tasks-module';
 import { TaskListView } from '@/pages/todo/page/_components/connected-task-list/_components/task-list-view';
-import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form/_types';
 import { updateTask } from '@/_redux/todo-tasks-module/sagas/_utils/update-task';
+import { EditTaskFormSubmitParamsType } from '@/pages/todo/_types';
 
 type PropsType = {
-  tasks: TaskItemType[];
-  isLoading: boolean;
-  postUpdateTask: (payload: UpdateTaskSagaActionPayloadType) => void;
-  deleteTask: (id: string) => void;
-  setTasks: (payload: SetTaskActionPayloadType) => void;
+  tasks: ReturnType<typeof tasksSelector>;
+  isLoading: ReturnType<typeof isTasksLoadingSelector>;
+  postUpdateTask: typeof updateTaskSagaAction;
+  deleteTask: typeof deleteTaskSagaAction;
+  setTasks: typeof setTasksAction;
 };
 
 class WrappedComponent extends Component<PropsType> {
@@ -27,23 +24,32 @@ class WrappedComponent extends Component<PropsType> {
     this.props.deleteTask(id);
   };
 
-  handleUpdateTask = (values: AddTaskFormValuesType & { id: string }) => {
-    // why spread?
-    this.props.postUpdateTask({ ...values });
+  handleUpdateTask = (values: EditTaskFormSubmitParamsType) => {
+    this.props.postUpdateTask({
+      id: values.id,
+      description: values.description,
+      isCompleted: values.isCompleted,
+    });
   };
 
   handleCancel = (id: string) => {
-    // get this.props.tasks in saga
-    this.props.setTasks(
-      updateTask({ tasks: this.props.tasks, id, isEditMode: false }),
-    );
+    const updatedTasks = updateTask({
+      tasks: this.props.tasks,
+      id,
+      isEditMode: false,
+    });
+
+    this.props.setTasks(updatedTasks);
   };
 
   handleEdit = (id: string) => {
-    // get this.props.tasks in saga
-    this.props.setTasks(
-      updateTask({ tasks: this.props.tasks, id, isEditMode: true }),
-    );
+    const updatedTasks = updateTask({
+      tasks: this.props.tasks,
+      id,
+      isEditMode: true,
+    });
+
+    this.props.setTasks(updatedTasks);
   };
 
   render() {
@@ -61,7 +67,7 @@ class WrappedComponent extends Component<PropsType> {
 }
 
 const mapStateToProps = (state) => ({
-  isLoading: isLoadingSelector(state),
+  isLoading: isTasksLoadingSelector(state),
   tasks: tasksSelector(state),
 });
 

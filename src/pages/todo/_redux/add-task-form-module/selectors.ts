@@ -15,8 +15,3 @@ export const addTaskFormIsLoadingSelector = createSelector(
   [addTaskFormStorageSelector],
   ({ isLoading }: AddTaskFormStorageType) => isLoading,
 );
-
-export const addTaskFormErrorSelector = createSelector(
-  [addTaskFormStorageSelector],
-  ({ error }: AddTaskFormStorageType) => error,
-);
