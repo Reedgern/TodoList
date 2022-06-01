@@ -9,19 +9,17 @@ import { PAGE_SUB_NAMESPACE } from '@/pages/todo/_constants';
 
 const pageNode = 'todo';
 
-// whar for "store" param?
-const action: IAction = async ({ fromState, toState, store }) => {
+const action: IAction = async ({ fromState, toState }) => {
   return {
     i18n: [appNamespace],
     title: `${appNamespace}:${PAGE_SUB_NAMESPACE}.page-title`,
     content: (
       <ReduxStoreLoader
         fromState={fromState}
-        storeInjectConfig={storeInjectConfig()}
+        storeInjectConfig={storeInjectConfig}
         toState={toState}
       >
         <AppLayout>
-          {/* когда нет чилдов в роуте то можно так */}
           <RouteNode nodeName={pageNode}>{() => <Page />}</RouteNode>
         </AppLayout>
       </ReduxStoreLoader>

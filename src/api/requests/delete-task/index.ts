@@ -7,4 +7,4 @@ import {
 export const deleteTaskRequest = (
   params: DeleteTaskRequestType,
 ): Promise<IResponse> =>
-  new RestRequest().postRequest(makeRequestConfig(params));
+  new RestRequest().deleteRequest(makeRequestConfig(params));

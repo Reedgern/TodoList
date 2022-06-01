@@ -1,6 +1,5 @@
-import React from 'react';
-import { ButtonLink } from '@wildberries/ui-kit';
-// import { ButtonLink as OpenModalButtonView } from '@wildberries/ui-kit';
+import React, { Component } from 'react';
+import { ButtonLink as OpenModalButtonView } from '@wildberries/ui-kit';
 import { connect } from 'react-redux';
 import i18next from 'i18next';
 import { openModalAction } from '@/_redux/todo-tasks-module';
@@ -10,15 +9,14 @@ type PropsType = {
   onClick: () => void;
 };
 
-class WrappedComponent extends React.Component<PropsType> {
+class WrappedComponent extends Component<PropsType> {
   handleClick = () => {
     this.props.onClick();
   };
 
   render() {
     return (
-      // ButtonLink => OpenModalButtonView
-      <ButtonLink
+      <OpenModalButtonView
         fullWidth={false}
         isTextCenter
         onClick={this.handleClick}

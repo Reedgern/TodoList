@@ -49,7 +49,7 @@ const createTask = async (req, res) => {
       await tasksModel.get('tasks').unshift(newTask).write();
 
       res.status(200).json({
-        data: { newTask },
+        data: {},
         error: false,
         errorText: '',
         additionalErrors: [],
@@ -71,7 +71,7 @@ const deleteTask = async (req, res) => {
     async () => {
       await tasksModel.get('tasks').remove({ id: req.body.id }).write();
       res.status(200).json({
-        data: { id: req.body.id },
+        data: {},
         error: false,
         errorText: '',
         additionalErrors: [],
@@ -111,11 +111,9 @@ const updateTask = async (req, res) => {
     })
     .write();
 
-  const updatedTask = tasksModel.get('tasks').find({ id: req.body.id });
-
   setTimeout(() => {
     res.status(200).json({
-      data: { updatedTask },
+      data: {},
       error: false,
       errorText: '',
       additionalErrors: [],

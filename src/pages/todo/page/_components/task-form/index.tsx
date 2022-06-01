@@ -8,30 +8,33 @@ import {
   withScreenResizeDetectHoc,
 } from '@wildberries/ui-kit';
 import { ScreenType } from '@wildberries/ui-kit/lib/hocs/with-screen-resize-detect-hoc/types';
-import {
-  FormSubmitCallbackType,
-  FormValuesType,
-} from '@/pages/todo/page/_components/task-form/_types';
-import { FORM_FIELDS_NAMES } from '@/pages/todo/page/_components/task-form/_constants';
+import { FormApi } from 'final-form';
+import i18next from 'i18next';
+import { AddTaskFormValuesType } from '@/pages/todo/page/_components/task-form/_types';
+import { ADD_TASK_FORM_FIELDS_NAMES } from '@/pages/todo/page/_components/task-form/_constants';
 import { addTaskFormValidations } from '@/pages/todo/page/_components/task-form/_utils/validators';
 import {
   getFormCancelButtonProps,
   getFormSaveButtonProps,
 } from '@/pages/todo/page/_components/task-form/_utils/get-form-button-props';
+import { TASKS_PAGE_TRANSLATIONS } from '@/pages/todo/page/_constants/translations';
 import styles from './index.module.scss';
 
 const cn = classnames.bind(styles);
 
 type PropsType = {
   isLoading: boolean;
-  onSubmit: FormSubmitCallbackType;
+  onSubmit: (
+    values: AddTaskFormValuesType,
+    form: FormApi<AddTaskFormValuesType>,
+  ) => void;
   onCancel?: () => void;
-  initialValues?: FormValuesType;
+  initialValues?: AddTaskFormValuesType;
   screenType: ScreenType;
+  id?: string;
 };
 
-// пройдись по проекту и поправь - имена блоков Всегда с большой буквы начинаться должны!
-const BLOCK_NAME = 'task-form';
+const BLOCK_NAME = 'Task-form';
 
 const FORM_SUBSCRIPTION = {
   invalid: true,
@@ -41,7 +44,14 @@ const FORM_SUBSCRIPTION = {
 };
 
 const WrappedComponent = memo(
-  ({ onSubmit, onCancel, initialValues, isLoading, screenType }: PropsType) => {
+  ({
+    onSubmit,
+    onCancel,
+    initialValues,
+    isLoading,
+    screenType,
+    id,
+  }: PropsType) => {
     const isMobile = useMemo(() => screenType === 'mobile', [screenType]);
 
     return (
@@ -68,16 +78,20 @@ const WrappedComponent = memo(
               <Field
                 component={FormTextAreaInput}
                 disabled={isLoading}
-                label="Описание"
-                name={FORM_FIELDS_NAMES.description}
+                label={i18next.t(
+                  TASKS_PAGE_TRANSLATIONS.taskFormDescriptionLabel,
+                )}
+                name={ADD_TASK_FORM_FIELDS_NAMES.description}
                 required
                 validate={addTaskFormValidations.description}
               />
               <Field
                 component={FormCheckbox}
                 disabled={isLoading}
-                label="Выполнена?"
-                name={FORM_FIELDS_NAMES.isCompleted}
+                label={i18next.t(
+                  TASKS_PAGE_TRANSLATIONS.taskFormIsCompletedLabel,
+                )}
+                name={ADD_TASK_FORM_FIELDS_NAMES.isCompleted}
                 type="checkbox"
               />
               <div className={cn(`${BLOCK_NAME}__buttons-container`)}>

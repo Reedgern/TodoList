@@ -15,7 +15,7 @@ export type TaskItemType = {
 export type TasksStorageType = {
   tasks: Array<TaskItemType>;
   isLoading: boolean;
-  modalIsOpened: boolean;
+  isModalOpened: boolean;
 };
 
 export type TaskStoragePartType = {

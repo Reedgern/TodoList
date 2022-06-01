@@ -1,6 +1,6 @@
 import { IRequestParams } from '@mihanizm56/fetch-api';
-import { ENDPOINT_DELETE_TASK } from '@/api/endpoints/todoTasks/urls';
 import { requestTranslateFunction } from '@/_constants/i18next/i18next-constants';
+import { TASKS_ENDPOINT } from '@/api/endpoints';
 import { responseSchema } from './response-schema';
 
 export type DeleteTaskRequestType = {
@@ -12,7 +12,7 @@ export const makeRequestConfig = ({
   abortRequestId,
   ...params
 }: DeleteTaskRequestType): IRequestParams => ({
-  endpoint: ENDPOINT_DELETE_TASK,
+  endpoint: TASKS_ENDPOINT,
   responseSchema,
   translateFunction: requestTranslateFunction,
   body: params,

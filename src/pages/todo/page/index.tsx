@@ -1,20 +1,34 @@
-import React, { memo } from 'react';
+import React, { lazy, memo, Suspense } from 'react';
 import classnames from 'classnames/bind';
-import { ConnectedTaskList } from '@/pages/todo/page/_components/connected-task-list';
-import { ConnectedOpenModalButton } from '@/pages/todo/page/_components/connected-open-modal-button';
-import { ConnectedAddTaskFormModal } from '@/pages/todo/page/_components/connected-add-task-form-modal';
+import { Preview } from '@wildberries/preview-component';
 import styles from './index.module.scss';
 
 const cn = classnames.bind(styles);
 
 const BLOCK_NAME = 'Page';
 
+const ConnectedTaskList = lazy(
+  () => import('./_components/connected-task-list'),
+);
+const ConnectedOpenModalButton = lazy(
+  () => import('./_components/connected-open-modal-button'),
+);
+const ConnectedAddTaskFormModal = lazy(
+  () => import('./_components/connected-add-task-form'),
+);
+
 export const Page = memo(() => {
   return (
     <div className={cn(BLOCK_NAME)}>
-      <ConnectedTaskList />
-      <ConnectedOpenModalButton />
-      <ConnectedAddTaskFormModal />
+      <Suspense fallback={<Preview mobileOnly />}>
+        <ConnectedTaskList />
+      </Suspense>
+      <Suspense fallback={<></>}>
+        <ConnectedOpenModalButton />
+      </Suspense>
+      <Suspense fallback={<></>}>
+        <ConnectedAddTaskFormModal />
+      </Suspense>
     </div>
   );
 });

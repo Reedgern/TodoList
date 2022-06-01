@@ -1,3 +1,6 @@
 {
-    
+  "routeName": "todo",
+  "routePath": "/todo",
+  "envs": "RUNTIME_ENVS",
+  "i18nNamespace": "todo"
 }

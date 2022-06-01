@@ -16,7 +16,7 @@ export const isLoadingSelector = createSelector(
   ({ isLoading }: TasksStorageType): boolean => isLoading,
 );
 
-export const modalIsOpenedSelector = createSelector(
+export const isModalOpenedSelector = createSelector(
   [tasksStorageSelector],
-  ({ modalIsOpened }: TasksStorageType): boolean => modalIsOpened,
+  ({ isModalOpened }: TasksStorageType): boolean => isModalOpened,
 );
