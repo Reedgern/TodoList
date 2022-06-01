@@ -43,6 +43,25 @@ const WrappedComponent = memo(
   ({ onSubmit, onCancel, initialValues, isLoading, screenType }: PropsType) => {
     const isMobile = useMemo(() => screenType === 'mobile', [screenType]);
 
+    const saveButtonProps = useMemo(
+      () =>
+        getFormSaveButtonProps({
+          isLoading,
+          isMobile,
+        }),
+      [isLoading, isMobile],
+    );
+
+    const cancelButtonProps = useMemo(
+      () =>
+        getFormCancelButtonProps({
+          isLoading,
+          isMobile,
+          onClick: onCancel,
+        }),
+      [isLoading, isMobile, onCancel],
+    );
+
     return (
       <Form
         initialValues={initialValues}
@@ -50,17 +69,6 @@ const WrappedComponent = memo(
         subscription={FORM_SUBSCRIPTION}
       >
         {({ handleSubmit }) => {
-          const saveButtonProps = getFormSaveButtonProps({
-            isLoading,
-            isMobile,
-          });
-
-          const cancelButtonProps = getFormCancelButtonProps({
-            isLoading,
-            isMobile,
-            onClick: onCancel,
-          });
-
           return (
             <form className={cn(BLOCK_NAME)} onSubmit={handleSubmit}>
               <Field
